@@ -1,4 +1,4 @@
-package fr.unicaen.games.Weapon;
+package fr.unicaen.games.weapon;
 
 public interface Weapon {
 
