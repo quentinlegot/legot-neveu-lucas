@@ -12,7 +12,7 @@ dependencies {
 }
 
 javafx {
-    version = "16"
+    version = JavaVersion.VERSION_17
     modules = [ 'javafx.controls', 'javafx.graphics' ]
 }
 
