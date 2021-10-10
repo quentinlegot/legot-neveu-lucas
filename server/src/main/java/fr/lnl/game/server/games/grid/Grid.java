@@ -1,4 +1,4 @@
-package fr.unicaen.games.grid;
+package fr.lnl.game.server.games.grid;
 
 import fr.unicaen.utils.Point;
 import fr.unicaen.utils.Tuple;

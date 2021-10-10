@@ -1,4 +1,4 @@
-package fr.unicaen.games.grid;
+package fr.lnl.game.server.games.grid;
 
 public class Explosive implements Box{
 }

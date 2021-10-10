@@ -1,6 +1,6 @@
-package fr.unicaen.games.player;
+package fr.lnl.game.server.games.player;
 
-import fr.unicaen.games.weapon.Weapon;
+import fr.lnl.game.server.games.weapon.Weapon;
 import fr.unicaen.utils.Point;
 
 public class ComputerPlayer extends AbstractPlayer{

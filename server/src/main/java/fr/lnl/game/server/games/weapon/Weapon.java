@@ -1,8 +1,11 @@
-package fr.unicaen.games.weapon;
+package fr.lnl.game.server.games.weapon;
 
 public interface Weapon {
 
-    public int getBullet();
-    public int horizontalDistance();
-    public int verticalDistance();
+    int getBullet();
+
+    int horizontalDistance();
+
+    int verticalDistance();
+
 }

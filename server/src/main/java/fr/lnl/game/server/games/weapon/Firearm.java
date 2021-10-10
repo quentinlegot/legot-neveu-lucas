@@ -1,4 +1,4 @@
-package fr.unicaen.games.weapon;
+package fr.lnl.game.server.games.weapon;
 
 public class Firearm implements Weapon{
     @Override
