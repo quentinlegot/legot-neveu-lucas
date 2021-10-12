@@ -1,3 +1,3 @@
-module legot.neveu.lucas.server {
+module server {
     exports fr.lnl.game.server;
 }

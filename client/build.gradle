@@ -3,8 +3,13 @@
  */
 
 plugins {
+    id 'application'
     id 'fr.lnl.game.java-application-conventions'
     id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -18,5 +23,5 @@ javafx {
 
 application {
     // Define the main class for the application.
-    mainClass = 'fr.lnl.game.client.App'
+    mainClassName = 'fr.lnl.game.client.App'
 }

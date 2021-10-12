@@ -1,4 +1,4 @@
-package fr.unicaen.utils;
+package fr.lnl.game.server.utils;
 
 import java.util.Objects;
 

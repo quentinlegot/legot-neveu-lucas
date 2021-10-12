@@ -1,6 +1,6 @@
 module client {
-    requires javafx.graphics;
     requires javafx.controls;
-    requires legot.neveu.lucas.server;
+    requires transitive javafx.graphics;
+    requires server;
     exports fr.lnl.game.client;
 }

@@ -1,7 +1,7 @@
 package fr.lnl.game.server.games.grid;
 
-import fr.unicaen.utils.Point;
-import fr.unicaen.utils.Tuple;
+import fr.lnl.game.server.utils.Point;
+import fr.lnl.game.server.utils.Tuple;
 
 import java.util.HashMap;
 
