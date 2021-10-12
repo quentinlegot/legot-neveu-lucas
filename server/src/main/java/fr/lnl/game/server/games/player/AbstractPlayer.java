@@ -7,14 +7,14 @@ public abstract class AbstractPlayer {
 
     private int id;
     private Point position;
-    private int ernergy;
+    private int energy;
     private Weapon weapon;
     private boolean shieldDeploy;
 
-    public AbstractPlayer(int id, Point position, int ernergy, Weapon weapon, boolean shieldDeploy) {
+    public AbstractPlayer(int id, Point position, int energy, Weapon weapon, boolean shieldDeploy) {
         this.id = id;
         this.position = position;
-        this.ernergy = ernergy;
+        this.energy = energy;
         this.weapon = weapon;
         this.shieldDeploy = shieldDeploy;
     }
@@ -31,8 +31,8 @@ public abstract class AbstractPlayer {
         return position;
     }
 
-    public int getErnergy() {
-        return ernergy;
+    public int getEnergy() {
+        return energy;
     }
 
     public Weapon getWeapon() {
@@ -43,8 +43,8 @@ public abstract class AbstractPlayer {
         return shieldDeploy;
     }
 
-    public void setErnergy(int ernergy) {
-        this.ernergy = ernergy;
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 
     public void setPosition(Point position) {
