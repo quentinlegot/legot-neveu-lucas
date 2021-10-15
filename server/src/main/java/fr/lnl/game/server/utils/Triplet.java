@@ -2,19 +2,19 @@ package fr.lnl.game.server.utils;
 
 import java.util.Objects;
 
-public class Tuple<A,B,C> {
+public class Triplet<A,B,C> {
 
     private A a;
     private B b;
     private C c;
 
-    public Tuple(A a, B b, C c){
+    public Triplet(A a, B b, C c){
         this.a = a;
         this.b = b;
         this.c = c;
     }
 
-    public Tuple(){
+    public Triplet(){
         this(null, null, null);
     }
 
@@ -46,7 +46,7 @@ public class Tuple<A,B,C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Tuple<?, ?, ?> tuple = (Tuple<?, ?, ?>) o;
+        Triplet<?, ?, ?> tuple = (Triplet<?, ?, ?>) o;
         return Objects.equals(a, tuple.a) && Objects.equals(b, tuple.b) && Objects.equals(c, tuple.c);
     }
 
