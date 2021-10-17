@@ -1,7 +1,10 @@
 package fr.lnl.game.server.games;
 
 import fr.lnl.game.server.games.grid.Grid;
+import fr.lnl.game.server.games.player.ComputerPlayer;
 import fr.lnl.game.server.games.player.Player;
+import fr.lnl.game.server.games.weapon.Firearm;
+import fr.lnl.game.server.utils.Point;
 
 public class Game {
 
@@ -15,6 +18,11 @@ public class Game {
         this.player_One = player_One;
         this.player_Two = player_Two;
         this.current_player = player_One;
+    }
+
+
+    public void play(){
+
     }
 
     public boolean isOver(){
