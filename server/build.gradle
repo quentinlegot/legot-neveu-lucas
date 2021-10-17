@@ -3,6 +3,11 @@
  */
 
 plugins {
+    id 'application'
     id 'fr.lnl.game.java-library-conventions'
+}
+
+application {
+    mainClassName = 'fr.lnl.game.server.games.grid.Grid'
 }
 

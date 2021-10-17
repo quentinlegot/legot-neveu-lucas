@@ -15,7 +15,7 @@ public class Grid {
     public Grid(int x, int y){
         this.x = x;
         this.y = y;
-        board = new HashMap<Point<Integer, Integer>, Triplet<Box, Box, Box>>();
+        board = new HashMap<>();
     }
 
     public void initGrid(){
