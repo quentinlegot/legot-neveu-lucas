@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 
 public class Grid {
-    private HashMap<Point<Integer, Integer>, Triplet<Box, Box, Box>> board;
+    private HashMap<Point, Triplet<Box, Box, Box>> board;
     private int x;
     private int y;
 
@@ -41,7 +41,7 @@ public class Grid {
                 } else {
                     box = null;
                 }
-                board.put(new Point<Integer,Integer>(i,j),new Triplet<Box, Box, Box>(box,null,null));
+                board.put(new Point(i,j), new Triplet<>(box, null, null));
             }
         }
     }
@@ -51,7 +51,7 @@ public class Grid {
         for (int i = 0; i < x; i++) {
             System.out.print("\n");
             for (int j = 0; j < y; j++) {
-                Triplet<Box, Box, Box> value = board.get(new Point<Integer, Integer>(i, j));
+                Triplet<Box, Box, Box> value = board.get(new Point(i, j));
                 if (value.getA() instanceof Wall) {
                     if (((Wall) value.getA()).getCardinal() == Cardinal.NORTH) {
                         System.out.print(" \033[0;34m—\033[0m");

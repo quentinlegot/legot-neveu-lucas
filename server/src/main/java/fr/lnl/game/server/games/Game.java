@@ -1,10 +1,7 @@
 package fr.lnl.game.server.games;
 
 import fr.lnl.game.server.games.grid.Grid;
-import fr.lnl.game.server.games.player.ComputerPlayer;
 import fr.lnl.game.server.games.player.Player;
-import fr.lnl.game.server.games.weapon.Firearm;
-import fr.lnl.game.server.utils.Point;
 
 public class Game {
 
@@ -12,12 +9,13 @@ public class Game {
     Player player_One;
     Player player_Two;
     Player current_player;
-    Player[] players = {player_One,player_Two};
+    Player[] players;
 
     public Game(Grid grid, Player player_One, Player player_Two){
         this.player_One = player_One;
         this.player_Two = player_Two;
         this.current_player = player_One;
+        players = new Player[]{player_One, player_Two};
     }
 
 
