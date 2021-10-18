@@ -4,8 +4,8 @@ public interface Weapon {
 
     int getBullet();
 
-    int horizontalDistance();
+    int getHorizontalDistance();
 
-    int verticalDistance();
+    int getVerticalDistance();
 
 }
