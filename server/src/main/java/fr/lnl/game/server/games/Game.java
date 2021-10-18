@@ -15,9 +15,9 @@ public class Game {
         this.player_One = player_One;
         this.player_Two = player_Two;
         this.current_player = player_One;
+        this.grid = grid;
         players = new Player[]{player_One, player_Two};
     }
-
 
     public void play(){
 
@@ -36,5 +36,21 @@ public class Game {
 
     public Player getCurrent_player() {
         return current_player;
+    }
+
+    public Grid getGrid() {
+        return grid;
+    }
+
+    public Player getPlayer_One() {
+        return player_One;
+    }
+
+    public Player getPlayer_Two() {
+        return player_Two;
+    }
+
+    public Player[] getPlayers() {
+        return players;
     }
 }
