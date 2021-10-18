@@ -3,7 +3,7 @@ package fr.lnl.game.server.games.player;
 import fr.lnl.game.server.games.weapon.Weapon;
 import fr.lnl.game.server.utils.Point;
 
-public abstract class AbstractPlayer {
+public abstract class AbstractPlayer implements Player {
 
     private int id;
     private Point position;

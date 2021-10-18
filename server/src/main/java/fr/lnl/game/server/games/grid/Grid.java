@@ -47,6 +47,11 @@ public class Grid {
     }
 
 
+    // TODO: 18/10/2021
+    public void placePlayers() {
+
+    }
+
     public void printGrid() {
         for (int i = 0; i < x; i++) {
             System.out.print("\n");
@@ -76,11 +81,5 @@ public class Grid {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Grid grid = new Grid(10,10);
-        grid.initGrid();
-        grid.printGrid();
     }
 }

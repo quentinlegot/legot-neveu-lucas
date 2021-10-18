@@ -1,6 +1,6 @@
 package fr.lnl.game.server.games.action;
 
-public class Shot implements Action{
+public class Shot extends AbstractAction {
     @Override
     public void doAction() {
 

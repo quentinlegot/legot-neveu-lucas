@@ -1,6 +1,6 @@
 package fr.lnl.game.server.games.action;
 
-public class DropObject implements Action{
+public abstract class DropObject extends AbstractAction {
     @Override
     public void doAction() {
 

@@ -2,7 +2,7 @@ package fr.lnl.game.server.games.grid;
 
 import fr.lnl.game.server.utils.Cardinal;
 
-public class Wall implements Box{
+public class Wall implements Box {
 
     private Cardinal cardinal;
     private int x;
