@@ -8,8 +8,8 @@ public class Firearm implements Weapon{
 
     public Firearm(){
         this.bullet = 10;
-        this.horizontalDistance = 10;
-        this.verticalDistance = 10;
+        this.horizontalDistance = 2;
+        this.verticalDistance = 3;
     }
 
 

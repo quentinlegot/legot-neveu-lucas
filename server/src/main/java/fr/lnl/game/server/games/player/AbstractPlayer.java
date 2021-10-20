@@ -12,12 +12,14 @@ public abstract class AbstractPlayer implements Player {
     private Weapon weapon;
     private boolean shieldDeploy;
     private Action[] actions;
+    private ClassPlayer classPlayer;
 
-    public AbstractPlayer(int id, Point position, int energy, Weapon weapon, boolean shieldDeploy) {
+    public AbstractPlayer(int id, Point position, boolean shieldDeploy, ClassPlayer classPlayer) {
         this.id = id;
         this.position = position;
-        this.energy = energy;
-        this.weapon = weapon;
+        this.classPlayer = classPlayer;
+        this.energy = classPlayer.getEnergy();
+        this.weapon = classPlayer.getWeapon();
         this.shieldDeploy = shieldDeploy;
     }
 
@@ -59,5 +61,13 @@ public abstract class AbstractPlayer implements Player {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    public Action[] getActions() {
+        return actions;
+    }
+
+    public ClassPlayer getClassPlayer() {
+        return classPlayer;
     }
 }
