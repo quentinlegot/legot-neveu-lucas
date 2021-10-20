@@ -4,11 +4,11 @@ import fr.lnl.game.server.utils.Point;
 
 public class ComputerPlayer extends AbstractPlayer{
 
-    public ComputerPlayer(int id, Point position, boolean shieldDeploy, ClassPlayer classPlayer) {
-        super(id, position, shieldDeploy, classPlayer);
+    public ComputerPlayer(int id, boolean shieldDeploy, ClassPlayer classPlayer) {
+        super(id, shieldDeploy, classPlayer);
     }
 
     public ComputerPlayer(int id, ClassPlayer classPlayer) {
-        super(id, null,false, classPlayer);
+        super(id,false, classPlayer);
     }
 }

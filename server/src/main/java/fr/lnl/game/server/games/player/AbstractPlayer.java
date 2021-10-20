@@ -7,16 +7,14 @@ import fr.lnl.game.server.utils.Point;
 public abstract class AbstractPlayer implements Player {
 
     private int id;
-    private Point position;
     private int energy;
     private Weapon weapon;
     private boolean shieldDeploy;
     private Action[] actions;
     private ClassPlayer classPlayer;
 
-    public AbstractPlayer(int id, Point position, boolean shieldDeploy, ClassPlayer classPlayer) {
+    public AbstractPlayer(int id, boolean shieldDeploy, ClassPlayer classPlayer) {
         this.id = id;
-        this.position = position;
         this.classPlayer = classPlayer;
         this.energy = classPlayer.getEnergy();
         this.weapon = classPlayer.getWeapon();
@@ -29,10 +27,6 @@ public abstract class AbstractPlayer implements Player {
 
     public int getId() {
         return id;
-    }
-
-    public Point getPosition() {
-        return position;
     }
 
     public int getEnergy() {
@@ -49,10 +43,6 @@ public abstract class AbstractPlayer implements Player {
 
     public void setEnergy(int energy) {
         this.energy = energy;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
     }
 
     public void setShieldDeploy(boolean shieldDeploy) {
