@@ -23,7 +23,7 @@ public class Move extends AbstractAction {
         List<Point> points = getValidPoint();
         Random random = new Random();
         Point nextPositon = points.get(random.nextInt(0,points.size() - 1));
-        Player player = getGame().getCurrent_player();
+        Player player = getGame().getCurrentPlayer();
         getGame().getGrid().getBoard().get(player.getPoint()).setA(null);
         getGame().getGrid().getBoard().get(nextPositon).setA(player);
         player.decrementEnergy(player.getClassPlayer().getMoveCost());
@@ -37,7 +37,7 @@ public class Move extends AbstractAction {
     public List<Point> getValidPoint() {
         List<Point> listMoves = new LinkedList<>();
         HashMap<Point, Pair<Player, Box>> board = getGame().getGrid().getBoard();
-        Point position = getGame().getCurrent_player().getPoint();
+        Point position = getGame().getCurrentPlayer().getPoint();
         for (int row = -1; row <= 1; row++) {
             for (int column = -1; column <= 1; column++) {
                 if(row == getGame().getGrid().getRow() || column == getGame().getGrid().getColumn()){

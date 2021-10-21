@@ -11,7 +11,6 @@ import fr.lnl.game.server.utils.Point;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 public abstract class DropObject extends AbstractAction {
 
@@ -31,7 +30,7 @@ public abstract class DropObject extends AbstractAction {
     public List<Point> getValidPoint() {
         List<Point> listMoves = new LinkedList<>();
         HashMap<Point, Pair<Player, Box>> board = getGame().getGrid().getBoard();
-        Point position = getGame().getCurrent_player().getPoint();
+        Point position = getGame().getCurrentPlayer().getPoint();
         for (int row = -1; row <= 1; row++) {
             for (int column = -1; column <= 1; column++) {
                 if(Grid.caseisValid(position.getA(),row,position.getB(),column)){

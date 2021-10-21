@@ -28,26 +28,20 @@ public class Game {
     }
 
     public Player getWinner(){
+        // Quentin: simple avis: appel de isOver pas forcément nécessaire, puisqu'on appelera surement getWinner après
+        // un appel a isOver retournant true
         if(isOver()){
             return players[0];
         }
         return null;
     }
 
-    public Player getCurrent_player() {
+    public Player getCurrentPlayer() {
         return current_player;
     }
 
     public Grid getGrid() {
         return grid;
-    }
-
-    public Player getPlayer_One() {
-        return player_One;
-    }
-
-    public Player getPlayer_Two() {
-        return player_Two;
     }
 
     public Player[] getPlayers() {
