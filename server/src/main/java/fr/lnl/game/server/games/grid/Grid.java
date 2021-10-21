@@ -49,16 +49,28 @@ public class Grid {
         }
     }
 
+    /**
+     * @deprecated A utiliser seulement pour les tests, voir GridTest dans le dossier test
+     */
+    @Deprecated
     public void placePlayersBRUT(){
         board.get(new Point(1,1)).setA(players[0]);
         board.get(new Point(14,14)).setA(players[1]);
     }
 
+    /**
+     * @deprecated idem que {@link Grid#placePlayersBRUT()}
+     */
+    @Deprecated
     public void placeEnergyBallBRUT(){
         board.get(new Point(2,3)).setB(new EnergyBall());
         board.get(new Point(7,10)).setB(new EnergyBall());
     }
 
+    /**
+     * @deprecated idem que {@link Grid#placePlayersBRUT()}
+     */
+    @Deprecated
     public void placeInternWallBRUT(){
         board.get(new Point(3,6)).setB(new Wall(Cardinal.NORTH,3,6));
         board.get(new Point(7,14)).setB(new Wall(Cardinal.SOUTH,7,14));
@@ -74,46 +86,69 @@ public class Grid {
         return board;
     }
 
-    public void printGrid() {
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < row; i++) {
-            System.out.print("\n");
+            str.append("\n");
             for (int j = 0; j < column; j++) {
                 Pair<Player, Box> value = board.get(new Point(i, j));
                 if(value.getA() != null){
-                    System.out.print(" \033[0;34mP\033[0m");
+                    str.append(" \033[0;34mP\033[0m");
                 }
                 else if (value.getB() instanceof Wall) {
                     if (((Wall) value.getB()).getCardinal() == Cardinal.NORTH) {
-                        System.out.print(" \033[0;34m—\033[0m");
+                        str.append(" \033[0;34m—\033[0m");
                     } else if (((Wall) value.getB()).getCardinal() == Cardinal.SOUTH) {
-                        System.out.print(" \033[0;31m—\033[0m");
+                        str.append(" \033[0;31m—\033[0m");
                     } else if (((Wall) value.getB()).getCardinal() == Cardinal.WEST) {
-                        System.out.print(" \033[0;33m|\033[0m");
+                        str.append(" \033[0;33m|\033[0m");
                     } else if (((Wall) value.getB()).getCardinal() == Cardinal.EAST) {
-                        System.out.print(" \033[0;32m|\033[0m");
+                        str.append(" \033[0;32m|\033[0m");
                     } else if (((Wall) value.getB()).getCardinal() == Cardinal.NORTH_EAST) {
-                        System.out.print(" \033[0;32mN\033[0m");
+                        str.append(" \033[0;32mN\033[0m");
                     } else if (((Wall) value.getB()).getCardinal() == Cardinal.NORTH_WEST) {
-                        System.out.print(" \033[0;33mN\033[0m");
+                        str.append(" \033[0;33mN\033[0m");
                     } else if (((Wall) value.getB()).getCardinal() == Cardinal.SOUTH_EAST) {
-                        System.out.print(" \033[0;32mS\033[0m");
+                        str.append(" \033[0;32mS\033[0m");
                     } else if (((Wall) value.getB()).getCardinal() == Cardinal.SOUTH_WEST) {
-                        System.out.print(" \033[0;33mS\033[0m");
+                        str.append(" \033[0;33mS\033[0m");
                     }
                 }
                 else if(value.getB() instanceof EnergyBall){
-                    System.out.print(" \033[0;31mO\033[0m");
+                    str.append(" \033[0;31mO\033[0m");
                 }
                 else if(value.getB() instanceof Mine){
-                    System.out.print(" \033[0;31mX\033[0m");
+                    str.append(" \033[0;31mX\033[0m");
                 }
                 else if(value.getB() instanceof Bomb){
-                    System.out.print(" \033[0;31mI\033[0m");
+                    str.append(" \033[0;31mI\033[0m");
                 }
                 else {
-                    System.out.print(" \033[0;31m.\033[0m");
+                    str.append(" \033[0;31m.\033[0m");
                 }
             }
         }
+        return str.toString();
+    }
+
+    /**
+     * @deprecated modèle mvc non respecté
+     */
+    @Deprecated
+    public void printGrid() {
+        System.out.println(this);
+    }
+
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
     }
 }
