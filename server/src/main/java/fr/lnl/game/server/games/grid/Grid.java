@@ -72,7 +72,7 @@ public class Grid {
             System.out.print("\n");
             for (int j = 0; j < y; j++) {
                 Pair<Player, Box> value = board.get(new Point(i, j));
-                if(value.getA() instanceof Player){
+                if(value.getA() != null){
                     System.out.print(" \033[0;34mP\033[0m");
                 }
                 else if (value.getB() instanceof Wall) {

@@ -3,6 +3,8 @@ package fr.lnl.game.server.games.player;
 import fr.lnl.game.server.games.weapon.Firearm;
 import fr.lnl.game.server.games.weapon.Weapon;
 
+@SuppressWarnings("all")
+
 public class DefaultClassPlayer implements ClassPlayer{
 
     private final int ENERGY = 800;
