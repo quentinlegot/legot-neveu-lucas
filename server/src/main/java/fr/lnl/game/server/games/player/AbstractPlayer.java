@@ -2,22 +2,25 @@ package fr.lnl.game.server.games.player;
 
 import fr.lnl.game.server.games.action.Action;
 import fr.lnl.game.server.games.weapon.Weapon;
+import fr.lnl.game.server.utils.Point;
 
 public abstract class AbstractPlayer implements Player {
 
     private int id;
+    private Point point;
     private int energy;
     private Weapon weapon;
     private boolean shieldDeploy;
     private Action[] actions;
     private ClassPlayer classPlayer;
 
-    public AbstractPlayer(int id, boolean shieldDeploy, ClassPlayer classPlayer) {
+    public AbstractPlayer(int id, Point point, boolean shieldDeploy, ClassPlayer classPlayer) {
         this.id = id;
         this.classPlayer = classPlayer;
         this.energy = classPlayer.getEnergy();
         this.weapon = classPlayer.getWeapon();
         this.shieldDeploy = shieldDeploy;
+        this.point = point;
     }
 
     public boolean isAlive(){
@@ -58,5 +61,13 @@ public abstract class AbstractPlayer implements Player {
 
     public ClassPlayer getClassPlayer() {
         return classPlayer;
+    }
+
+    public Point getPoint() {
+        return point;
+    }
+
+    public void setPoint(Point point){
+        this.point = point;
     }
 }

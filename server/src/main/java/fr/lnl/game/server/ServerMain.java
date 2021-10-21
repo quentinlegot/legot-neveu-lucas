@@ -9,8 +9,8 @@ import fr.lnl.game.server.games.player.Player;
 public class ServerMain {
 
     public static void main(String[] args) {
-        Player playerOne = new ComputerPlayer(1,new DefaultClassPlayer());
-        Player playerTwo = new ComputerPlayer(2,new DefaultClassPlayer());
+        Player playerOne = new ComputerPlayer(1,null,new DefaultClassPlayer());
+        Player playerTwo = new ComputerPlayer(2,null,new DefaultClassPlayer());
 
         Grid grid = new Grid(16,16,new Player[]{playerOne,playerTwo});
         grid.initGrid();

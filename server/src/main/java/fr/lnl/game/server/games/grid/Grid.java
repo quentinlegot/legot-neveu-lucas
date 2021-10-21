@@ -10,36 +10,36 @@ import java.util.HashMap;
 
 public class Grid {
     private HashMap<Point, Pair<Player, Box>> board;
-    private int x;
-    private int y;
+    private int row;
+    private int column;
     private Player[] players;
 
-    public Grid(int x, int y, Player[] players){
-        this.x = x;
-        this.y = y;
+    public Grid(int row, int column, Player[] players){
+        this.row = row;
+        this.column = column;
         this.players = players;
         board = new HashMap<>();
     }
 
     public void initGrid(){
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
                 Box box;
                 if (i == 0 && j == 0) {
                     box = new Wall(Cardinal.NORTH_WEST, i, j);
-                } else if (i == 0 && j == y-1) {
+                } else if (i == 0 && j == column-1) {
                     box = new Wall(Cardinal.NORTH_EAST, i, j);
-                } else if (i == x-1 && j == 0) {
+                } else if (i == row-1 && j == 0) {
                     box = new Wall(Cardinal.SOUTH_WEST, i, j);
-                } else if (i == x-1 && j == y-1) {
+                } else if (i == row-1 && j == column-1) {
                     box = new Wall(Cardinal.SOUTH_EAST, i, j);
                 } else if (i == 0) {
                     box = new Wall(Cardinal.NORTH, i, j);
-                } else if (i == x-1) {
+                } else if (i == row-1) {
                     box = new Wall(Cardinal.SOUTH, i, j);
                 } else if (j == 0) {
                     box = new Wall(Cardinal.WEST, i, j);
-                } else if (j == y-1) {
+                } else if (j == column-1) {
                     box = new Wall(Cardinal.EAST, i, j);
                 } else {
                     box = null;
@@ -66,11 +66,18 @@ public class Grid {
         board.get(new Point(14,2)).setB(new Wall(Cardinal.WEST,14,2));
     }
 
+    public static boolean caseisValid(int row, int column, int deltaRow, int deltaColumn){
+        return row + deltaRow >= 0 && row + deltaRow <= row && column + deltaColumn >= 0 && column + deltaColumn <= column;
+    }
+
+    public HashMap<Point, Pair<Player, Box>> getBoard() {
+        return board;
+    }
 
     public void printGrid() {
-        for (int i = 0; i < x; i++) {
+        for (int i = 0; i < row; i++) {
             System.out.print("\n");
-            for (int j = 0; j < y; j++) {
+            for (int j = 0; j < column; j++) {
                 Pair<Player, Box> value = board.get(new Point(i, j));
                 if(value.getA() != null){
                     System.out.print(" \033[0;34mP\033[0m");
