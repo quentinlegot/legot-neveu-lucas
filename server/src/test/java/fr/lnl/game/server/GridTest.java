@@ -1,13 +1,15 @@
 package fr.lnl.game.server;
 
+import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.grid.EnergyBall;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.Wall;
 import fr.lnl.game.server.games.player.ComputerPlayer;
-import fr.lnl.game.server.games.player.DefaultClassPlayer;
+import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Cardinal;
 import fr.lnl.game.server.utils.Point;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,15 +18,21 @@ public class GridTest {
 
     private Grid grid;
 
-    @Test
-    public void testGrid() {
-        Player playerOne = new ComputerPlayer(1,null, new DefaultClassPlayer());
-        Player playerTwo = new ComputerPlayer(2,null, new DefaultClassPlayer());
+
+    @BeforeEach
+    public void mockGrid() {
+        Player playerOne = new ComputerPlayer(1,null, ClassPlayer.DEFAULT);
+        Player playerTwo = new ComputerPlayer(2,null, ClassPlayer.DEFAULT);
         this.grid = new Grid(16,16,new Player[]{playerOne,playerTwo});
         grid.initGrid();
         placePlayersBRUT();
         placeEnergyBallBRUT();
         placeInternWallBRUT();
+        Game game = new Game(grid,playerOne,playerTwo);
+    }
+
+    @Test
+    public void testGrid() {
         // test Grid#initGrid()
         assertEquals(new Wall(Cardinal.NORTH_WEST, 0, 0), grid.getBoard().get(new Point(0,0)).getB());
         assertEquals(new Wall(Cardinal.NORTH_EAST, 0, grid.getColumn() - 1), grid.getBoard().get(new Point(0, grid.getColumn() - 1)).getB());
