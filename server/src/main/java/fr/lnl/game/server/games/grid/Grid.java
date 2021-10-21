@@ -49,28 +49,16 @@ public class Grid {
         }
     }
 
-    /**
-     * @deprecated A utiliser seulement pour les tests, voir GridTest dans le dossier test
-     */
-    @Deprecated
     public void placePlayersBRUT(){
         board.get(new Point(1,1)).setA(players[0]);
         board.get(new Point(14,14)).setA(players[1]);
     }
 
-    /**
-     * @deprecated idem que {@link Grid#placePlayersBRUT()}
-     */
-    @Deprecated
     public void placeEnergyBallBRUT(){
         board.get(new Point(2,3)).setB(new EnergyBall());
         board.get(new Point(7,10)).setB(new EnergyBall());
     }
 
-    /**
-     * @deprecated idem que {@link Grid#placePlayersBRUT()}
-     */
-    @Deprecated
     public void placeInternWallBRUT(){
         board.get(new Point(3,6)).setB(new Wall(Cardinal.NORTH,3,6));
         board.get(new Point(7,14)).setB(new Wall(Cardinal.SOUTH,7,14));

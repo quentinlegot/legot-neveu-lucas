@@ -11,6 +11,7 @@ import fr.lnl.game.server.utils.Point;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Move extends AbstractAction {
     public Move(Game game) {
@@ -19,7 +20,13 @@ public class Move extends AbstractAction {
 
     @Override
     public void doAction() {
-
+        List<Point> points = getValidPoint();
+        Random random = new Random();
+        Point nextPositon = points.get(random.nextInt(0,points.size() - 1));
+        Player player = getGame().getCurrent_player();
+        getGame().getGrid().getBoard().get(player.getPoint()).setA(null);
+        getGame().getGrid().getBoard().get(nextPositon).setA(player);
+        player.decrementEnergy(player.getClassPlayer().getMoveCost());
     }
 
     @Override
@@ -33,11 +40,13 @@ public class Move extends AbstractAction {
         Point position = getGame().getCurrent_player().getPoint();
         for (int row = -1; row <= 1; row++) {
             for (int column = -1; column <= 1; column++) {
-                if(Grid.caseisValid(position.getA(),row,position.getB(),column)){
-                    Point neighbour = new Point(position.getA() + row, position.getB() + column);
-                    Pair<Player, Box> state = board.get(neighbour);
-                    if(state.getA() == null || state.getB() instanceof Wall){
-                        listMoves.add(neighbour);
+                if(row == getGame().getGrid().getRow() || column == getGame().getGrid().getColumn()){
+                    if(Grid.caseisValid(position.getA(),row,position.getB(),column)){
+                        Point neighbour = new Point(position.getA() + row, position.getB() + column);
+                        Pair<Player, Box> state = board.get(neighbour);
+                        if(state.getA() == null || state.getB() instanceof Wall){
+                            listMoves.add(neighbour);
+                        }
                     }
                 }
             }

@@ -17,4 +17,5 @@ public interface Player {
     Action[] getActions();
     ClassPlayer getClassPlayer();
     void setPoint(Point point);
+    void decrementEnergy(int energy);
 }

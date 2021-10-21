@@ -70,4 +70,8 @@ public abstract class AbstractPlayer implements Player {
     public void setPoint(Point point){
         this.point = point;
     }
+
+    public void decrementEnergy(int energy){
+        this.energy -= energy;
+    }
 }
