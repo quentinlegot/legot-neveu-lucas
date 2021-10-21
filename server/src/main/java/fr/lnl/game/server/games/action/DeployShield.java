@@ -9,7 +9,8 @@ public class DeployShield extends AbstractAction {
 
     @Override
     public void doAction(){
-
+        getGame().getCurrent_player().setShieldDeploy(true);
+        //TO-DO retirer les point du player
     }
 
     @Override

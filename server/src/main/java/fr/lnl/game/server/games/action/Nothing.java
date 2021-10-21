@@ -8,7 +8,7 @@ public class Nothing extends AbstractAction {
         super(game);
     }
     @Override
-    public void doAction() {
+    public void doAction(){
 
     }
 

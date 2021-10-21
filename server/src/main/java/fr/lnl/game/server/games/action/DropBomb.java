@@ -1,6 +1,9 @@
 package fr.lnl.game.server.games.action;
 
 import fr.lnl.game.server.games.Game;
+import fr.lnl.game.server.utils.Point;
+
+import java.util.List;
 
 public class DropBomb extends DropObject {
 
@@ -15,6 +18,13 @@ public class DropBomb extends DropObject {
 
     @Override
     public boolean isPossible() {
-        return false;
+        return super.isPossible();
     }
+
+    @Override
+    public List<Point> getValidPoint() {
+        return super.getValidPoint();
+    }
+
 }
+
