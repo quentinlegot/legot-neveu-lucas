@@ -1,6 +1,7 @@
 package fr.lnl.game.server.games.action;
 
 import fr.lnl.game.server.games.Game;
+import fr.lnl.game.server.games.player.Player;
 
 public class DeployShield extends AbstractAction {
     public DeployShield(Game game){
@@ -9,8 +10,9 @@ public class DeployShield extends AbstractAction {
 
     @Override
     public void doAction(){
-        getGame().getCurrentPlayer().setShieldDeploy(true);
-        //TO-DO retirer les point du player
+        Player player = getGame().getCurrentPlayer();
+        player.setShieldDeploy(true);
+        player.decrementEnergy(player.getClassPlayer().getShieldCost());
     }
 
     @Override

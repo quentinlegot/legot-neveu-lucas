@@ -2,6 +2,7 @@ package fr.lnl.game.server.games.action;
 
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.grid.Mine;
+import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Point;
 
 import java.util.List;
@@ -16,9 +17,9 @@ public class DropMine extends DropObject {
         List<Point> points = getValidPoint();
         Random random = new Random();
         Point point = points.get(random.nextInt(0,points.size()-1));
-        Mine mine = new Mine();
-        getGame().getGrid().getBoard().get(point).setB(mine);
-        //TO-DO : retirer les points au player
+        getGame().getGrid().getBoard().get(point).setB(new Mine());
+        Player player = getGame().getCurrentPlayer();
+        player.decrementEnergy(player.getClassPlayer().getMineCost());
     }
 
     @Override
