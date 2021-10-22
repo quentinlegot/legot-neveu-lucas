@@ -15,6 +15,7 @@ public interface Player {
     void setShieldDeploy(boolean shieldDeploy);
     void setWeapon(Weapon weapon);
     Action[] getActions();
+    void setActions(Action[] actions);
     ClassPlayer getClassPlayer();
     void setPoint(Point point);
     void decrementEnergy(int energy);

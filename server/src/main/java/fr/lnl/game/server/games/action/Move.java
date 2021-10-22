@@ -31,7 +31,7 @@ public class Move extends AbstractAction {
 
     @Override
     public boolean isPossible() {
-        return getValidPoint().isEmpty();
+        return !getValidPoint().isEmpty();
     }
 
     public List<Point> getValidPoint() {
@@ -40,7 +40,7 @@ public class Move extends AbstractAction {
         Point position = getGame().getCurrentPlayer().getPoint();
         for (int row = -1; row <= 1; row++) {
             for (int column = -1; column <= 1; column++) {
-                if(row == getGame().getGrid().getRow() || column == getGame().getGrid().getColumn()){
+                if(row == position.getA() + row || column == position.getB() + column){
                     if(Grid.caseisValid(position.getA(),row,position.getB(),column)){
                         Point neighbour = new Point(position.getA() + row, position.getB() + column);
                         Pair<Player, Box> state = board.get(neighbour);

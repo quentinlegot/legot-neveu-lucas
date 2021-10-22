@@ -18,7 +18,7 @@ public class DropMine extends DropObject {
         Point point = points.get(random.nextInt(0,points.size()-1));
         Mine mine = new Mine();
         getGame().getGrid().getBoard().get(point).setB(mine);
-        //TO-DO : retirer les points au player
+        getGame().getCurrentPlayer().decrementEnergy(getGame().getCurrentPlayer().getClassPlayer().getMineCost());
     }
 
     @Override

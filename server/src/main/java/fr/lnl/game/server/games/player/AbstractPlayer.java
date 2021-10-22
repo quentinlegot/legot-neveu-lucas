@@ -59,6 +59,10 @@ public abstract class AbstractPlayer implements Player {
         return actions;
     }
 
+    public void setActions(Action[] actions){
+        this.actions = actions;
+    }
+
     public ClassPlayer getClassPlayer() {
         return classPlayer;
     }

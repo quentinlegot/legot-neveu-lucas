@@ -67,7 +67,7 @@ public class Grid {
     }
 
     public static boolean caseisValid(int row, int column, int deltaRow, int deltaColumn){
-        return row + deltaRow >= 0 && row + deltaRow <= row && column + deltaColumn >= 0 && column + deltaColumn <= column;
+        return row + deltaRow >= 0 && row + deltaRow < row && column + deltaColumn >= 0 && column + deltaColumn < column;
     }
 
     public HashMap<Point, Pair<Player, Box>> getBoard() {
