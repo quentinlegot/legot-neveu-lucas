@@ -22,7 +22,7 @@ public class ActionPlayerTest {
     //  en checkant son résultat
     @Test
     public void moveActionTest() {
-        Assertions.assertEquals(game.getPlayers()[0], game.getCurrentPlayer());
+        Assertions.assertEquals(game.getPlayers().get(0), game.getCurrentPlayer());
     }
 
 }

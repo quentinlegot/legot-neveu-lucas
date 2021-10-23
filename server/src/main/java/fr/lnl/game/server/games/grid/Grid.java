@@ -6,15 +6,16 @@ import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
 
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Grid {
     private HashMap<Point, Pair<Player, Box>> board;
     private int row;
     private int column;
-    private Player[] players;
+    private List<Player> players;
 
-    public Grid(int row, int column, Player[] players){
+    public Grid(int row, int column, List<Player> players) {
         this.row = row;
         this.column = column;
         this.players = players;
@@ -50,8 +51,8 @@ public class Grid {
     }
 
     public void placePlayersBRUT(){
-        board.get(new Point(1,1)).setA(players[0]);
-        board.get(new Point(14,14)).setA(players[1]);
+        board.get(new Point(1,1)).setA(players.get(0));
+        board.get(new Point(14,14)).setA(players.get(1));
     }
 
     public void placeEnergyBallBRUT(){
@@ -128,7 +129,7 @@ public class Grid {
         System.out.println(this);
     }
 
-    public Player[] getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 

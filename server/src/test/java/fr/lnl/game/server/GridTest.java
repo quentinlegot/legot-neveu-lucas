@@ -28,8 +28,8 @@ public class GridTest {
         assertEquals(new Wall(Cardinal.SOUTH_WEST, grid.getRow() - 1, 0), grid.getBoard().get(new Point(grid.getRow() - 1, 0)).getB());
         assertEquals(new Wall(Cardinal.SOUTH_EAST, grid.getRow() - 1, grid.getColumn() - 1), grid.getBoard().get(new Point(grid.getRow() - 1, grid.getColumn() - 1)).getB());
         // test placePlayersBRUT (mocked)
-        assertEquals(grid.getPlayers()[0], grid.getBoard().get(new Point(1, 1)).getA());
-        assertEquals(grid.getPlayers()[1], grid.getBoard().get(new Point(14, 14)).getA());
+        assertEquals(grid.getPlayers().get(0), grid.getBoard().get(new Point(1, 1)).getA());
+        assertEquals(grid.getPlayers().get(1), grid.getBoard().get(new Point(14, 14)).getA());
         // test placeEnergyBallBRUT (mocked)
         assertEquals(new EnergyBall(), grid.getBoard().get(new Point(2, 3)).getB());
         assertEquals(new EnergyBall(), grid.getBoard().get(new Point(7, 10)).getB());

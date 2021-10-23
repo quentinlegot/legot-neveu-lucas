@@ -3,37 +3,32 @@ package fr.lnl.game.server.games;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.player.Player;
 
+import java.util.List;
+
 public class Game {
 
     Grid grid;
-    Player player_One;
-    Player player_Two;
     Player current_player;
-    Player[] players;
+    List<Player> players;
 
-    public Game(Grid grid, Player player_One, Player player_Two){
-        this.player_One = player_One;
-        this.player_Two = player_Two;
-        this.current_player = player_One;
+    public Game(Grid grid, List<Player> players) {
+        if(players.size() < 2)
+            throw new IllegalArgumentException("The game need 2 or more player to start");
+        this.players = players;
+        this.current_player = players.get(0);
         this.grid = grid;
-        players = new Player[]{player_One, player_Two};
     }
 
     public void play(){
 
     }
 
-    public boolean isOver(){
-        return players.length == 1;
+    public boolean isOver() {
+        return players.parallelStream().filter(player -> !player.isAlive()).count() == 1;
     }
 
     public Player getWinner(){
-        // Quentin: simple avis: appel de isOver pas forcément nécessaire, puisqu'on appelera surement getWinner après
-        // un appel a isOver retournant true
-        if(isOver()){
-            return players[0];
-        }
-        return null;
+        return players.parallelStream().filter(player -> !player.isAlive()).findFirst().orElseThrow(ArrayIndexOutOfBoundsException::new);
     }
 
     public Player getCurrentPlayer() {
@@ -44,7 +39,7 @@ public class Game {
         return grid;
     }
 
-    public Player[] getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 }

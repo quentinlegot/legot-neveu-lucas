@@ -10,25 +10,28 @@ import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Cardinal;
 import fr.lnl.game.server.utils.Point;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Mock {
 
     Grid grid;
     Game game;
 
     public Mock() {
-        Player playerOne = new ComputerPlayer(1,null, ClassPlayer.DEFAULT);
-        Player playerTwo = new ComputerPlayer(2,null, ClassPlayer.DEFAULT);
-        this.grid = new Grid(16,16,new Player[]{playerOne,playerTwo});
+        List<Player> players = Arrays.asList(new ComputerPlayer(1,null, ClassPlayer.DEFAULT),
+                new ComputerPlayer(2,null, ClassPlayer.DEFAULT));
+        this.grid = new Grid(16,16, players);
         grid.initGrid();
         placePlayersBRUT();
         placeEnergyBallBRUT();
         placeInternWallBRUT();
-        game = new Game(grid,playerOne,playerTwo);
+        game = new Game(grid, players);
     }
 
     public void placePlayersBRUT(){
-        grid.getBoard().get(new Point(1,1)).setA(grid.getPlayers()[0]);
-        grid.getBoard().get(new Point(14,14)).setA(grid.getPlayers()[1]);
+        grid.getBoard().get(new Point(1,1)).setA(grid.getPlayers().get(0));
+        grid.getBoard().get(new Point(14,14)).setA(grid.getPlayers().get(1));
     }
 
     public void placeEnergyBallBRUT(){

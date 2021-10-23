@@ -13,7 +13,7 @@ dependencies {
 }
 
 application {
-    mainClassName = 'fr.lnl.game.server.games.grid.Grid'
+    mainClassName = 'fr.lnl.game.server.ServerMain'
 }
 
 test {
