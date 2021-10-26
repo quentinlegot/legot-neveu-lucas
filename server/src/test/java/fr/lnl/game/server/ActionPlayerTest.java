@@ -18,7 +18,7 @@ public class ActionPlayerTest {
         this.game = mock.game;
     }
 
-    // TODO: 21/10/2021 Vérifier sur Move effectue la bonne action en pensant a appeller isPossible() avant et
+    // TODO: 21/10/2021 Vérifier sur Move effectue la bonne action en pensant a appeler isPossible() avant et
     //  en checkant son résultat
     @Test
     public void moveActionTest() {

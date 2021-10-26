@@ -22,7 +22,6 @@ public class Mock {
         List<Player> players = Arrays.asList(new ComputerPlayer(1,null, ClassPlayer.DEFAULT),
                 new ComputerPlayer(2,null, ClassPlayer.DEFAULT));
         this.grid = new Grid(16,16, players);
-        grid.initGrid();
         placePlayersBRUT();
         placeEnergyBallBRUT();
         placeInternWallBRUT();

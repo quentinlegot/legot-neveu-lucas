@@ -11,7 +11,7 @@ public class Game {
     Player currentPlayer;
     List<Player> players;
 
-    public Game(Grid grid, List<Player> players) {
+    public Game(Grid grid, List<Player> players) throws IllegalArgumentException {
         if(players.size() < 2)
             throw new IllegalArgumentException("The game need 2 or more player to start");
         this.players = players;
@@ -19,7 +19,7 @@ public class Game {
         this.grid = grid;
     }
 
-    public void play(){
+    public void play() {
 
     }
 
@@ -27,7 +27,7 @@ public class Game {
         return players.parallelStream().filter(player -> !player.isAlive()).count() == 1;
     }
 
-    public Player getWinner(){
+    public Player getWinner() {
         return players.parallelStream().filter(player -> !player.isAlive()).findFirst().orElseThrow(ArrayIndexOutOfBoundsException::new);
     }
 
@@ -35,11 +35,16 @@ public class Game {
         return currentPlayer;
     }
 
+    /**
+     * Change player to the next available in the list
+     */
     public void nextCurrentPlayer() {
-        int index = players.indexOf(currentPlayer) + 1;
-        if(index == players.size())
-            index = 0;
-        currentPlayer = players.get(index);
+        do {
+            int index = players.indexOf(currentPlayer) + 1;
+            if(index == players.size())
+                index = 0;
+            currentPlayer = players.get(index);
+        } while(!currentPlayer.isAlive()); // On arrête la boucle dès qu'on trouve un joueur en vie
     }
 
     public Grid getGrid() {

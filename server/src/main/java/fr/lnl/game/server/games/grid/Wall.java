@@ -6,9 +6,9 @@ import java.util.Objects;
 
 public class Wall implements Box {
 
-    private Cardinal cardinal;
-    private int x;
-    private int y;
+    private final Cardinal cardinal;
+    private final int x;
+    private final int y;
 
     public Wall(Cardinal cardinal, int x, int y){
         this.cardinal = cardinal;

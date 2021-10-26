@@ -10,16 +10,17 @@ import java.util.List;
 
 
 public class Grid {
-    private HashMap<Point, Pair<Player, Box>> board;
-    private int row;
-    private int column;
-    private List<Player> players;
+    private final HashMap<Point, Pair<Player, Box>> board;
+    private final int row;
+    private final int column;
+    private final List<Player> players;
 
     public Grid(int row, int column, List<Player> players) {
         this.row = row;
         this.column = column;
         this.players = players;
         board = new HashMap<>();
+        initGrid();
     }
 
     public void initGrid(){
@@ -119,14 +120,6 @@ public class Grid {
             }
         }
         return str.toString();
-    }
-
-    /**
-     * @deprecated modèle mvc non respecté
-     */
-    @Deprecated
-    public void printGrid() {
-        System.out.println(this);
     }
 
     public List<Player> getPlayers() {

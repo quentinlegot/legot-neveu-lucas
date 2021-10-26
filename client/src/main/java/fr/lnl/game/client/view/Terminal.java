@@ -11,7 +11,7 @@ public class Terminal extends AbstractView {
 
     public void show() {
         // TODO: 26/10/2021
-        game.getGrid().printGrid();
+        System.out.println(game.getGrid().toString());
     }
 
 }

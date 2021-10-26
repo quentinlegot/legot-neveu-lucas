@@ -6,13 +6,13 @@ import fr.lnl.game.server.utils.Point;
 
 public abstract class AbstractPlayer implements Player {
 
-    private int id;
+    private final int id;
     private Point point;
     private int energy;
     private Weapon weapon;
     private boolean shieldDeploy;
     private Action[] actions;
-    private ClassPlayer classPlayer;
+    private final ClassPlayer classPlayer;
 
     public AbstractPlayer(Integer id, Point point, boolean shieldDeploy, ClassPlayer classPlayer) {
         this.id = id;
