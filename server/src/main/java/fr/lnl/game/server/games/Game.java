@@ -47,6 +47,10 @@ public class Game {
         } while(!currentPlayer.isAlive()); // On arrête la boucle dès qu'on trouve un joueur en vie
     }
 
+    public void setCurrent_player(Player current_player) {
+        this.currentPlayer = current_player;
+    }
+
     public Grid getGrid() {
         return grid;
     }

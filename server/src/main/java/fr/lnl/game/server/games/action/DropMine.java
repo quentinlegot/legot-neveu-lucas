@@ -17,9 +17,9 @@ public class DropMine extends DropObject {
         List<Point> points = getValidPoint();
         Random random = new Random();
         Point point = points.get(random.nextInt(0,points.size()-1));
-        getGame().getGrid().getBoard().get(point).setB(new Mine());
-        Player player = getGame().getCurrentPlayer();
-        player.decrementEnergy(player.getClassPlayer().getMineCost());
+        Mine mine = new Mine();
+        getGame().getGrid().getBoard().get(point).setB(mine);
+        getGame().getCurrentPlayer().decrementEnergy(getGame().getCurrentPlayer().getClassPlayer().getMineCost());
     }
 
     @Override

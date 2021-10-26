@@ -9,7 +9,6 @@ public class Nothing extends AbstractAction {
     }
     @Override
     public void doAction(){
-
     }
 
     @Override
