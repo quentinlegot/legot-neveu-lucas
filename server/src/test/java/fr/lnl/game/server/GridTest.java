@@ -51,22 +51,18 @@ public class GridTest {
         while (!game.isOver()){
             Random random = new Random();
             Action action = null;
-            do {
-               action = game.getCurrentPlayer().getActions()[random.nextInt(0,game.getCurrentPlayer().getActions().length -1)];
-            }while (!action.isPossible());
+            while ((action == null || !action.isPossible()) && game.getCurrentPlayer().getActions().length != 0) {
+                if(game.getCurrentPlayer().getActions().length == 1) {
+                    action = game.getCurrentPlayer().getActions()[0];
+                } else {
+                    action = game.getCurrentPlayer().getActions()[random.nextInt(0,game.getCurrentPlayer().getActions().length -1)];
+                }
+
+            }
             action.doAction();
             System.out.println(game.getGrid().toString());
-            if(game.getCurrentPlayer().getEnergy() <= 0){
-                game.decrementPlayers(game.getCurrentPlayer());
-            }
-            else{
-                if(game.getCurrentPlayer() == game.getPlayers().get(0)){
-                    game.setCurrent_player(game.getPlayers().get(1));
-                }
-                else{
-                    game.setCurrent_player(game.getPlayers().get(0));
-                }
-            }
+            game.nextCurrentPlayer();
+
         }
         System.out.println("Le joueur gagnant : " + game.getWinner().getId());
     }

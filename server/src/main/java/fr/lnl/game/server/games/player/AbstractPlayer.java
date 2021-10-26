@@ -24,7 +24,7 @@ public abstract class AbstractPlayer implements Player {
     }
 
     public boolean isAlive(){
-        return true;
+        return energy > 0;
     }
 
     public int getId() {
