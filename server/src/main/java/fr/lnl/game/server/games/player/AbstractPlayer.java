@@ -14,7 +14,7 @@ public abstract class AbstractPlayer implements Player {
     private Action[] actions;
     private ClassPlayer classPlayer;
 
-    public AbstractPlayer(int id, Point point, boolean shieldDeploy, ClassPlayer classPlayer) {
+    public AbstractPlayer(Integer id, Point point, boolean shieldDeploy, ClassPlayer classPlayer) {
         this.id = id;
         this.classPlayer = classPlayer;
         this.energy = classPlayer.getEnergy();

@@ -8,14 +8,14 @@ import java.util.List;
 public class Game {
 
     Grid grid;
-    Player current_player;
+    Player currentPlayer;
     List<Player> players;
 
     public Game(Grid grid, List<Player> players) {
         if(players.size() < 2)
             throw new IllegalArgumentException("The game need 2 or more player to start");
         this.players = players;
-        this.current_player = players.get(0);
+        this.currentPlayer = players.get(0);
         this.grid = grid;
     }
 
@@ -32,7 +32,14 @@ public class Game {
     }
 
     public Player getCurrentPlayer() {
-        return current_player;
+        return currentPlayer;
+    }
+
+    public void nextCurrentPlayer() {
+        int index = players.indexOf(currentPlayer) + 1;
+        if(index == players.size())
+            index = 0;
+        currentPlayer = players.get(index);
     }
 
     public Grid getGrid() {

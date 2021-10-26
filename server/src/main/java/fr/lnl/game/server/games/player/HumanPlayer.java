@@ -5,7 +5,7 @@ import fr.lnl.game.server.utils.Point;
 
 public class HumanPlayer extends AbstractPlayer {
 
-    public HumanPlayer(int id, Point point, ClassPlayer classPlayer) {
+    public HumanPlayer(Integer id, Point point, ClassPlayer classPlayer) {
         super(id, point,false, classPlayer);
     }
 }

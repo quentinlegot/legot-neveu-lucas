@@ -4,7 +4,7 @@ import fr.lnl.game.server.utils.Point;
 
 public class ComputerPlayer extends AbstractPlayer{
 
-    public ComputerPlayer(int id, Point point, ClassPlayer classPlayer) {
+    public ComputerPlayer(Integer id, Point point, ClassPlayer classPlayer) {
         super(id,point,false, classPlayer);
     }
 }

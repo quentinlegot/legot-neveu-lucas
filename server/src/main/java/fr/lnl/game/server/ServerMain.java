@@ -12,14 +12,7 @@ import java.util.List;
 public class ServerMain {
 
     public static void main(String[] args) {
-        List<Player> players = Arrays.asList(new ComputerPlayer(1,null, ClassPlayer.DEFAULT),
-                new ComputerPlayer(2,null, ClassPlayer.DEFAULT));
-        Grid grid = new Grid(16,16, players);
-        grid.initGrid();
-        grid.placePlayersBRUT();
-        grid.placeEnergyBallBRUT();
-        grid.placeInternWallBRUT();
-        Game game = new Game(grid, players);
-        game.getGrid().printGrid();
+        throw new UnsupportedOperationException("Server standalone launch not supported, please use tests or launch the" +
+                " game from the client");
     }
 }
