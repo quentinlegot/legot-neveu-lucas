@@ -15,11 +15,11 @@ public class DropMine extends DropObject {
     @Override
     public void doAction() {
         List<Point> points = getValidPoint();
-        Random random = new Random();
-        Point point = points.get(random.nextInt(0,points.size()-1));
+        Point point = choseRandomPoint(points);
         Mine mine = new Mine();
         getGame().getGrid().getBoard().get(point).setB(mine);
-        getGame().getCurrentPlayer().decrementEnergy(getGame().getCurrentPlayer().getClassPlayer().getMineCost());
+        Player player = getGame().getCurrentPlayer();
+        getGame().getCurrentPlayer().decrementEnergy(player.getClassPlayer().getMineCost());
     }
 
     @Override

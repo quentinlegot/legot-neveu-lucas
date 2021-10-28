@@ -1,6 +1,9 @@
 package fr.lnl.game.server.games.action;
 
 import fr.lnl.game.server.games.Game;
+import fr.lnl.game.server.utils.Point;
+
+import java.util.List;
 
 public class Nothing extends AbstractAction {
 
@@ -14,5 +17,10 @@ public class Nothing extends AbstractAction {
     @Override
     public boolean isPossible() {
         return true;
+    }
+
+    @Override
+    public List<Point> getValidPoint() {
+        return null;
     }
 }

@@ -1,17 +1,12 @@
 package fr.lnl.game.server.games.action;
 
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.grid.Box;
-import fr.lnl.game.server.games.grid.Grid;
-import fr.lnl.game.server.games.grid.Wall;
+import fr.lnl.game.server.games.grid.*;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Move extends AbstractAction {
     public Move(Game game) {
@@ -21,12 +16,25 @@ public class Move extends AbstractAction {
     @Override
     public void doAction() {
         List<Point> points = getValidPoint();
-        Random random = new Random();
-        Point nextPositon = points.get(random.nextInt(0,points.size() - 1));
+        Point nextPositon = choseRandomPoint(points);
         Player player = getGame().getCurrentPlayer();
         getGame().getGrid().getBoard().get(player.getPoint()).setA(null);
         getGame().getGrid().getBoard().get(nextPositon).setA(player);
+        player.setPoint(nextPositon);
         player.decrementEnergy(player.getClassPlayer().getMoveCost());
+        Box box = getGame().getGrid().getBoard().get(nextPositon).getB();
+        if (box instanceof Mine){
+            player.decrementEnergy(player.getClassPlayer().getPenaltyMine());
+            getGame().getGrid().getBoard().get(nextPositon).setB(null);
+        }
+        if(box instanceof Bomb){
+            player.decrementEnergy(player.getClassPlayer().getPenaltyBomb());
+            getGame().getGrid().getBoard().get(nextPositon).setB(null);
+        }
+        if(box instanceof EnergyBall){
+            player.incrementEnergy(player.getClassPlayer().getGainEnergy());
+            getGame().getGrid().getBoard().get(nextPositon).setB(null);
+        }
     }
 
     @Override
@@ -35,16 +43,16 @@ public class Move extends AbstractAction {
     }
 
     public List<Point> getValidPoint() {
-        List<Point> listMoves = new LinkedList<>();
+        List<Point> listMoves = new ArrayList<>();
         HashMap<Point, Pair<Player, Box>> board = getGame().getGrid().getBoard();
         Point position = getGame().getCurrentPlayer().getPoint();
-        for (int row = -1; row <= 1; row++) {
-            for (int column = -1; column <= 1; column++) {
-                if(row == position.getA() + row || column == position.getB() + column){
-                    if(Grid.caseisValid(position.getA(),row,position.getB(),column)){
-                        Point neighbour = new Point(position.getA() + row, position.getB() + column);
+        for (int deltarow = -1; deltarow <= 1; deltarow++) {
+            for (int deltacolumn = -1; deltacolumn <= 1; deltacolumn++) {
+                if(deltarow == 0 || deltacolumn == 0){
+                    if(getGame().getGrid().boardPositionIsValid(position.getA(),deltarow,position.getB(),deltacolumn)){
+                        Point neighbour = new Point(position.getA() + deltarow, position.getB() + deltacolumn);
                         Pair<Player, Box> state = board.get(neighbour);
-                        if(state.getA() == null || state.getB() instanceof Wall){
+                        if(state.getA() == null && !(state.getB() instanceof Wall)){
                             listMoves.add(neighbour);
                         }
                     }
@@ -53,5 +61,4 @@ public class Move extends AbstractAction {
         }
         return listMoves;
     }
-
 }

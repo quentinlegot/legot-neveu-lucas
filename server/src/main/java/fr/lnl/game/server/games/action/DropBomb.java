@@ -18,8 +18,7 @@ public class DropBomb extends DropObject {
     @Override
     public void doAction() {
         List<Point> points = getValidPoint();
-        Random random = new Random();
-        Point point = points.get(random.nextInt(0,points.size()-1));
+        Point point = choseRandomPoint(points);
         getGame().getGrid().getBoard().get(point).setB(new Bomb());
         Player player = getGame().getCurrentPlayer();
         player.decrementEnergy(player.getClassPlayer().getBombCost());
