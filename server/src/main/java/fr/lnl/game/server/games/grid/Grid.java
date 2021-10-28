@@ -68,8 +68,16 @@ public class Grid {
         board.get(new Point(14,2)).setB(new Wall(Cardinal.WEST,14,2));
     }
 
-    public static boolean caseisValid(int row, int column, int deltaRow, int deltaColumn){
-        return row + deltaRow >= 0 && row + deltaRow < row && column + deltaColumn >= 0 && column + deltaColumn < column;
+    public boolean boardPositionIsValid(int row, int deltaRow, int column, int deltaColumn){
+        return row + deltaRow >= 0 && row + deltaRow < this.row && column + deltaColumn >= 0 && column + deltaColumn < this.column;
+    }
+
+    public boolean boardHorizontalIsValid(int column, int deltaColumn){
+        return column + deltaColumn >= 0 && column + deltaColumn < this.column;
+    }
+
+    public boolean boardVerticalIsValid(int row, int deltaRow){
+        return row + deltaRow >= 0 && row + deltaRow < this.row;
     }
 
     public HashMap<Point, Pair<Player, Box>> getBoard() {
@@ -106,16 +114,16 @@ public class Grid {
                     }
                 }
                 else if(value.getB() instanceof EnergyBall){
-                    str.append(" \033[0;31mO\033[0m");
+                    str.append(" \033[0;31mE\033[0m");
                 }
                 else if(value.getB() instanceof Mine){
-                    str.append(" \033[0;31mX\033[0m");
+                    str.append(" \033[0;35mM\033[0m");
                 }
                 else if(value.getB() instanceof Bomb){
-                    str.append(" \033[0;31mI\033[0m");
+                    str.append(" \033[0;36mB\033[0m");
                 }
                 else {
-                    str.append(" \033[0;31m.\033[0m");
+                    str.append(" \033[0;37m.\033[0m");
                 }
             }
         }

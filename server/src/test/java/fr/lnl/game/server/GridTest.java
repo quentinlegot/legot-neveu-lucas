@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GridTest {
 
@@ -42,28 +42,35 @@ public class GridTest {
         assertEquals(new EnergyBall(), grid.getBoard().get(new Point(7, 10)).getB());
     }
 
+
     @Test
     public void testPlay(){
         for (Player player: game.getPlayers()) {
-            player.setActions(new Action[]{new Move(game)});
+            player.setActions(new Action[]{new Nothing(game), new Shot(game), new Move(game),
+                    new DeployShield(game), new DropBomb(game), new DropMine(game)});
         }
-        System.out.println(game.getGrid().toString());
         while (!game.isOver()){
-            Random random = new Random();
+            System.out.println(" Tour du joueur " + game.getCurrentPlayer().getId() + " : " +
+                    game.getCurrentPlayer().getEnergy() + " points de vies restants");
+            System.out.println(game.getGrid().toString());
             Action action = null;
-            while ((action == null || !action.isPossible()) && game.getCurrentPlayer().getActions().length != 0) {
-                if(game.getCurrentPlayer().getActions().length == 1) {
-                    action = game.getCurrentPlayer().getActions()[0];
-                } else {
-                    action = game.getCurrentPlayer().getActions()[random.nextInt(0,game.getCurrentPlayer().getActions().length -1)];
+            switch (game.getCurrentPlayer().getActions().length){
+                case 0 -> action = new Nothing(game);
+                case 1 -> action = game.getCurrentPlayer().getActions()[0];
+                default -> {
+                    Random random = new Random();
+                    while (action == null || !action.isPossible()) {
+                        action = game.getCurrentPlayer().getActions()
+                                [random.nextInt(0,game.getCurrentPlayer().getActions().length)];
+                    }
                 }
-
             }
             action.doAction();
-            System.out.println(game.getGrid().toString());
+            System.out.println("Action " + action + " : " + game.getCurrentPlayer().getEnergy() +
+                    " points de vies restants");
             game.nextCurrentPlayer();
-
         }
+        System.out.println(game.getGrid().toString());
         System.out.println("Le joueur gagnant : " + game.getWinner().getId());
     }
 

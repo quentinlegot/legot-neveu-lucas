@@ -38,13 +38,16 @@ public class Game {
     /**
      * Change player to the next available in the list
      */
-    public void nextCurrentPlayer() {
+    public boolean nextCurrentPlayer() {
+        if(isOver())
+            return false;
         do {
             int index = players.indexOf(currentPlayer) + 1;
             if(index == players.size())
                 index = 0;
             currentPlayer = players.get(index);
         } while(!currentPlayer.isAlive()); // On arrête la boucle dès qu'on trouve un joueur en vie
+        return true;
     }
 
     public void setCurrent_player(Player current_player) {

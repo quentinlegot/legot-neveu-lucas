@@ -29,13 +29,15 @@ public class Mock {
     }
 
     public void placePlayersBRUT(){
-        grid.getBoard().get(new Point(1,1)).setA(grid.getPlayers().get(0));
-        grid.getBoard().get(new Point(14,14)).setA(grid.getPlayers().get(1));
+        grid.getBoard().get(new Point(7,7)).setA(grid.getPlayers().get(0));
+        grid.getPlayers().get(0).setPoint(new Point(7, 7));
+        grid.getBoard().get(new Point(7,8)).setA(grid.getPlayers().get(1));
+        grid.getPlayers().get(1).setPoint(new Point(7, 8));
     }
 
     public void placeEnergyBallBRUT(){
         grid.getBoard().get(new Point(2,3)).setB(new EnergyBall());
-        grid.getBoard().get(new Point(7,10)).setB(new EnergyBall());
+        grid.getBoard().get(new Point(8,10)).setB(new EnergyBall());
     }
 
     public void placeInternWallBRUT(){
