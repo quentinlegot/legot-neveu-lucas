@@ -6,7 +6,9 @@ import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Move extends AbstractAction {
     public Move(Game game) {
