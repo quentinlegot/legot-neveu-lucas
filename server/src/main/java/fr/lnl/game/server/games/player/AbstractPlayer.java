@@ -78,4 +78,8 @@ public abstract class AbstractPlayer implements Player {
     public void decrementEnergy(int energy){
         this.energy -= energy;
     }
+
+    public void incrementEnergy(int energy){
+        this.energy += energy;
+    }
 }

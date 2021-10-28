@@ -19,4 +19,5 @@ public interface Player {
     ClassPlayer getClassPlayer();
     void setPoint(Point point);
     void decrementEnergy(int energy);
+    void incrementEnergy(int energy);
 }
