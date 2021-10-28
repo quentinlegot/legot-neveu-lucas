@@ -13,7 +13,7 @@ public enum ClassPlayer {
     private final int mineCost;
     private final int bombCost;
     private final int moveCost;
-    private final int gainEnergyCost;
+    private final int gainEnergy;
     private final int penaltyShoot;
     private final int penaltyBomb;
     private final int penaltyMine;
@@ -21,14 +21,14 @@ public enum ClassPlayer {
 
 
     ClassPlayer(int energy, int shieldCost, int shootCost, int mineCost, int bombCost, int moveCost,
-                int gainEnergyCost, int penaltyShoot, int penaltyBomb, int penaltyMine, Weapon weapon){
+                int gainEnergy, int penaltyShoot, int penaltyBomb, int penaltyMine, Weapon weapon){
         this.energy = energy;
         this.shieldCost = shieldCost;
         this.shootCost = shootCost;
         this.mineCost = mineCost;
         this.bombCost = bombCost;
         this.moveCost = moveCost;
-        this.gainEnergyCost = gainEnergyCost;
+        this.gainEnergy = gainEnergy;
         this.penaltyShoot = penaltyShoot;
         this.penaltyBomb = penaltyBomb;
         this.penaltyMine = penaltyMine;
@@ -59,8 +59,8 @@ public enum ClassPlayer {
         return moveCost;
     }
 
-    public int getGainEnergyCost() {
-        return gainEnergyCost;
+    public int getGainEnergy() {
+        return gainEnergy;
     }
 
     public int getPenaltyShoot() {

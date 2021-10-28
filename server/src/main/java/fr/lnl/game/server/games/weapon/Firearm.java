@@ -8,23 +8,23 @@ public class Firearm implements Weapon{
 
     public Firearm(){
         this.bullet = 10;
-        this.horizontalDistance = 2;
+        this.horizontalDistance = 3;
         this.verticalDistance = 3;
     }
 
 
     @Override
     public int getBullet() {
-        return 0;
+        return this.bullet;
     }
 
     @Override
     public int getHorizontalDistance() {
-        return 0;
+        return this.horizontalDistance;
     }
 
     @Override
     public int getVerticalDistance() {
-        return 0;
+        return this.verticalDistance;
     }
 }
