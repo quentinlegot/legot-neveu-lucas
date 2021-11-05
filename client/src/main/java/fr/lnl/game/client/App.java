@@ -92,7 +92,7 @@ public class App extends Application {
                         );
                         classPlayer = null;
                     }
-                    playerClass = ComputerPlayer.class;
+                    playerClass = RandomComputerPlayer.class;
                 }
                 case "default" -> classPlayer = ClassPlayer.DEFAULT;
                 case "tank" -> classPlayer = ClassPlayer.TANK;

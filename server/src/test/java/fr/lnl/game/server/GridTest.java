@@ -53,18 +53,7 @@ public class GridTest {
             System.out.println(" Tour du joueur " + game.getCurrentPlayer().getId() + " : " +
                     game.getCurrentPlayer().getEnergy() + " points de vies restants");
             System.out.println(game.getGrid().toString());
-            Action action = null;
-            switch (game.getCurrentPlayer().getActions().length){
-                case 0 -> action = new Nothing(game);
-                case 1 -> action = game.getCurrentPlayer().getActions()[0];
-                default -> {
-                    Random random = new Random();
-                    while (action == null || !action.isPossible()) {
-                        action = game.getCurrentPlayer().getActions()
-                                [random.nextInt(0,game.getCurrentPlayer().getActions().length)];
-                    }
-                }
-            }
+            Action action = game.getCurrentPlayer().choseAction();
             action.doAction();
             System.out.println("Action " + action + " : " + game.getCurrentPlayer().getEnergy() +
                     " points de vies restants");

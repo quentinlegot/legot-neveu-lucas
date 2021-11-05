@@ -3,10 +3,10 @@ package fr.lnl.game.server.games.player;
 import fr.lnl.game.server.games.action.Action;
 import fr.lnl.game.server.utils.Point;
 
-public class HumanPlayer extends AbstractPlayer {
+public class StrategyComputerPlayer extends AbstractPlayer{
 
-    public HumanPlayer(Integer id, Point point, ClassPlayer classPlayer) {
-        super(id, point,false, classPlayer);
+    public StrategyComputerPlayer(Integer id, Point point, ClassPlayer classPlayer) {
+        super(id,point,false, classPlayer);
     }
 
     @Override

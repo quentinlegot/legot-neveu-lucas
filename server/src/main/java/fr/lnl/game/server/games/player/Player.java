@@ -1,5 +1,6 @@
 package fr.lnl.game.server.games.player;
 
+import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.Action;
 import fr.lnl.game.server.games.weapon.Weapon;
 import fr.lnl.game.server.utils.Point;
@@ -16,8 +17,10 @@ public interface Player {
     void setWeapon(Weapon weapon);
     Action[] getActions();
     void setActions(Action[] actions);
+    Action choseAction();
     ClassPlayer getClassPlayer();
     void setPoint(Point point);
     void decrementEnergy(int energy);
     void incrementEnergy(int energy);
+
 }

@@ -10,6 +10,11 @@ public class Nothing extends AbstractAction {
     public Nothing(Game game){
         super(game);
     }
+
+    public Nothing(){
+        super(null);
+    }
+
     @Override
     public void doAction(){
     }

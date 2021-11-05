@@ -5,8 +5,8 @@ import fr.lnl.game.server.games.grid.EnergyBall;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.Wall;
 import fr.lnl.game.server.games.player.ClassPlayer;
-import fr.lnl.game.server.games.player.ComputerPlayer;
 import fr.lnl.game.server.games.player.Player;
+import fr.lnl.game.server.games.player.RandomComputerPlayer;
 import fr.lnl.game.server.utils.Cardinal;
 import fr.lnl.game.server.utils.Point;
 
@@ -19,8 +19,8 @@ public class Mock {
     Game game;
 
     public Mock() {
-        List<Player> players = Arrays.asList(new ComputerPlayer(1,null, ClassPlayer.DEFAULT),
-                new ComputerPlayer(2,null, ClassPlayer.DEFAULT));
+        List<Player> players = Arrays.asList(new RandomComputerPlayer(1,null, ClassPlayer.DEFAULT),
+                new RandomComputerPlayer(2,null, ClassPlayer.DEFAULT));
         this.grid = new Grid(16,16, players);
         placePlayersBRUT();
         placeEnergyBallBRUT();
