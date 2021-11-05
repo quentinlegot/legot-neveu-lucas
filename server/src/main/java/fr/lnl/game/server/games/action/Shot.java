@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shot extends AbstractAction {
-    public Shot(Game game) {
-        super(game);
+    public Shot(Game game, Player player) {
+        super(game, player);
     }
 
     @Override

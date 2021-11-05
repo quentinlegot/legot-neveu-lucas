@@ -8,8 +8,8 @@ import fr.lnl.game.server.utils.Point;
 import java.util.List;
 
 public class DropMine extends DropObject {
-    public DropMine(Game game){
-        super(game);
+    public DropMine(Game game, Player player){
+        super(game, player);
     }
     @Override
     public void doAction() {

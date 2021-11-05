@@ -12,8 +12,8 @@ import java.util.List;
 
 public abstract class DropObject extends AbstractAction {
 
-    public DropObject(Game game){
-        super(game);
+    public DropObject(Game game, Player player){
+        super(game, player);
     }
 
     @Override

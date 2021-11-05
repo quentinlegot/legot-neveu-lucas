@@ -1,6 +1,9 @@
 package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
+import fr.lnl.game.server.games.action.Action;
+import fr.lnl.game.server.games.action.Move;
+import fr.lnl.game.server.games.action.NotValidDirectionException;
 import fr.lnl.game.server.games.action.Shot;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.utils.Point;
@@ -27,6 +30,25 @@ public class ActionPlayerTest {
     @Test
     public void moveActionTest() {
         Assertions.assertEquals(game.getPlayers().get(0), game.getCurrentPlayer());
+        Action move = null;
+        Point oldPoint = game.getCurrentPlayer().getPoint();
+        Move.Direction savedDirection = null;
+        for(Move.Direction direction : Move.Direction.values()) {
+            try {
+                move = new Move(game, game.getCurrentPlayer(), direction);
+                savedDirection = direction;
+                break;
+            } catch (NotValidDirectionException ignored) {}
+        }
+        Assertions.assertNotEquals(null, move);
+        assert move != null;
+        move.doAction();
+        Point newPoint = game.getCurrentPlayer().getPoint();
+        Assertions.assertEquals(newPoint,
+                new Point(oldPoint.getA() + savedDirection.getDeltaX(),
+                        oldPoint.getA() + savedDirection.getDeltaY()
+                )
+        );
     }
 
 
@@ -34,7 +56,7 @@ public class ActionPlayerTest {
     @Test
     public void shotActionTest(){
         System.out.println(grid.toString());
-        Shot shot = new Shot(game);
+        Shot shot = new Shot(game, game.getCurrentPlayer());
         List<Point> points = shot.getValidPoint();
         System.out.println(points);
         System.out.println("Before shot " + game.getPlayers().get(1).getEnergy());

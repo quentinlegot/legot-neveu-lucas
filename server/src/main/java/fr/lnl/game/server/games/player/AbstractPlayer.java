@@ -4,6 +4,8 @@ import fr.lnl.game.server.games.action.Action;
 import fr.lnl.game.server.games.weapon.Weapon;
 import fr.lnl.game.server.utils.Point;
 
+import java.util.List;
+
 public abstract class AbstractPlayer implements Player {
 
     private final int id;
@@ -11,7 +13,7 @@ public abstract class AbstractPlayer implements Player {
     private int energy;
     private Weapon weapon;
     private boolean shieldDeploy;
-    private Action[] actions;
+    private List<Action> actions;
     private final ClassPlayer classPlayer;
 
     public AbstractPlayer(Integer id, Point point, boolean shieldDeploy, ClassPlayer classPlayer) {
@@ -23,62 +25,77 @@ public abstract class AbstractPlayer implements Player {
         this.point = point;
     }
 
+    @Override
     public boolean isAlive(){
         return energy > 0;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public int getEnergy() {
         return energy;
     }
 
+    @Override
     public Weapon getWeapon() {
         return weapon;
     }
 
+    @Override
     public boolean isShieldDeploy() {
         return shieldDeploy;
     }
 
+    @Override
     public void setEnergy(int energy) {
         this.energy = energy;
     }
 
+    @Override
     public void setShieldDeploy(boolean shieldDeploy) {
         this.shieldDeploy = shieldDeploy;
     }
 
+    @Override
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
 
-    public Action[] getActions() {
+    @Override
+    public List<Action> getActions() {
         return actions;
     }
 
-    public void setActions(Action[] actions){
+    @Override
+    public void setActions(List<Action> actions){
         this.actions = actions;
     }
 
+    @Override
     public ClassPlayer getClassPlayer() {
         return classPlayer;
     }
 
+    @Override
     public Point getPoint() {
         return point;
     }
 
+    @Override
     public void setPoint(Point point){
         this.point = point;
     }
 
+    @Override
     public void decrementEnergy(int energy){
         this.energy -= energy;
     }
 
+    @Override
     public void incrementEnergy(int energy){
         this.energy += energy;
     }

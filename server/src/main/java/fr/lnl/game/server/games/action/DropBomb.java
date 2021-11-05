@@ -9,8 +9,8 @@ import java.util.List;
 
 public class DropBomb extends DropObject {
 
-    public DropBomb(Game game){
-        super(game);
+    public DropBomb(Game game, Player player){
+        super(game, player);
     }
 
     // voir pour la redondance de code au niveau de DropBomb, DropObject,DropMine

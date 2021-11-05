@@ -15,14 +15,13 @@ public class RandomComputerPlayer extends AbstractPlayer{
     @Override
     public Action choseAction() {
         Action action = null;
-        switch (getActions().length){
+        switch (getActions().size()){
             case 0 -> action = new Nothing();
-            case 1 -> action = getActions()[0];
+            case 1 -> action = getActions().get(0);
             default -> {
                 Random random = new Random();
                 while (action == null || !action.isPossible()) {
-                    action = getActions()
-                            [random.nextInt(0,getActions().length)];
+                    action = getActions().get(random.nextInt(0,getActions().size()));
                 }
             }
         }

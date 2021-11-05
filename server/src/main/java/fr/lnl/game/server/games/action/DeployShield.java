@@ -7,8 +7,8 @@ import fr.lnl.game.server.utils.Point;
 import java.util.List;
 
 public class DeployShield extends AbstractAction {
-    public DeployShield(Game game){
-        super(game);
+    public DeployShield(Game game, Player player){
+        super(game, player);
     }
 
     @Override

@@ -4,6 +4,8 @@ import fr.lnl.game.server.games.action.Action;
 import fr.lnl.game.server.games.weapon.Weapon;
 import fr.lnl.game.server.utils.Point;
 
+import java.util.List;
+
 public interface Player {
     Point getPoint();
     boolean isAlive();
@@ -14,8 +16,8 @@ public interface Player {
     void setEnergy(int energy);
     void setShieldDeploy(boolean shieldDeploy);
     void setWeapon(Weapon weapon);
-    Action[] getActions();
-    void setActions(Action[] actions);
+    List<Action> getActions();
+    void setActions(List<Action> actions);
     Action choseAction();
     ClassPlayer getClassPlayer();
     void setPoint(Point point);
