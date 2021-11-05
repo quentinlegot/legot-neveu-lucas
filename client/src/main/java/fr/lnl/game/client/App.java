@@ -95,6 +95,9 @@ public class App extends Application {
                     playerClass = ComputerPlayer.class;
                 }
                 case "default" -> classPlayer = ClassPlayer.DEFAULT;
+                case "tank" -> classPlayer = ClassPlayer.TANK;
+                case "dps" -> classPlayer = ClassPlayer.DPS;
+                case "support" -> classPlayer = ClassPlayer.SUPPORT;
                 default -> throw new IllegalArgumentException("Unknown argument: " + str);
             }
         }
