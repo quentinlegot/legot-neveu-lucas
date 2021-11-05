@@ -31,5 +31,6 @@ public class Window extends AbstractView {
         Scene scene = new Scene(grid, 640, 480);
         stage.setScene(scene);
         stage.show();
+
     }
 }
