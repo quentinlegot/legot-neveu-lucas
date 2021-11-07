@@ -34,17 +34,8 @@ public class Move extends AbstractAction {
         player.setPoint(this.point);
         player.decrementEnergy(player.getClassPlayer().getMoveCost());
         Box box = getGame().getGrid().getBoard().get(this.point).getB();
-        if (box instanceof Mine){
-            player.decrementEnergy(player.getClassPlayer().getPenaltyMine());
-            getGame().getGrid().getBoard().get(this.point).setB(null);
-        }
-        if(box instanceof Bomb){
-            player.decrementEnergy(player.getClassPlayer().getPenaltyBomb());
-            getGame().getGrid().getBoard().get(this.point).setB(null);
-        }
-        if(box instanceof EnergyBall){
-            player.incrementEnergy(player.getClassPlayer().getGainEnergy());
-            getGame().getGrid().getBoard().get(this.point).setB(null);
+        if(box instanceof InteractiveBox interactiveBox) {
+            interactiveBox.interact(getGame().getGrid(), player, this.point);
         }
     }
 
