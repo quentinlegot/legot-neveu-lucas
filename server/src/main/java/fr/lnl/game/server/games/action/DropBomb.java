@@ -13,6 +13,10 @@ public class DropBomb extends DropObject {
         super(game, player);
     }
 
+    /**
+     * @deprecated même principe que {@link Shot#doAction()}
+     */
+    @Deprecated
     @Override
     public void doAction() {
         List<Point> points = getValidPoint();

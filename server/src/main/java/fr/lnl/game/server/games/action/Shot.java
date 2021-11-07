@@ -16,7 +16,8 @@ public class Shot extends AbstractAction {
     }
 
     /**
-     * @deprecated a rewrite -> L'aléatoire ne devrait pas être ici, mais au moment de l'instanciation comme dans {@link Move}
+     * @deprecated a rewrite -> L'aléatoire ne devrait pas être ici, mais au moment de l'instanciation par exemple
+     * comme dans {@link Move}
      */
     @Deprecated
     @Override

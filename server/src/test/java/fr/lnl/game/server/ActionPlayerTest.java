@@ -1,11 +1,9 @@
 package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.action.Action;
-import fr.lnl.game.server.games.action.Move;
-import fr.lnl.game.server.games.action.NotValidDirectionException;
-import fr.lnl.game.server.games.action.Shot;
+import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
+import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,13 +21,11 @@ public class ActionPlayerTest {
         Mock mock = new Mock();
         this.grid = mock.grid;
         this.game = mock.game;
+        Assertions.assertEquals(game.getPlayers().get(0), game.getCurrentPlayer());
     }
 
-    // TODO: 21/10/2021 Vérifier sur Move effectue la bonne action en pensant a appeler isPossible() avant et
-    //  en checkant son résultat
     @Test
     public void moveActionTest() {
-        Assertions.assertEquals(game.getPlayers().get(0), game.getCurrentPlayer());
         Action move = null;
         Point oldPoint = game.getCurrentPlayer().getPoint();
         Move.Direction savedDirection = null;
@@ -51,6 +47,14 @@ public class ActionPlayerTest {
         );
     }
 
+    @Test
+    public void DeployShieldTest() {
+        Player player = game.getCurrentPlayer();
+        Assertions.assertFalse(player.isShieldDeploy());
+        Action action = new DeployShield(player);
+        action.doAction();
+        Assertions.assertTrue(player.isShieldDeploy());
+    }
 
     // TODO: 10/28/2021 pas un vrai test et marche qu'avec le mock actuel
     @Test

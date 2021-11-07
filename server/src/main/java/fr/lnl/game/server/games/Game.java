@@ -28,6 +28,7 @@ public class Game {
     }
 
     public Player getWinner() {
+        // On part du principe que isOver est forcément appelé avant d'appeler getWinner
         return players.parallelStream().filter(player -> !player.isAlive()).findFirst().orElseThrow(ArrayIndexOutOfBoundsException::new);
     }
 
@@ -47,6 +48,7 @@ public class Game {
                 index = 0;
             currentPlayer = players.get(index);
         } while(!currentPlayer.isAlive()); // On arrête la boucle dès qu'on trouve un joueur en vie
+        currentPlayer.setShieldDeploy(false); // on reset son état
         return true;
     }
 

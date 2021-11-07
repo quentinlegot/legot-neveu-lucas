@@ -12,6 +12,11 @@ public class DropMine extends DropObject {
     public DropMine(Game game, Player player){
         super(game, player);
     }
+
+    /**
+     * @deprecated même principe que {@link Shot#doAction()}
+     */
+    @Deprecated
     @Override
     public void doAction() {
         List<Point> points = getValidPoint();

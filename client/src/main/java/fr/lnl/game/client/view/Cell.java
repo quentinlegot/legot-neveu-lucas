@@ -6,7 +6,6 @@ import fr.lnl.game.server.games.grid.Mine;
 import fr.lnl.game.server.games.grid.Wall;
 import fr.lnl.game.server.games.player.Player;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
