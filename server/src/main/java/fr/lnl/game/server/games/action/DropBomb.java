@@ -13,13 +13,11 @@ public class DropBomb extends DropObject {
         super(game, player);
     }
 
-    // voir pour la redondance de code au niveau de DropBomb, DropObject,DropMine
     @Override
     public void doAction() {
         List<Point> points = getValidPoint();
         Point point = choseRandomPoint(points);
-        getGame().getGrid().getBoard().get(point).setB(new Bomb());
-        Player player = getGame().getCurrentPlayer();
+        game.getGrid().getBoard().get(point).setB(new Bomb());
         player.decrementEnergy(player.getClassPlayer().getBombCost());
     }
 

@@ -10,18 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shot extends AbstractAction {
+
     public Shot(Game game, Player player) {
         super(game, player);
     }
 
+    /**
+     * @deprecated a rewrite -> L'aléatoire ne devrait pas être ici, mais au moment de l'instanciation comme dans {@link Move}
+     */
+    @Deprecated
     @Override
     public void doAction() {
-        List<Point> points = getValidPoint();
-        Point point = choseRandomPoint(points);
-        Player currentPlayer = getGame().getCurrentPlayer();
-        currentPlayer.decrementEnergy(currentPlayer.getClassPlayer().getShootCost());
-        Player targetPlayer = getGame().getGrid().getBoard().get(point).getA();
-        targetPlayer.decrementEnergy(currentPlayer.getClassPlayer().getPenaltyShoot());
+        player.decrementEnergy(player.getClassPlayer().getShootCost());
+        game.getGrid().getBoard().get(choseRandomPoint(getValidPoint())).getA()
+        .decrementEnergy(player.getClassPlayer().getPenaltyShoot());
     }
 
     @Override
@@ -29,11 +31,15 @@ public class Shot extends AbstractAction {
         return !getValidPoint().isEmpty();
     }
 
+    /**
+     * @deprecated voir {@link Shot#doAction()}, surement renommé en isValidPoint(Point): bool après rework
+     */
+    @Deprecated(forRemoval = true, since = "07/11/2021")
     @Override
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();
-        Point position = getGame().getCurrentPlayer().getPoint();
-        Weapon weapon = getGame().getCurrentPlayer().getWeapon();
+        Point position = game.getCurrentPlayer().getPoint();
+        Weapon weapon = game.getCurrentPlayer().getWeapon();
         for (int delta = -1; delta <= 1; delta++) {
             if(delta != 0){
                 Point verticalNeibourg = seeNeibourg(position,delta,weapon.getVerticalDistance(),true);
@@ -49,21 +55,22 @@ public class Shot extends AbstractAction {
         return listMoves;
     }
 
+    @Deprecated(since = "07/11/2021", forRemoval = true)
     public Point seeNeibourg(Point point, int delta, int range, boolean isVertical) {
         Point neibourg = null;
         if (isVertical) {
-            if (getGame().getGrid().boardVerticalIsValid(point.getA(), delta)) {
+            if (game.getGrid().boardVerticalIsValid(point.getA(), delta)) {
                 neibourg = new Point(point.getA() + delta, point.getB());
             }
         } else {
-            if (getGame().getGrid().boardHorizontalIsValid(point.getB(), delta)) {
+            if (game.getGrid().boardHorizontalIsValid(point.getB(), delta)) {
                 neibourg = new Point(point.getA(), point.getB() + delta);
             }
         }
-        if (getGame().getGrid().getBoard().get(neibourg).getB() instanceof Wall || range + delta < 0) {
+        if (game.getGrid().getBoard().get(neibourg).getB() instanceof Wall || range + delta < 0) {
             return null;
         }
-        if(getGame().getGrid().getBoard().get(neibourg).getA() instanceof Player){
+        if(game.getGrid().getBoard().get(neibourg).getA() instanceof Player){
             return neibourg;
         }
         return seeNeibourg(neibourg,delta,range - 1,isVertical);

@@ -8,6 +8,7 @@ import fr.lnl.game.server.utils.Point;
 import java.util.List;
 
 public class DropMine extends DropObject {
+
     public DropMine(Game game, Player player){
         super(game, player);
     }
@@ -15,10 +16,8 @@ public class DropMine extends DropObject {
     public void doAction() {
         List<Point> points = getValidPoint();
         Point point = choseRandomPoint(points);
-        Mine mine = new Mine();
-        getGame().getGrid().getBoard().get(point).setB(mine);
-        Player player = getGame().getCurrentPlayer();
-        getGame().getCurrentPlayer().decrementEnergy(player.getClassPlayer().getMineCost());
+        game.getGrid().getBoard().get(point).setB(new Mine());
+        game.getCurrentPlayer().decrementEnergy(player.getClassPlayer().getMineCost());
     }
 
     @Override

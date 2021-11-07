@@ -17,21 +17,17 @@ public abstract class DropObject extends AbstractAction {
     }
 
     @Override
-    public void doAction() {
-    }
-
-    @Override
     public boolean isPossible() {
         return !getValidPoint().isEmpty();
     }
 
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();
-        HashMap<Point, Pair<Player, Box>> board = getGame().getGrid().getBoard();
-        Point position = getGame().getCurrentPlayer().getPoint();
+        HashMap<Point, Pair<Player, Box>> board = game.getGrid().getBoard();
+        Point position = player.getPoint();
         for (int row = -1; row <= 1; row++) {
             for (int column = -1; column <= 1; column++) {
-                if(getGame().getGrid().boardPositionIsValid(position.getA(),row,position.getB(),column)){
+                if(game.getGrid().boardPositionIsValid(position.getA(),row,position.getB(),column)){
                     Point neighbour = new Point(position.getA() + row, position.getB() + column);
                     Pair<Player, Box> state = board.get(neighbour);
                     if(state.getA() == null && state.getB() == null){

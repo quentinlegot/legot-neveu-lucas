@@ -8,20 +8,13 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class AbstractAction implements Action {
-    private final Game game;
-    private final Player player;
+
+    protected final Game game;
+    protected final Player player;
 
     public AbstractAction(Game game, Player player){
         this.game = game;
         this.player = player;
-    }
-
-    protected Game getGame() {
-        return game;
-    }
-
-    protected Player getPlayer() {
-        return player;
     }
 
     protected Point choseRandomPoint(List<Point> getValidPoint) {

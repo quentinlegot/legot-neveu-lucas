@@ -56,13 +56,13 @@ public class GridTest {
                     actions.add(new Move(game, player, direction));
                 } catch (NotValidDirectionException ignored){}
             }
-            actions.addAll(Arrays.asList(new Nothing(game, player), new Shot(game, player),
-                    new DeployShield(game, player), new DropBomb(game, player), new DropMine(game, player)));
+            actions.addAll(Arrays.asList(new Nothing(), new Shot(game, player),
+                    new DeployShield(player), new DropBomb(game, player), new DropMine(game, player)));
             player.setActions(actions);
             System.out.println(game.getGrid().toString());
             Action action = null;
             switch (player.getActions().size()){
-                case 0 -> action = new Nothing(game, player);
+                case 0 -> action = new Nothing();
                 case 1 -> action = game.getCurrentPlayer().getActions().get(0);
                 default -> {
                     Random random = new Random();

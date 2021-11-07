@@ -28,14 +28,13 @@ public class Move extends AbstractAction {
 
     @Override
     public void doAction() {
-        Player player = getGame().getCurrentPlayer();
-        getGame().getGrid().getBoard().get(player.getPoint()).setA(null);
-        getGame().getGrid().getBoard().get(this.point).setA(player);
+        game.getGrid().getBoard().get(player.getPoint()).setA(null);
+        game.getGrid().getBoard().get(this.point).setA(player);
         player.setPoint(this.point);
         player.decrementEnergy(player.getClassPlayer().getMoveCost());
-        Box box = getGame().getGrid().getBoard().get(this.point).getB();
+        Box box = game.getGrid().getBoard().get(this.point).getB();
         if(box instanceof InteractiveBox interactiveBox) {
-            interactiveBox.interact(getGame().getGrid(), player, this.point);
+            interactiveBox.interact(game.getGrid(), player, this.point);
         }
     }
 
@@ -47,12 +46,12 @@ public class Move extends AbstractAction {
     @Override
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();
-        HashMap<Point, Pair<Player, Box>> board = getGame().getGrid().getBoard();
-        Point position = getPlayer().getPoint();
+        HashMap<Point, Pair<Player, Box>> board = game.getGrid().getBoard();
+        Point position = player.getPoint();
         for (int deltarow = -1; deltarow <= 1; deltarow++) {
             for (int deltacolumn = -1; deltacolumn <= 1; deltacolumn++) {
                 if(deltarow == 0 || deltacolumn == 0){
-                    if(getGame().getGrid().boardPositionIsValid(position.getA(),deltarow,position.getB(),deltacolumn)){
+                    if(game.getGrid().boardPositionIsValid(position.getA(),deltarow,position.getB(),deltacolumn)){
                         Point neighbour = new Point(position.getA() + deltarow, position.getB() + deltacolumn);
                         Pair<Player, Box> state = board.get(neighbour);
                         if(state.getA() == null && !(state.getB() instanceof Wall)){
