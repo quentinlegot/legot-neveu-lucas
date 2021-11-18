@@ -82,7 +82,8 @@ public class GridTest {
             game.nextCurrentPlayer();
         }
         System.out.println(game.getGrid().toString());
-        System.out.println("Le joueur gagnant : " + game.getWinner().getId());
+        Player winner = game.getWinner();
+        System.out.println(winner != null ? ("Le joueur gagnant : " + winner.getId()) : ("Partie nulle, aucun gagnant"));
     }
 
 }

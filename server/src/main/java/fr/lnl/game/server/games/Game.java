@@ -29,7 +29,7 @@ public class Game {
 
     public Player getWinner() {
         // On part du principe que isOver est forcément appelé avant d'appeler getWinner
-        return players.parallelStream().filter(player -> !player.isAlive()).findFirst().orElseThrow(ArrayIndexOutOfBoundsException::new);
+        return players.parallelStream().filter(player -> !player.isAlive()).findFirst().orElse(null);
     }
 
     public Player getCurrentPlayer() {
