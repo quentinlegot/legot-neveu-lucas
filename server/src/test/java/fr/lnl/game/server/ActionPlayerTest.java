@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 public class ActionPlayerTest {
 
     private Grid grid;
@@ -28,16 +26,15 @@ public class ActionPlayerTest {
     public void moveActionTest() {
         Action move = null;
         Point oldPoint = game.getCurrentPlayer().getPoint();
-        Move.Direction savedDirection = null;
-        for(Move.Direction direction : Move.Direction.values()) {
+        Direction savedDirection = null;
+        for(Direction direction : Direction.values()) {
             try {
                 move = new Move(game, game.getCurrentPlayer(), direction);
                 savedDirection = direction;
                 break;
             } catch (NotValidDirectionException ignored) {}
         }
-        Assertions.assertNotEquals(null, move);
-        assert move != null;
+        Assertions.assertNotNull(move);
         move.doAction();
         Point newPoint = game.getCurrentPlayer().getPoint();
         Assertions.assertEquals(newPoint,
@@ -56,16 +53,22 @@ public class ActionPlayerTest {
         Assertions.assertTrue(player.isShieldDeploy());
     }
 
-    // TODO: 10/28/2021 pas un vrai test et marche qu'avec le mock actuel
     @Test
     public void shotActionTest(){
-        System.out.println(grid.toString());
-        Shot shot = new Shot(game, game.getCurrentPlayer());
-        List<Point> points = shot.getValidPoint();
-        System.out.println(points);
-        System.out.println("Before shot " + game.getPlayers().get(1).getEnergy());
+        Action shot = null;
+        for(Direction direction : Direction.values()) {
+            try {
+                shot = new Shot(game, game.getCurrentPlayer(), direction);
+                break;
+            } catch (NoMoreBulletInWeaponException | NotValidDirectionException ignored) {}
+        }
+        Assertions.assertNotNull(shot);
+        Player otherPlayer = game.getPlayers().get(1);
+        int currentEnergyOtherPlayer = otherPlayer.getEnergy();
+        int currentEnergyCurrentPlayer = game.getCurrentPlayer().getEnergy();
         shot.doAction();
-        System.out.println("After shot " + game.getPlayers().get(1).getEnergy());
+        Assertions.assertEquals(currentEnergyCurrentPlayer - game.getCurrentPlayer().getClassPlayer().getShootCost(), game.getCurrentPlayer().getEnergy());
+        Assertions.assertEquals(currentEnergyOtherPlayer - otherPlayer.getClassPlayer().getPenaltyShoot(), otherPlayer.getEnergy());
     }
 
 }

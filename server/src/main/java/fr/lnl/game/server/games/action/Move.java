@@ -19,9 +19,9 @@ public class Move extends AbstractAction {
 
     public Move(Game game, Player player, Direction direction) throws NotValidDirectionException {
         super(game, player);
-        HashSet<Point> points = new HashSet<>(getValidPoint());
+        List<Point> points = getValidPoint();
         Point playerPosition = player.getPoint();
-        Point newPosition = new Point(playerPosition.getA() + direction.deltaX, playerPosition.getB() + direction.deltaY);
+        Point newPosition = new Point(playerPosition.getA() + direction.getDeltaX(), playerPosition.getB() + direction.getDeltaY());
         if(!points.contains(newPosition)) {
             throw new NotValidDirectionException(direction + " isn't a valid position");
         }
@@ -64,29 +64,5 @@ public class Move extends AbstractAction {
             }
         }
         return listMoves;
-    }
-
-    public enum Direction {
-
-        UP(-1, 0),
-        DOWN(1, 0),
-        LEFT(0, -1),
-        RIGHT(-1, 0);
-
-        private final int deltaX;
-        private final int deltaY;
-
-        Direction(int i, int i1) {
-            this.deltaX = i;
-            this.deltaY = i1;
-        }
-
-        public int getDeltaX() {
-            return deltaX;
-        }
-
-        public int getDeltaY() {
-            return deltaY;
-        }
     }
 }

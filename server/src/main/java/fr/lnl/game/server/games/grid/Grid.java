@@ -69,7 +69,15 @@ public class Grid {
     }
 
     public boolean boardPositionIsValid(int row, int deltaRow, int column, int deltaColumn){
-        return row + deltaRow >= 0 && row + deltaRow < this.row && column + deltaColumn >= 0 && column + deltaColumn < this.column;
+        return boardPositionIsValid(row + deltaRow, column + deltaColumn);
+    }
+
+    public boolean boardPositionIsValid(int row, int column) {
+        return row >= 0 && column >= 0 && row < this.row && column < this.column;
+    }
+
+    public boolean boardPositionIsValid(Point point) {
+        return boardPositionIsValid(point.getA(), point.getB());
     }
 
     public boolean boardHorizontalIsValid(int column, int deltaColumn){

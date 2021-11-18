@@ -5,7 +5,7 @@ import fr.lnl.game.server.games.weapon.Weapon;
 
 public enum ClassPlayer {
 
-    DEFAULT(800, 25, 40, 30, 40, 10, 80, 20, 20, 15, new Firearm()),
+    DEFAULT(800, 25, 20, 30, 40, 10, 80, 40, 20, 15, new Firearm()),
     TANK(1000, 20, 20, 17, 23, 13, 80, 27, 30, 22, new Firearm()),
     DPS(800, 25, 16, 15, 20, 10, 80, 40, 40, 30, new Firearm()),
     SUPPORT(600, 25, 20, 11, 15, 7, 80, 45, 45, 35, new Firearm());

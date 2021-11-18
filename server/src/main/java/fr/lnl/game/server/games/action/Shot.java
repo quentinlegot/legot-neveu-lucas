@@ -7,24 +7,44 @@ import fr.lnl.game.server.games.weapon.Weapon;
 import fr.lnl.game.server.utils.Point;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Shot extends AbstractAction {
 
-    public Shot(Game game, Player player) {
+    private final Point point;
+    private final Direction direction;
+
+    public Shot(Game game, Player player, Direction direction) throws NoMoreBulletInWeaponException, NotValidDirectionException {
         super(game, player);
+        if(player.getWeapon().getBullet() == 0) {
+            throw new NoMoreBulletInWeaponException();
+        }
+        List<Point> points = getValidPoint();
+        Point playerPosition = player.getPoint();
+        Point shotDirection = new Point(playerPosition.getA() + direction.getDeltaX(), playerPosition.getB() + direction.getDeltaY());
+        if(!points.contains(shotDirection)) {
+            throw new NotValidDirectionException(direction + " isn't a valid position");
+        }
+        this.point = shotDirection;
+        this.direction = direction;
     }
 
-    /**
-     * @deprecated a rewrite -> L'aléatoire ne devrait pas être ici, mais au moment de l'instanciation par exemple
-     * comme dans {@link Move}
-     */
-    @Deprecated
     @Override
     public void doAction() {
         player.decrementEnergy(player.getClassPlayer().getShootCost());
-        game.getGrid().getBoard().get(choseRandomPoint(getValidPoint())).getA()
-        .decrementEnergy(player.getClassPlayer().getPenaltyShoot());
+        int range = direction.isVertical() ? player.getWeapon().getVerticalDistance() : player.getWeapon().getHorizontalDistance();
+        for(int i=0; i < range; i++) {
+            Point point = new Point(this.point.getA() + (i * direction.getDeltaX()),
+                    this.point.getB() + (i * direction.getDeltaY()));
+            Player player = game.getGrid().getBoard().get(point).getA();
+            if(player != null) {
+                player.decrementEnergy(player.getClassPlayer().getPenaltyShoot());
+                System.out.println("Not null: " + point);
+            } else {
+                System.out.println("null:" + point);
+            }
+        }
     }
 
     @Override
@@ -32,48 +52,36 @@ public class Shot extends AbstractAction {
         return !getValidPoint().isEmpty();
     }
 
-    /**
-     * @deprecated voir {@link Shot#doAction()}, surement renommé en isValidPoint(Point): bool après rework
-     */
-    @Deprecated(forRemoval = true, since = "07/11/2021")
     @Override
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();
         Point position = game.getCurrentPlayer().getPoint();
         Weapon weapon = game.getCurrentPlayer().getWeapon();
-        for (int delta = -1; delta <= 1; delta++) {
-            if(delta != 0){
-                Point verticalNeibourg = seeNeibourg(position,delta,weapon.getVerticalDistance(),true);
-                if(verticalNeibourg != null){
-                    listMoves.add(verticalNeibourg);
-                }
-                Point horizontalNeibourg = seeNeibourg(position,delta,weapon.getHorizontalDistance(),false);
-                if(horizontalNeibourg != null){
-                    listMoves.add(horizontalNeibourg);
-                }
-            }
+        for(Direction direction : Direction.values()) {
+            Point neighbour = seeNeighbour(position, direction.getDeltaX(), direction.getDeltaY(),
+                    direction.isVertical() ? weapon.getVerticalDistance() : weapon.getHorizontalDistance());
+            if(neighbour != null)
+                listMoves.add(neighbour);
         }
         return listMoves;
     }
 
-    @Deprecated(since = "07/11/2021", forRemoval = true)
-    public Point seeNeibourg(Point point, int delta, int range, boolean isVertical) {
-        Point neibourg = null;
-        if (isVertical) {
-            if (game.getGrid().boardVerticalIsValid(point.getA(), delta)) {
-                neibourg = new Point(point.getA() + delta, point.getB());
-            }
-        } else {
-            if (game.getGrid().boardHorizontalIsValid(point.getB(), delta)) {
-                neibourg = new Point(point.getA(), point.getB() + delta);
-            }
-        }
-        if (game.getGrid().getBoard().get(neibourg).getB() instanceof Wall || range + delta < 0) {
+
+    public Point seeNeighbour(Point point, int deltaX, int deltaY, int range) {
+        if(range == 0)
             return null;
+        for(int i = 0; i < range; i++) {
+            Point neighbour = new Point(point.getA() + deltaX + (i * deltaX), point.getB() + deltaY + (i * deltaY));
+            if(game.getGrid().boardPositionIsValid(point)) {
+                if(game.getGrid().getBoard().get(neighbour).getB() instanceof Wall) {
+                    return null;
+                }
+                if(game.getGrid().getBoard().get(neighbour).getA() instanceof Player) {
+                    System.out.println(game.getGrid().getBoard().get(neighbour).getA().getPoint());
+                    return neighbour;
+                }
+            }
         }
-        if(game.getGrid().getBoard().get(neibourg).getA() instanceof Player){
-            return neibourg;
-        }
-        return seeNeibourg(neibourg,delta,range - 1,isVertical);
+        return null;
     }
 }

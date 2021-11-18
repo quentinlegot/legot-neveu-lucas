@@ -51,13 +51,16 @@ public class GridTest {
                     game.getCurrentPlayer().getEnergy() + " points de vies restants");
             Player player = game.getCurrentPlayer();
             ArrayList<Action> actions = new ArrayList<>();
-            for(Move.Direction direction : Move.Direction.values()) {
+            for(Direction direction : Direction.values()) {
                 try {
                     actions.add(new Move(game, player, direction));
                 } catch (NotValidDirectionException ignored){}
+                try {
+                    actions.add(new Shot(game, player, direction));
+                } catch (NotValidDirectionException | NoMoreBulletInWeaponException ignored) {}
             }
-            actions.addAll(Arrays.asList(new Nothing(), new Shot(game, player),
-                    new DeployShield(player), new DropBomb(game, player), new DropMine(game, player)));
+            actions.addAll(Arrays.asList(new Nothing(), new DeployShield(player), new DropBomb(game, player),
+                    new DropMine(game, player)));
             player.setActions(actions);
             System.out.println(game.getGrid().toString());
             Action action = null;
