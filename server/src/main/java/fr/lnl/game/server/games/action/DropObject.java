@@ -12,8 +12,17 @@ import java.util.List;
 
 public abstract class DropObject extends AbstractAction {
 
-    public DropObject(Game game, Player player){
+    protected final Point point;
+
+    public DropObject(Game game, Player player, Direction direction) throws NotValidDirectionException {
         super(game, player);
+        List<Point> points = getValidPoint();
+        Point playerPosition = player.getPoint();
+        Point dropDirection = new Point(playerPosition.getA() + direction.getDeltaX(), playerPosition.getB() + direction.getDeltaY());
+        if(!points.contains(dropDirection)) {
+            throw new NotValidDirectionException(direction + " isn't a valid position");
+        }
+        this.point = dropDirection;
     }
 
     @Override

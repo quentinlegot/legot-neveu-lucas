@@ -15,8 +15,8 @@ import java.util.List;
 
 public class Mock {
 
-    Grid grid;
-    Game game;
+    public Grid grid;
+    public Game game;
 
     public Mock() {
         List<Player> players = Arrays.asList(new RandomComputerPlayer(1,null, ClassPlayer.DEFAULT),

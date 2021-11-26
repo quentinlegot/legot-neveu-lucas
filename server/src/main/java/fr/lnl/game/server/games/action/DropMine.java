@@ -9,8 +9,9 @@ import java.util.List;
 
 public class DropMine extends DropObject {
 
-    public DropMine(Game game, Player player){
-        super(game, player);
+    public DropMine(Game game, Player player, Direction direction) throws NotValidDirectionException {
+        super(game, player, direction);
+
     }
 
     /**
@@ -19,20 +20,8 @@ public class DropMine extends DropObject {
     @Deprecated
     @Override
     public void doAction() {
-        List<Point> points = getValidPoint();
-        Point point = choseRandomPoint(points);
         game.getGrid().getBoard().get(point).setB(new Mine());
         game.getCurrentPlayer().decrementEnergy(player.getClassPlayer().getMineCost());
-    }
-
-    @Override
-    public boolean isPossible() {
-        return super.isPossible();
-    }
-
-    @Override
-    public List<Point> getValidPoint() {
-        return super.getValidPoint();
     }
 
 }

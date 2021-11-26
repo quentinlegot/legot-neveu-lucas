@@ -1,8 +1,11 @@
 package fr.lnl.game.server.games;
 
+import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.player.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Game {
@@ -21,6 +24,26 @@ public class Game {
 
     public void play() {
 
+    }
+
+    protected List<Action> generateAndGetPlayerActions(Player player) {
+        List<Action> actions = new ArrayList<>();
+        for(Direction direction : Direction.values()) {
+            try {
+                actions.add(new Move(this, player, direction));
+            } catch (NotValidDirectionException ignored){}
+            try {
+                new DropBomb(this, player, direction);
+            } catch (NotValidDirectionException ignored) {}
+            try {
+                new DropMine(this, player, direction);
+            } catch (NotValidDirectionException ignored) {}
+            try {
+                actions.add(new Shot(this, player, direction));
+            } catch (NotValidDirectionException | NoMoreBulletInWeaponException ignored) {}
+        }
+        actions.addAll(Arrays.asList(new Nothing(), new DeployShield(player)));
+        return actions;
     }
 
     public boolean isOver() {

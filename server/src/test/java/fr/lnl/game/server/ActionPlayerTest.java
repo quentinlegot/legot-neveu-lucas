@@ -2,6 +2,7 @@ package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.*;
+import fr.lnl.game.server.games.grid.Bomb;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Point;
@@ -69,6 +70,24 @@ public class ActionPlayerTest {
         shot.doAction();
         Assertions.assertEquals(currentEnergyCurrentPlayer - game.getCurrentPlayer().getClassPlayer().getShootCost(), game.getCurrentPlayer().getEnergy());
         Assertions.assertEquals(currentEnergyOtherPlayer - otherPlayer.getClassPlayer().getPenaltyShoot(), otherPlayer.getEnergy());
+    }
+
+    @Test
+    public void dropBombActionTest() {
+        Player player = game.getCurrentPlayer();
+        Action action = null;
+        Direction savedDirection = null;
+        for(Direction direction : Direction.values()) {
+            try {
+                action = new DropBomb(game, game.getCurrentPlayer(), direction);
+                savedDirection = direction;
+                break;
+            } catch (NotValidDirectionException ignored) {}
+        }
+        Assertions.assertNotNull(action);
+        action.doAction();
+        Point bombPosition = new Point(player.getPoint().getA() + savedDirection.getDeltaX(), player.getPoint().getB() + savedDirection.getDeltaY());
+        Assertions.assertTrue(game.getGrid().getBoard().get(bombPosition).getB() instanceof Bomb);
     }
 
 }

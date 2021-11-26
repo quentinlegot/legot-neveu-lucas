@@ -44,46 +44,4 @@ public class GridTest {
         assertEquals(new EnergyBall(), grid.getBoard().get(new Point(8, 10)).getB());
     }
 
-    @Test
-    public void testPlay(){
-        while (!game.isOver()){
-            System.out.println(" Tour du joueur " + game.getCurrentPlayer().getId() + " : " +
-                    game.getCurrentPlayer().getEnergy() + " points de vies restants");
-            Player player = game.getCurrentPlayer();
-            ArrayList<Action> actions = new ArrayList<>();
-            for(Direction direction : Direction.values()) {
-                try {
-                    actions.add(new Move(game, player, direction));
-                } catch (NotValidDirectionException ignored){}
-                try {
-                    actions.add(new Shot(game, player, direction));
-                } catch (NotValidDirectionException | NoMoreBulletInWeaponException ignored) {}
-            }
-            actions.addAll(Arrays.asList(new Nothing(), new DeployShield(player), new DropBomb(game, player),
-                    new DropMine(game, player)));
-            player.setActions(actions);
-            System.out.println(game.getGrid().toString());
-            Action action = null;
-            switch (player.getActions().size()){
-                case 0 -> action = new Nothing();
-                case 1 -> action = game.getCurrentPlayer().getActions().get(0);
-                default -> {
-                    Random random = new Random();
-                    while (action == null || !action.isPossible()) {
-                        action = game.getCurrentPlayer().getActions().get(
-                                random.nextInt(0,game.getCurrentPlayer().getActions().size())
-                        );
-                    }
-                }
-            }
-            action.doAction();
-            System.out.println("Action " + action + " : " + game.getCurrentPlayer().getEnergy() +
-                    " points de vies restants");
-            game.nextCurrentPlayer();
-        }
-        System.out.println(game.getGrid().toString());
-        Player winner = game.getWinner();
-        System.out.println(winner != null ? ("Le joueur gagnant : " + winner.getId()) : ("Partie nulle, aucun gagnant"));
-    }
-
 }
