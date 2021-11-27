@@ -1,6 +1,6 @@
 package fr.lnl.game.client.view;
 
-import fr.lnl.game.client.listener.ModelListener;
+import fr.lnl.game.server.listener.ModelListener;
 import fr.lnl.game.client.listener.ButtonListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

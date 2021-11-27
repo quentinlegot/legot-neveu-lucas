@@ -1,8 +1,10 @@
 package fr.lnl.game.client.listener;
 
 import fr.lnl.game.client.App;
+import fr.lnl.game.server.listener.AbstractModelListening;
+import fr.lnl.game.server.listener.ModelListener;
 
-public class ButtonListener extends AbstractModelListening{
+public class ButtonListener extends AbstractModelListening {
 
 
     @Override

@@ -35,10 +35,13 @@ public class App extends Application {
         }
     }
 
-    public static Game startGame() throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
+    public static void startGame() throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
-        return new Game(new Grid(12, 12, players), players);
+        for (Player player : game.getPlayers()) {
+            playerList.put(player, new ClientPlayer(player, new Terminal(game, player)));
+        }
+        game = new Game(new Grid(12, 12, players), players);
     }
 
     public static void updateView() {
@@ -48,28 +51,23 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            game = startGame();
+            startGame();
         } catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException | InstantiationException
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
-        for (Player player : game.getPlayers()) {
-            playerList.put(player, new ClientPlayer(player, new Window(stage, game, player)));
-        }
+        new Thread(() -> game.play());
         updateView();
     }
 
     public static void launchTerminal() {
         try {
-            game = startGame();
+            startGame();
         } catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException | InstantiationException
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
-
-        for (Player player : game.getPlayers()) {
-            playerList.put(player, new ClientPlayer(player, new Terminal(game, player)));
-        }
+        new Thread(() -> game.play());
         updateView();
     }
 

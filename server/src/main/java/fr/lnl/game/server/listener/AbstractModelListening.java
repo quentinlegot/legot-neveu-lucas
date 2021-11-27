@@ -1,9 +1,9 @@
-package fr.lnl.game.client.listener;
+package fr.lnl.game.server.listener;
 import java.util.List;
 
 public abstract class AbstractModelListening implements ModelListener {
 
-    List<ModelListener> listeners;
+    protected List<ModelListener> listeners;
 
     public void addListener(ModelListener e) {
         this.listeners.add(e);

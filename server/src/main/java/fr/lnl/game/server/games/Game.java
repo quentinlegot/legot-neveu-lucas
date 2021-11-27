@@ -3,16 +3,22 @@ package fr.lnl.game.server.games;
 import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.player.Player;
+import fr.lnl.game.server.listener.AwakeGame;
+import fr.lnl.game.server.listener.ModelListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Game {
 
-    Grid grid;
-    Player currentPlayer;
-    List<Player> players;
+    private final Grid grid;
+    private final List<Player> players;
+    private Player currentPlayer;
+    private InterfaceAction interfaceAction;
+    private Action selectedAction = null;
+    private final Object lock = new Object();
 
     public Game(Grid grid, List<Player> players) throws IllegalArgumentException {
         if(players.size() < 2)
@@ -22,8 +28,37 @@ public class Game {
         this.grid = grid;
     }
 
-    public void play() {
+    /**
+     *
+     * @return game winner
+     */
+    public Player play() {
+        while(!isOver()) {
+            ModelListener awakeEvent = new AwakeGame(this);
+            generateAndGetPlayerActions(currentPlayer);
+            interfaceAction = InterfaceAction.SELECT_ACTION;
+            waitForInterfaceEvent();
+            selectedAction.doAction();
+            nextCurrentPlayer();
+        }
+        return getWinner();
+    }
 
+    private void waitForInterfaceEvent() {
+        synchronized (lock){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public void resumeThread() {
+        synchronized (lock) {
+            lock.notifyAll();
+        }
     }
 
     protected List<Action> generateAndGetPlayerActions(Player player) {
@@ -46,13 +81,17 @@ public class Game {
         return actions;
     }
 
+    public Stream<Player> getPlayersAlive() {
+        return players.parallelStream().filter(Player::isAlive);
+    }
+
     public boolean isOver() {
-        return players.parallelStream().filter(player -> !player.isAlive()).count() == 1;
+        return getPlayersAlive().count() <= 1;
     }
 
     public Player getWinner() {
         // On part du principe que isOver est forcément appelé avant d'appeler getWinner
-        return players.parallelStream().filter(player -> !player.isAlive()).findFirst().orElse(null);
+        return getPlayersAlive().findFirst().orElse(null);
     }
 
     public Player getCurrentPlayer() {
@@ -85,5 +124,9 @@ public class Game {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public InterfaceAction getInterfaceAction() {
+        return interfaceAction;
     }
 }

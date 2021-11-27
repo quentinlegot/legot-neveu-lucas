@@ -6,4 +6,5 @@ module server {
     exports fr.lnl.game.server.games.weapon;
     exports fr.lnl.game.server.games.action;
     exports fr.lnl.game.server.utils;
+    exports fr.lnl.game.server.listener;
 }
