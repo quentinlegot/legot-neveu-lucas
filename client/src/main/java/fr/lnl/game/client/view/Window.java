@@ -1,5 +1,6 @@
 package fr.lnl.game.client.view;
 
+import fr.lnl.game.client.listener.ButtonListener;
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.player.Player;
 import javafx.scene.Scene;
@@ -23,7 +24,7 @@ public class Window extends AbstractView {
         Label l = new Label("Hello, JavaFX version " + javafxVersion + ", running on Java " + javaVersion + ".");
         Label l2 = new Label("I'm " + player.getClass().getSimpleName() + " num " + player.getId() + " my class is " + player.getClassPlayer().toString());
         Button b = new Button("Click to see others players informations");
-        b.setOnAction(new ClientEventHandler());
+        b.setOnAction(new ClientEventHandler(new ButtonListener()));
         GridPane grid = new GridPane();
         grid.add(l, 0, 0);
         grid.add(l2, 0, 1);

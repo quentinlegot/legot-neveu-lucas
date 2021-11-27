@@ -1,4 +1,4 @@
-package fr.lnl.game.server.model;
+package fr.lnl.game.client.listener;
 
 public interface ModelListener {
     //à peut-être revoir

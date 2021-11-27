@@ -41,6 +41,10 @@ public class App extends Application {
         return new Game(new Grid(12, 12, players), players);
     }
 
+    public static void updateView() {
+        App.playerList.get(App.game.getCurrentPlayer()).getView().show();
+    }
+
     @Override
     public void start(Stage stage) {
         try {
@@ -52,7 +56,7 @@ public class App extends Application {
         for (Player player : game.getPlayers()) {
             playerList.put(player, new ClientPlayer(player, new Window(stage, game, player)));
         }
-        playerList.get(game.getCurrentPlayer()).getView().show();
+        updateView();
     }
 
     public static void launchTerminal() {
@@ -66,7 +70,7 @@ public class App extends Application {
         for (Player player : game.getPlayers()) {
             playerList.put(player, new ClientPlayer(player, new Terminal(game, player)));
         }
-        playerList.get(game.getCurrentPlayer()).getView().show();
+        updateView();
     }
 
     public static List<Player> parsePlayers() throws IllegalArgumentException, NoSuchMethodException,
