@@ -38,10 +38,10 @@ public class App extends Application {
     public static void startGame() throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
+        game = new Game(new Grid(12, 12, players), players);
         for (Player player : game.getPlayers()) {
             playerList.put(player, new ClientPlayer(player, new Terminal(game, player)));
         }
-        game = new Game(new Grid(12, 12, players), players);
     }
 
     public static void updateView() {

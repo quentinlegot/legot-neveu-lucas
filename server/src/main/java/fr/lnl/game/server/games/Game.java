@@ -27,12 +27,8 @@ public class Game {
         this.currentPlayer = players.get(0);
         this.grid = grid;
     }
-
-    /**
-     *
-     * @return game winner
-     */
-    public Player play() {
+    
+    public void play() {
         while(!isOver()) {
             ModelListener awakeEvent = new AwakeGame(this);
             generateAndGetPlayerActions(currentPlayer);
@@ -41,7 +37,6 @@ public class Game {
             selectedAction.doAction();
             nextCurrentPlayer();
         }
-        return getWinner();
     }
 
     private void waitForInterfaceEvent() {
