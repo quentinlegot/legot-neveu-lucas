@@ -35,12 +35,12 @@ public class App extends Application {
         }
     }
 
-    public static void startGame() throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
+    public static void startGame(ViewLambda lambda) throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
         game = new Game(new Grid(12, 12, players), players);
         for (Player player : game.getPlayers()) {
-            playerList.put(player, new ClientPlayer(player, new Terminal(game, player)));
+            playerList.put(player, new ClientPlayer(player, lambda.createViewLambda(player)));
         }
     }
 
@@ -51,7 +51,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            startGame();
+            startGame(player -> new Window(stage, game, player));
         } catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException | InstantiationException
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
@@ -62,7 +62,7 @@ public class App extends Application {
 
     public static void launchTerminal() {
         try {
-            startGame();
+            startGame(player -> new Terminal(game, player));
         } catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException | InstantiationException
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
@@ -131,6 +131,7 @@ public class App extends Application {
         } else {
             throw new IllegalArgumentException("No argument given");
         }
+        System.out.println(clazz.getSimpleName());
         return clazz;
     }
 }
