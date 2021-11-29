@@ -1,4 +1,6 @@
 package fr.lnl.game.client;
+import fr.lnl.game.server.listener.GameFinishEvent;
+import fr.lnl.game.client.listener.UpdateViewEvent;
 import fr.lnl.game.client.view.AbstractView;
 import fr.lnl.game.client.view.Terminal;
 import fr.lnl.game.client.view.Window;
@@ -38,7 +40,7 @@ public class App extends Application {
     public static void startGame(ViewLambda lambda) throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
-        game = new Game(new Grid(12, 12, players), players);
+        game = new Game(new Grid(12, 12, players), players, new UpdateViewEvent(), new GameFinishEvent());
         for (Player player : game.getPlayers()) {
             playerList.put(player, new ClientPlayer(player, lambda.createViewLambda(player)));
         }
@@ -56,7 +58,7 @@ public class App extends Application {
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
-        new Thread(() -> game.play());
+        new Thread(() -> game.play()).start();
         updateView();
     }
 
@@ -67,8 +69,7 @@ public class App extends Application {
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
-        new Thread(() -> game.play());
-        updateView();
+        new Thread(() -> game.play()).start();
     }
 
     public static List<Player> parsePlayers() throws IllegalArgumentException, NoSuchMethodException,

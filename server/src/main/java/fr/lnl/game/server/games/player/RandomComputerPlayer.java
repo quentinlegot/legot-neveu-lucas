@@ -6,10 +6,10 @@ import fr.lnl.game.server.utils.Point;
 
 import java.util.Random;
 
-public class RandomComputerPlayer extends AbstractPlayer{
+public class RandomComputerPlayer extends ComputerPlayer {
 
     public RandomComputerPlayer(Integer id, Point point, ClassPlayer classPlayer) {
-        super(id,point,false, classPlayer);
+        super(id,point, classPlayer);
     }
 
     @Override

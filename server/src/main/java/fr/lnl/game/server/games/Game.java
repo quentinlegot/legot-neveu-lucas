@@ -2,9 +2,12 @@ package fr.lnl.game.server.games;
 
 import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
+import fr.lnl.game.server.games.player.ComputerPlayer;
+import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.listener.AwakeGame;
 import fr.lnl.game.server.listener.ModelListener;
+import fr.lnl.game.server.utils.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,28 +18,56 @@ public class Game {
 
     private final Grid grid;
     private final List<Player> players;
+    private final ModelListener viewUpdateEvent;
+    private final ModelListener gameFinishEvent;
     private Player currentPlayer;
     private InterfaceAction interfaceAction;
     private Action selectedAction = null;
+    ModelListener awakeEvent;
     private final Object lock = new Object();
 
-    public Game(Grid grid, List<Player> players) throws IllegalArgumentException {
+    public Game(Grid grid, List<Player> players, ModelListener viewUpdate, ModelListener gameFinishEvent) throws IllegalArgumentException {
         if(players.size() < 2)
             throw new IllegalArgumentException("The game need 2 or more player to start");
         this.players = players;
         this.currentPlayer = players.get(0);
         this.grid = grid;
+        this.viewUpdateEvent = viewUpdate;
+        this.gameFinishEvent = gameFinishEvent;
+        placePlayersBRUT();
+
+    }
+
+    /**
+     * @deprecated utiliser pour le moment, nécessite une meilleure implémentation pour savoir ou placé les joueurs
+     */
+    @Deprecated
+    public void placePlayersBRUT(){
+        grid.getBoard().get(new Point(7,7)).setA(grid.getPlayers().get(0));
+        grid.getPlayers().get(0).setPoint(new Point(7, 7));
+        grid.getBoard().get(new Point(7,8)).setA(grid.getPlayers().get(1));
+        grid.getPlayers().get(1).setPoint(new Point(7, 8));
     }
     
     public void play() {
         while(!isOver()) {
-            ModelListener awakeEvent = new AwakeGame(this);
-            generateAndGetPlayerActions(currentPlayer);
-            interfaceAction = InterfaceAction.SELECT_ACTION;
-            waitForInterfaceEvent();
-            selectedAction.doAction();
+            awakeEvent = new AwakeGame(this);
+            currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
+            if(currentPlayer instanceof HumanPlayer) {
+                interfaceAction = InterfaceAction.SELECT_ACTION;
+                waitForInterfaceEvent();
+                selectedAction.doAction();
+            } else {
+                ComputerPlayer player = (ComputerPlayer) currentPlayer;
+                Action action = player.choseAction();
+                action.doAction();
+            }
+            selectedAction = null;
             nextCurrentPlayer();
+            viewUpdateEvent.updateModel(null);
+            gameFinishEvent.updateModel(null);
         }
+
     }
 
     private void waitForInterfaceEvent() {

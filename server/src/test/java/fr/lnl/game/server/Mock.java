@@ -1,12 +1,14 @@
 package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
+import fr.lnl.game.server.games.MockViewUpdate;
 import fr.lnl.game.server.games.grid.EnergyBall;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.Wall;
 import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.games.player.RandomComputerPlayer;
+import fr.lnl.game.server.listener.GameFinishEvent;
 import fr.lnl.game.server.utils.Cardinal;
 import fr.lnl.game.server.utils.Point;
 
@@ -25,7 +27,7 @@ public class Mock {
         placePlayersBRUT();
         placeEnergyBallBRUT();
         placeInternWallBRUT();
-        game = new Game(grid, players);
+        game = new Game(grid, players, new MockViewUpdate(), new GameFinishEvent());
     }
 
     public void placePlayersBRUT(){
