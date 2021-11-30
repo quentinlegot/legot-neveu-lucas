@@ -6,6 +6,7 @@ import fr.lnl.game.server.games.grid.Mine;
 import fr.lnl.game.server.games.grid.Wall;
 import fr.lnl.game.server.games.player.Player;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -30,33 +31,32 @@ public class Cell extends Rectangle {
 
     //NON-TEST
     public static StackPane setImageObject(Object object){
-        //voir pour rajouter un répertoire ou stocker les images;
-        Image image;
+        Image image = null;
         StackPane sp = new StackPane();
         //remplacer après par le switch dès que on aura implémenter les interfaces
 
         if(object instanceof Player){
-            //image = new Image();
+            image = new Image("file:resources/images/player.png");
         }
         if(object instanceof EnergyBall){
-            //image = new Image();
+            image = new Image("file:resources/images/energyBall.png");
         }
         if(object instanceof Bomb){
-            //image = new Image();
+            image = new Image("file:resources/images/bomb.jpg");
         }
         if(object instanceof Mine){
-            //image = new Image();
+            image = new Image("file:resources/images/mine.webp");
         }
         if(object instanceof Wall){
-            //image = new Image();
+            image = new Image("file:resources/images/wall.jpg");
         }
 
-        /*
+
         ImageView iv = new ImageView(image);
         iv.setFitHeight(40);
         iv.setFitWidth(40);
-        sp.getChilldren().add(iv);
-        */
+        sp.getChildren().add(iv);
+
         return sp;
     }
 
