@@ -7,21 +7,35 @@ import fr.lnl.game.server.utils.Point;
 import java.util.List;
 
 public interface Player {
-    Point getPoint();
+
+    Point getPosition();
+
     boolean isAlive();
+
     int getId();
+
     int getEnergy();
+
     Weapon getWeapon();
+
     boolean isShieldDeploy();
+
     void setEnergy(int energy);
+
     void setShieldDeploy(boolean shieldDeploy);
+
     void setWeapon(Weapon weapon);
+
     List<Action> getActions();
+
     void setActions(List<Action> actions);
-    Action choseAction();
+
     ClassPlayer getClassPlayer();
-    void setPoint(Point point);
+
+    void setPosition(Point position);
+
     void decrementEnergy(int energy);
+
     void incrementEnergy(int energy);
 
 }

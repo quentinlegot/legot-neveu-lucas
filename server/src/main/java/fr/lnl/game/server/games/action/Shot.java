@@ -7,7 +7,6 @@ import fr.lnl.game.server.games.weapon.Weapon;
 import fr.lnl.game.server.utils.Point;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class Shot extends AbstractAction {
@@ -21,7 +20,7 @@ public class Shot extends AbstractAction {
             throw new NoMoreBulletInWeaponException();
         }
         List<Point> points = getValidPoint();
-        Point playerPosition = player.getPoint();
+        Point playerPosition = player.getPosition();
         Point shotDirection = new Point(playerPosition.getA() + direction.getDeltaX(), playerPosition.getB() + direction.getDeltaY());
         if(!points.contains(shotDirection)) {
             throw new NotValidDirectionException(direction + " isn't a valid position");
@@ -55,7 +54,7 @@ public class Shot extends AbstractAction {
     @Override
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();
-        Point position = game.getCurrentPlayer().getPoint();
+        Point position = game.getCurrentPlayer().getPosition();
         Weapon weapon = game.getCurrentPlayer().getWeapon();
         for(Direction direction : Direction.values()) {
             Point neighbour = seeNeighbour(position, direction.getDeltaX(), direction.getDeltaY(),
@@ -77,7 +76,7 @@ public class Shot extends AbstractAction {
                     return null;
                 }
                 if(game.getGrid().getBoard().get(neighbour).getA() instanceof Player) {
-                    System.out.println(game.getGrid().getBoard().get(neighbour).getA().getPoint());
+                    System.out.println(game.getGrid().getBoard().get(neighbour).getA().getPosition());
                     return neighbour;
                 }
             }

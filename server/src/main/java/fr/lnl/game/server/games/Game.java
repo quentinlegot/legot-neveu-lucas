@@ -7,11 +7,13 @@ import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.listener.AwakeGame;
 import fr.lnl.game.server.listener.ModelListener;
+import fr.lnl.game.server.utils.CrashException;
 import fr.lnl.game.server.utils.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 public class Game {
@@ -44,9 +46,9 @@ public class Game {
     @Deprecated
     public void placePlayersBRUT(){
         grid.getBoard().get(new Point(7,7)).setA(grid.getPlayers().get(0));
-        grid.getPlayers().get(0).setPoint(new Point(7, 7));
+        grid.getPlayers().get(0).setPosition(new Point(7, 7));
         grid.getBoard().get(new Point(7,8)).setA(grid.getPlayers().get(1));
-        grid.getPlayers().get(1).setPoint(new Point(7, 8));
+        grid.getPlayers().get(1).setPosition(new Point(7, 8));
     }
     
     public void play() {
@@ -61,13 +63,13 @@ public class Game {
                 ComputerPlayer player = (ComputerPlayer) currentPlayer;
                 Action action = player.choseAction();
                 action.doAction();
+                waitNSeconds(2);
             }
             selectedAction = null;
             nextCurrentPlayer();
             viewUpdateEvent.updateModel(null);
-            gameFinishEvent.updateModel(null);
         }
-
+        gameFinishEvent.updateModel(null);
     }
 
     private void waitForInterfaceEvent() {
@@ -79,6 +81,16 @@ public class Game {
             }
         }
 
+    }
+
+    private void waitNSeconds(int n) {
+        synchronized (this){
+            try {
+                wait(TimeUnit.SECONDS.toMillis(n));
+            } catch (InterruptedException e) {
+                throw new CrashException(e.getMessage(), e);
+            }
+        }
     }
 
     public void resumeThread() {

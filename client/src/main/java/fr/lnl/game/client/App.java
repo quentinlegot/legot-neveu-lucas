@@ -1,9 +1,7 @@
 package fr.lnl.game.client;
+import fr.lnl.game.client.view.*;
 import fr.lnl.game.server.listener.GameFinishEvent;
 import fr.lnl.game.client.listener.UpdateViewEvent;
-import fr.lnl.game.client.view.AbstractView;
-import fr.lnl.game.client.view.Terminal;
-import fr.lnl.game.client.view.Window;
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.player.*;
@@ -20,6 +18,7 @@ public class App extends Application {
     private static LinkedList<String> argsList;
     public static HashMap<Player, ClientPlayer> playerList = new HashMap<>();
     public static Game game;
+    public static ViewManager viewManager;
 
     public static void main(String[] args) {
         argsList = new LinkedList<>(Arrays.asList(args));
@@ -46,10 +45,6 @@ public class App extends Application {
         }
     }
 
-    public static void updateView() {
-        App.playerList.get(App.game.getCurrentPlayer()).getView().show();
-    }
-
     @Override
     public void start(Stage stage) {
         try {
@@ -58,8 +53,8 @@ public class App extends Application {
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
+        viewManager = new ViewManager(playerList, game);
         new Thread(() -> game.play()).start();
-        updateView();
     }
 
     public static void launchTerminal() {
@@ -69,6 +64,7 @@ public class App extends Application {
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
+        viewManager = new ViewManager(playerList, game);
         new Thread(() -> game.play()).start();
     }
 
@@ -132,7 +128,6 @@ public class App extends Application {
         } else {
             throw new IllegalArgumentException("No argument given");
         }
-        System.out.println(clazz.getSimpleName());
         return clazz;
     }
 }

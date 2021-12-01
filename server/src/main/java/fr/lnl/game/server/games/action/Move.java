@@ -10,7 +10,6 @@ import fr.lnl.game.server.utils.Point;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class Move extends AbstractAction {
@@ -20,7 +19,7 @@ public class Move extends AbstractAction {
     public Move(Game game, Player player, Direction direction) throws NotValidDirectionException {
         super(game, player);
         List<Point> points = getValidPoint();
-        Point playerPosition = player.getPoint();
+        Point playerPosition = player.getPosition();
         Point newPosition = new Point(playerPosition.getA() + direction.getDeltaX(), playerPosition.getB() + direction.getDeltaY());
         if(!points.contains(newPosition)) {
             throw new NotValidDirectionException(direction + " isn't a valid position");
@@ -30,9 +29,9 @@ public class Move extends AbstractAction {
 
     @Override
     public void doAction() {
-        game.getGrid().getBoard().get(player.getPoint()).setA(null);
+        game.getGrid().getBoard().get(player.getPosition()).setA(null);
         game.getGrid().getBoard().get(this.point).setA(player);
-        player.setPoint(this.point);
+        player.setPosition(this.point);
         player.decrementEnergy(player.getClassPlayer().getMoveCost());
         Box box = game.getGrid().getBoard().get(this.point).getB();
         if(box instanceof InteractiveBox interactiveBox) {
@@ -49,7 +48,7 @@ public class Move extends AbstractAction {
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();
         HashMap<Point, Pair<Player, Box>> board = game.getGrid().getBoard();
-        Point position = player.getPoint();
+        Point position = player.getPosition();
         for (int deltarow = -1; deltarow <= 1; deltarow++) {
             for (int deltacolumn = -1; deltacolumn <= 1; deltacolumn++) {
                 if(deltarow == 0 || deltacolumn == 0){

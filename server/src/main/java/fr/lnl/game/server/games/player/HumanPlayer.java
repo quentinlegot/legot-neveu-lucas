@@ -9,8 +9,4 @@ public class HumanPlayer extends AbstractPlayer {
         super(id, point,false, classPlayer);
     }
 
-    @Override
-    public Action choseAction() {
-        return null;
-    }
 }

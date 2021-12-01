@@ -9,20 +9,20 @@ import java.util.List;
 public abstract class AbstractPlayer implements Player {
 
     private final int id;
-    private Point point;
+    private Point position;
     private int energy;
     private Weapon weapon;
     private boolean shieldDeploy;
     private List<Action> actions;
     private final ClassPlayer classPlayer;
 
-    public AbstractPlayer(Integer id, Point point, boolean shieldDeploy, ClassPlayer classPlayer) {
+    public AbstractPlayer(Integer id, Point position, boolean shieldDeploy, ClassPlayer classPlayer) {
         this.id = id;
         this.classPlayer = classPlayer;
         this.energy = classPlayer.getEnergy();
         this.weapon = classPlayer.getWeapon();
         this.shieldDeploy = shieldDeploy;
-        this.point = point;
+        this.position = position;
     }
 
     @Override
@@ -81,13 +81,13 @@ public abstract class AbstractPlayer implements Player {
     }
 
     @Override
-    public Point getPoint() {
-        return point;
+    public Point getPosition() {
+        return position;
     }
 
     @Override
-    public void setPoint(Point point){
-        this.point = point;
+    public void setPosition(Point position){
+        this.position = position;
     }
 
     @Override

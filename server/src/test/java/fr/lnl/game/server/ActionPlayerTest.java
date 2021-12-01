@@ -26,7 +26,7 @@ public class ActionPlayerTest {
     @Test
     public void moveActionTest() {
         Action move = null;
-        Point oldPoint = game.getCurrentPlayer().getPoint();
+        Point oldPoint = game.getCurrentPlayer().getPosition();
         Direction savedDirection = null;
         for(Direction direction : Direction.values()) {
             try {
@@ -37,7 +37,7 @@ public class ActionPlayerTest {
         }
         Assertions.assertNotNull(move);
         move.doAction();
-        Point newPoint = game.getCurrentPlayer().getPoint();
+        Point newPoint = game.getCurrentPlayer().getPosition();
         Assertions.assertEquals(newPoint,
                 new Point(oldPoint.getA() + savedDirection.getDeltaX(),
                         oldPoint.getA() + savedDirection.getDeltaY()
@@ -86,7 +86,7 @@ public class ActionPlayerTest {
         }
         Assertions.assertNotNull(action);
         action.doAction();
-        Point bombPosition = new Point(player.getPoint().getA() + savedDirection.getDeltaX(), player.getPoint().getB() + savedDirection.getDeltaY());
+        Point bombPosition = new Point(player.getPosition().getA() + savedDirection.getDeltaX(), player.getPosition().getB() + savedDirection.getDeltaY());
         Assertions.assertTrue(game.getGrid().getBoard().get(bombPosition).getB() instanceof Bomb);
     }
 

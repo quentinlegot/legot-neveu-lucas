@@ -17,7 +17,7 @@ public abstract class DropObject extends AbstractAction {
     public DropObject(Game game, Player player, Direction direction) throws NotValidDirectionException {
         super(game, player);
         List<Point> points = getValidPoint();
-        Point playerPosition = player.getPoint();
+        Point playerPosition = player.getPosition();
         Point dropDirection = new Point(playerPosition.getA() + direction.getDeltaX(), playerPosition.getB() + direction.getDeltaY());
         if(!points.contains(dropDirection)) {
             throw new NotValidDirectionException(direction + " isn't a valid position");
@@ -33,7 +33,7 @@ public abstract class DropObject extends AbstractAction {
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();
         HashMap<Point, Pair<Player, Box>> board = game.getGrid().getBoard();
-        Point position = player.getPoint();
+        Point position = player.getPosition();
         for (int row = -1; row <= 1; row++) {
             for (int column = -1; column <= 1; column++) {
                 if(game.getGrid().boardPositionIsValid(position.getA(),row,position.getB(),column)){

@@ -7,6 +7,6 @@ public class UpdateViewEvent extends AbstractModelListening {
 
     @Override
     public void updateModel(Object obj) {
-        App.updateView();
+        App.viewManager.setNeedUpdate(true);
     }
 }

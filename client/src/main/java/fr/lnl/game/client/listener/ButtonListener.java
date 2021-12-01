@@ -20,7 +20,6 @@ public class ButtonListener extends AbstractModelListening {
 
     @Override
     public void updateModel(Object event) {
-        App.game.nextCurrentPlayer();
-        App.updateView();
+        App.viewManager.setNeedUpdate(true);
     }
 }

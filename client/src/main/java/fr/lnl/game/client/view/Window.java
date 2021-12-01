@@ -3,11 +3,14 @@ package fr.lnl.game.client.view;
 import fr.lnl.game.client.listener.ButtonListener;
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.player.Player;
+import javafx.concurrent.ScheduledService;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Window extends AbstractView {
 
@@ -31,7 +34,7 @@ public class Window extends AbstractView {
         grid.add(b, 0, 2);
         Scene scene = new Scene(grid, 640, 480);
         stage.setScene(scene);
+        stage.sizeToScene();
         stage.show();
-
     }
 }
