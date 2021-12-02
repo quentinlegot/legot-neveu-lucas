@@ -5,7 +5,6 @@ import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.player.ComputerPlayer;
 import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
-import fr.lnl.game.server.listener.AwakeGame;
 import fr.lnl.game.server.listener.ModelListener;
 import fr.lnl.game.server.utils.CrashException;
 import fr.lnl.game.server.utils.Point;
@@ -13,31 +12,25 @@ import fr.lnl.game.server.utils.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 public class Game {
 
     private final Grid grid;
     private final List<Player> players;
-    private final ModelListener viewUpdateEvent;
     private final ModelListener gameFinishEvent;
     private Player currentPlayer;
-    private InterfaceAction interfaceAction;
     private Action selectedAction = null;
-    ModelListener awakeEvent;
-    private final Object lock = new Object();
 
-    public Game(Grid grid, List<Player> players, ModelListener viewUpdate, ModelListener gameFinishEvent) throws IllegalArgumentException {
+    public Game(Grid grid, List<Player> players, ModelListener gameFinishEvent) throws IllegalArgumentException {
         if(players.size() < 2)
             throw new IllegalArgumentException("The game need 2 or more player to start");
         this.players = players;
         this.currentPlayer = players.get(0);
         this.grid = grid;
-        this.viewUpdateEvent = viewUpdate;
         this.gameFinishEvent = gameFinishEvent;
         placePlayersBRUT();
-
+        currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
     }
 
     /**
@@ -52,54 +45,36 @@ public class Game {
     }
     
     public void play() {
-        while(!isOver()) {
-            awakeEvent = new AwakeGame(this);
-            currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
-            if(currentPlayer instanceof HumanPlayer) {
-                interfaceAction = InterfaceAction.SELECT_ACTION;
-                waitForInterfaceEvent();
-                selectedAction.doAction();
-            } else {
-                ComputerPlayer player = (ComputerPlayer) currentPlayer;
-                Action action = player.choseAction();
-                action.doAction();
-                waitNSeconds(2);
-            }
-            selectedAction = null;
-            nextCurrentPlayer();
-            viewUpdateEvent.updateModel(null);
+        if (currentPlayer instanceof ComputerPlayer player) {
+            selectedAction = player.choseAction();
         }
-        gameFinishEvent.updateModel(null);
+        selectedAction.doAction();
+        nextCurrentPlayer();
+        currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
+        if(isOver()) {
+            gameFinishEvent.updateModel(null);
+        }
+
     }
 
     private void waitForInterfaceEvent() {
-        synchronized (lock){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    private void waitNSeconds(int n) {
         synchronized (this){
             try {
-                wait(TimeUnit.SECONDS.toMillis(n));
+                wait();
             } catch (InterruptedException e) {
                 throw new CrashException(e.getMessage(), e);
             }
         }
+
     }
 
     public void resumeThread() {
-        synchronized (lock) {
-            lock.notifyAll();
+        synchronized (this) {
+            notifyAll();
         }
     }
 
-    protected List<Action> generateAndGetPlayerActions(Player player) {
+    public List<Action> generateAndGetPlayerActions(Player player) {
         List<Action> actions = new ArrayList<>();
         for(Direction direction : Direction.values()) {
             try {
@@ -164,7 +139,7 @@ public class Game {
         return players;
     }
 
-    public InterfaceAction getInterfaceAction() {
-        return interfaceAction;
+    public Action getSelectedAction() {
+        return selectedAction;
     }
 }
