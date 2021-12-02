@@ -8,7 +8,6 @@ import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.listener.AwakeGame;
 import fr.lnl.game.server.listener.ModelListener;
 import fr.lnl.game.server.utils.CrashException;
-import fr.lnl.game.server.utils.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;

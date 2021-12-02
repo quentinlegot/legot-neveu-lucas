@@ -1,9 +1,7 @@
 package fr.lnl.game.client.view;
 
 
-import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.grid.*;
-import fr.lnl.game.server.games.player.AbstractPlayer;
 import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.games.player.RandomComputerPlayer;
@@ -14,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 

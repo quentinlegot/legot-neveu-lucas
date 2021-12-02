@@ -1,10 +1,14 @@
 package fr.lnl.game.client;
-import fr.lnl.game.client.view.*;
-import fr.lnl.game.server.listener.GameFinishEvent;
+
 import fr.lnl.game.client.listener.UpdateViewEvent;
+import fr.lnl.game.client.view.AbstractView;
+import fr.lnl.game.client.view.Terminal;
+import fr.lnl.game.client.view.ViewManager;
+import fr.lnl.game.client.view.Window;
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.player.*;
+import fr.lnl.game.server.listener.GameFinishEvent;
 import fr.lnl.game.server.utils.CrashException;
 import fr.lnl.game.server.utils.Point;
 import javafx.application.Application;

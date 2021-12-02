@@ -1,7 +1,5 @@
 package fr.lnl.game.server.listener;
 
-import fr.lnl.game.server.listener.AbstractModelListening;
-
 public class GameFinishEvent extends AbstractModelListening {
 
     private final Object lock = new Object();
