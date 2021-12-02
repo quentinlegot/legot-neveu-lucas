@@ -101,9 +101,7 @@ public class GUI {
         List<Player> players = Arrays.asList(new RandomComputerPlayer(1, null, ClassPlayer.DEFAULT),
                 new RandomComputerPlayer(2, null, ClassPlayer.DEFAULT));
         Grid grid =  new Grid(16, 16, players);
-        grid.placePlayersBRUT();
-        grid.placeEnergyBallBRUT();
-        grid.placeInternWallBRUT();
+        //grid.placePlayersBRUT();
         return grid;
     }
 

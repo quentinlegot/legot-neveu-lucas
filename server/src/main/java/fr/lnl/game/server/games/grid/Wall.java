@@ -4,7 +4,7 @@ import fr.lnl.game.server.utils.Cardinal;
 
 import java.util.Objects;
 
-public class Wall implements Box {
+public class Wall extends AbstractBox {
 
     private final Cardinal cardinal;
     private final int x;

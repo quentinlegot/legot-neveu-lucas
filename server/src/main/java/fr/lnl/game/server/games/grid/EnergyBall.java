@@ -3,7 +3,7 @@ package fr.lnl.game.server.games.grid;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Point;
 
-public class EnergyBall implements Box, InteractiveBox {
+public class EnergyBall extends AbstractBox implements InteractiveBox{
 
     @Override
     public boolean equals(Object o) {
