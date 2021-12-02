@@ -29,27 +29,19 @@ public class Game {
     private final Object lock = new Object();
 
     public Game(Grid grid, List<Player> players, ModelListener viewUpdate, ModelListener gameFinishEvent) throws IllegalArgumentException {
-        if(players.size() < 2)
+        if(players.size() < 2 || grid.getNumberNeutralBox() < players.size())
             throw new IllegalArgumentException("The game need 2 or more player to start");
         this.players = players;
         this.currentPlayer = players.get(0);
         this.grid = grid;
         this.viewUpdateEvent = viewUpdate;
         this.gameFinishEvent = gameFinishEvent;
-        placePlayersBRUT();
-
+        grid.initPlacePlayers();
     }
 
     /**
      * @deprecated utiliser pour le moment, nécessite une meilleure implémentation pour savoir ou placé les joueurs
      */
-    @Deprecated
-    public void placePlayersBRUT(){
-        grid.getBoard().get(new Point(7,7)).setA(grid.getPlayers().get(0));
-        grid.getPlayers().get(0).setPosition(new Point(7, 7));
-        grid.getBoard().get(new Point(7,8)).setA(grid.getPlayers().get(1));
-        grid.getPlayers().get(1).setPosition(new Point(7, 8));
-    }
     
     public void play() {
         while(!isOver()) {
