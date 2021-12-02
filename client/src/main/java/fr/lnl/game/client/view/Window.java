@@ -22,9 +22,10 @@ public class Window extends AbstractView {
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
         Label l = new Label("Hello, JavaFX version " + javafxVersion + ", running on Java " + javaVersion + ".");
-        Label l2 = new Label("I'm " + player.getClass().getSimpleName() + " num " + player.getId() + " my class is " + player.getClassPlayer().toString());
-        Button b = new Button("Click to see others players informations");
-        b.setOnAction(new ClientEventHandler(new ButtonListener()));
+        Label l2 = new Label("I'm " + player.getClass().getSimpleName() + " num " + player.getId() + "" +
+                " my class is " + player.getClassPlayer().toString() + ", my remaining energy is " + player.getEnergy());
+        Button b = new Button("Click to continue the game");
+        b.setOnAction(new ClientEventHandler(new ButtonListener(game)));
         GridPane grid = new GridPane();
         grid.add(l, 0, 0);
         grid.add(l2, 0, 1);

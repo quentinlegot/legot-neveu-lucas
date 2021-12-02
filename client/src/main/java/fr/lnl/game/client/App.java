@@ -1,14 +1,9 @@
 package fr.lnl.game.client;
-
-import fr.lnl.game.client.listener.UpdateViewEvent;
-import fr.lnl.game.client.view.AbstractView;
-import fr.lnl.game.client.view.Terminal;
-import fr.lnl.game.client.view.ViewManager;
-import fr.lnl.game.client.view.Window;
+import fr.lnl.game.client.view.*;
+import fr.lnl.game.server.listener.GameFinishEvent;
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.player.*;
-import fr.lnl.game.server.listener.GameFinishEvent;
 import fr.lnl.game.server.utils.CrashException;
 import fr.lnl.game.server.utils.Point;
 import javafx.application.Application;
@@ -43,7 +38,7 @@ public class App extends Application {
     public static void startGame(ViewLambda lambda) throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
-        game = new Game(new Grid(12, 12, players), players, new UpdateViewEvent(), new GameFinishEvent());
+        game = new Game(new Grid(12, 12, players), players, new GameFinishEvent());
         for (Player player : game.getPlayers()) {
             playerList.put(player, new ClientPlayer(player, lambda.createViewLambda(player)));
         }
@@ -58,7 +53,6 @@ public class App extends Application {
             throw new CrashException(e.getMessage(), e);
         }
         viewManager = new ViewManager(playerList, game);
-        new Thread(() -> game.play()).start();
     }
 
     public static void launchTerminal() {
@@ -69,7 +63,6 @@ public class App extends Application {
             throw new CrashException(e.getMessage(), e);
         }
         viewManager = new ViewManager(playerList, game);
-        new Thread(() -> game.play()).start();
     }
 
     public static List<Player> parsePlayers() throws IllegalArgumentException, NoSuchMethodException,

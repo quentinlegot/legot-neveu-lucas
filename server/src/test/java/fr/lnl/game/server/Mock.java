@@ -1,7 +1,6 @@
 package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.MockViewUpdate;
 import fr.lnl.game.server.games.grid.EnergyBall;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.Wall;
@@ -23,8 +22,11 @@ public class Mock {
     public Mock() {
         List<Player> players = Arrays.asList(new RandomComputerPlayer(1,null, ClassPlayer.DEFAULT),
                 new RandomComputerPlayer(2,null, ClassPlayer.DEFAULT));
-        this.grid = new Grid(16,16, players, 0.80F,0.95F);
-        game = new Game(grid, players, new MockViewUpdate(), new GameFinishEvent());
+        this.grid = new Grid(16,16, players);
+        placePlayersBRUT();
+        placeEnergyBallBRUT();
+        placeInternWallBRUT();
+        game = new Game(grid, players, new GameFinishEvent());
     }
 
     public void placePlayersBRUT(){
