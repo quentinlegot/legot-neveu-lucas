@@ -8,5 +8,11 @@ public enum Cardinal {
     NORTH_EAST,
     NORTH_WEST,
     SOUTH_EAST,
-    SOUTH_WEST
+    SOUTH_WEST;
+
+    public static Cardinal getRandom() {
+        return values()[(int) (Math.random() * values().length)];
+    }
 }
+
+
