@@ -52,7 +52,7 @@ public class App extends Application {
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
-        viewManager = new ViewManager(playerList, game);
+        viewManager = new ViewManager(playerList, game, Window.class);
     }
 
     public static void launchTerminal() {
@@ -62,7 +62,7 @@ public class App extends Application {
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
-        viewManager = new ViewManager(playerList, game);
+        viewManager = new ViewManager(playerList, game, Terminal.class);
     }
 
     public static List<Player> parsePlayers() throws IllegalArgumentException, NoSuchMethodException,
