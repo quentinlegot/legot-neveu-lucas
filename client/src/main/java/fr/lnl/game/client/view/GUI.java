@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -105,7 +106,7 @@ public class GUI {
     private Grid getGrid() {
         List<Player> players = Arrays.asList(new RandomComputerPlayer(1, null, ClassPlayer.DEFAULT),
                 new RandomComputerPlayer(2, null, ClassPlayer.DEFAULT));
-        Grid grid =  new Grid(16, 16, players);
+        Grid grid =  new Grid(16, 16, players, 0.80F, 0.95F);
         //grid.placePlayersBRUT();
         return grid;
     }
