@@ -19,21 +19,20 @@ import javafx.scene.shape.Rectangle;
 
 public class Cell extends Rectangle {
 
-    //NON-ETABLIE
+
     public Cell(int x, int y){
         setWidth(GUI.cellSize);
         setHeight(GUI.cellSize);
-        relocate(x,y);
+        relocate(x*GUI.cellSize,y*GUI.cellSize);
         setFill(Color.valueOf("#ffffff"));
         setStroke(Color.DARKGRAY);
     }
 
 
-    //NON-TEST
+
     public static StackPane setImageObject(Object object){
-        Image image = null;
+        Image image;
         StackPane sp = new StackPane();
-        //remplacer après par le switch dès que on aura implémenter les interfaces
 
         if(object instanceof Player){
             image = new Image("file:resources/images/player.png");
@@ -47,16 +46,14 @@ public class Cell extends Rectangle {
         if(object instanceof Mine){
             image = new Image("file:resources/images/mine.webp");
         }
-        if(object instanceof Wall){
+        else{
             image = new Image("file:resources/images/wall.jpg");
         }
-
 
         ImageView iv = new ImageView(image);
         iv.setFitHeight(40);
         iv.setFitWidth(40);
         sp.getChildren().add(iv);
-
         return sp;
     }
 
