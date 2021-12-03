@@ -1,7 +1,6 @@
 package fr.lnl.game.server.games.grid;
 
 import fr.lnl.game.server.games.player.Player;
-import fr.lnl.game.server.utils.Cardinal;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
 
@@ -35,21 +34,21 @@ public class Grid {
             for (int j = 0; j < column; j++) {
                 Box box;
                 if (i == 0 && j == 0) {
-                    box = new Wall(Cardinal.NORTH_WEST, i, j);
+                    box = new Wall(i, j);
                 } else if (i == 0 && j == column-1) {
-                    box = new Wall(Cardinal.NORTH_EAST, i, j);
+                    box = new Wall(i, j);
                 } else if (i == row-1 && j == 0) {
-                    box = new Wall(Cardinal.SOUTH_WEST, i, j);
+                    box = new Wall(i, j);
                 } else if (i == row-1 && j == column-1) {
-                    box = new Wall(Cardinal.SOUTH_EAST, i, j);
+                    box = new Wall(i, j);
                 } else if (i == 0) {
-                    box = new Wall(Cardinal.NORTH, i, j);
+                    box = new Wall(i, j);
                 } else if (i == row-1) {
-                    box = new Wall(Cardinal.SOUTH, i, j);
+                    box = new Wall(i, j);
                 } else if (j == 0) {
-                    box = new Wall(Cardinal.WEST, i, j);
+                    box = new Wall(i, j);
                 } else if (j == column-1) {
-                    box = new Wall(Cardinal.EAST, i, j);
+                    box = new Wall(i, j);
                 } else {
                     box = null;
                 }
@@ -97,7 +96,7 @@ public class Grid {
                 if(Math.random() >= probability){
                     Point point = new Point(i,j);
                     if(getIllusionNumberWallNeighbour(point) <= 3){
-                        getBoard().get(point).setB(new Wall(Cardinal.getRandom(),i,j));
+                        getBoard().get(point).setB(new Wall(i,j));
                     }
                     else{
                         getBoard().get(point).setB(new AbstractBox());
@@ -170,23 +169,7 @@ public class Grid {
                     str.append(" \033[0;34mP\033[0m");
                 }
                 else if (value.getB() instanceof Wall) {
-                    if (((Wall) value.getB()).getCardinal() == Cardinal.NORTH) {
-                        str.append(" \033[0;34m—\033[0m");
-                    } else if (((Wall) value.getB()).getCardinal() == Cardinal.SOUTH) {
-                        str.append(" \033[0;31m—\033[0m");
-                    } else if (((Wall) value.getB()).getCardinal() == Cardinal.WEST) {
-                        str.append(" \033[0;33m|\033[0m");
-                    } else if (((Wall) value.getB()).getCardinal() == Cardinal.EAST) {
-                        str.append(" \033[0;32m|\033[0m");
-                    } else if (((Wall) value.getB()).getCardinal() == Cardinal.NORTH_EAST) {
-                        str.append(" \033[0;32mN\033[0m");
-                    } else if (((Wall) value.getB()).getCardinal() == Cardinal.NORTH_WEST) {
-                        str.append(" \033[0;33mN\033[0m");
-                    } else if (((Wall) value.getB()).getCardinal() == Cardinal.SOUTH_EAST) {
-                        str.append(" \033[0;32mS\033[0m");
-                    } else if (((Wall) value.getB()).getCardinal() == Cardinal.SOUTH_WEST) {
-                        str.append(" \033[0;33mS\033[0m");
-                    }
+                    str.append(" \033[0;32m□\033[0m");
                 }
                 else if(value.getB() instanceof EnergyBall){
                     str.append(" \033[0;31mE\033[0m");

@@ -8,7 +8,6 @@ import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.games.player.RandomComputerPlayer;
 import fr.lnl.game.server.listener.GameFinishEvent;
-import fr.lnl.game.server.utils.Cardinal;
 import fr.lnl.game.server.utils.Point;
 
 import java.util.Arrays;
@@ -39,10 +38,10 @@ public class Mock {
     }
 
     public void placeInternWallBRUT(){
-        grid.getBoard().get(new Point(3,6)).setB(new Wall(Cardinal.NORTH,3,6));
-        grid.getBoard().get(new Point(7,14)).setB(new Wall(Cardinal.SOUTH,7,14));
-        grid.getBoard().get(new Point(10,7)).setB(new Wall(Cardinal.EAST,10,7));
-        grid.getBoard().get(new Point(14,2)).setB(new Wall(Cardinal.WEST,14,2));
+        grid.getBoard().get(new Point(3,6)).setB(new Wall(3,6));
+        grid.getBoard().get(new Point(7,14)).setB(new Wall(7,14));
+        grid.getBoard().get(new Point(10,7)).setB(new Wall(10,7));
+        grid.getBoard().get(new Point(14,2)).setB(new Wall(14,2));
     }
 
 }

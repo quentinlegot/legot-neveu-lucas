@@ -5,7 +5,6 @@ import fr.lnl.game.server.games.grid.EnergyBall;
 import fr.lnl.game.server.games.grid.Mine;
 import fr.lnl.game.server.games.grid.Wall;
 import fr.lnl.game.server.games.player.Player;
-import fr.lnl.game.server.utils.Cardinal;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -48,24 +47,7 @@ public class Cell extends Rectangle {
             image = new Image("/images/mine.webp");
         }
         else{
-            //test
-            if(((Wall)object).getCardinal()== Cardinal.NORTH){
-                image = new Image("/images/topWall.png");
-            }else if(((Wall)object).getCardinal()== Cardinal.SOUTH) {
-                image = new Image("/images/bottomWall.png");
-            }else if(((Wall)object).getCardinal()== Cardinal.EAST) {
-                image = new Image("/images/rightWall.png");
-            }else if(((Wall)object).getCardinal()== Cardinal.WEST) {
-                image = new Image("/images/rightWall.png"); // TODO: 03/12/2021 a replace par leftWall
-            }else if(((Wall)object).getCardinal()== Cardinal.NORTH_EAST) {
-                image = new Image("/images/topRightWall.png");
-            }else if(((Wall)object).getCardinal()== Cardinal.NORTH_WEST) {
-                image = new Image("/images/topLeftWall.png");
-            }else if(((Wall)object).getCardinal()== Cardinal.SOUTH_EAST) {
-                image = new Image("/images/bottomRightWall.png");
-            }else{
-                image = new Image("/images/bottomLeftWall.png");
-            }
+            image = new Image("/images/wall.jpg");
         }
 
         ImageView iv = new ImageView(image);
