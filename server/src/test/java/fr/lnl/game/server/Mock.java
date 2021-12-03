@@ -23,9 +23,6 @@ public class Mock {
         List<Player> players = Arrays.asList(new RandomComputerPlayer(1,null, ClassPlayer.DEFAULT),
                 new RandomComputerPlayer(2,null, ClassPlayer.DEFAULT));
         this.grid = new Grid(16,16, players,0.80F, 0.95F);
-        placePlayersBRUT();
-        placeEnergyBallBRUT();
-        placeInternWallBRUT();
         game = new Game(grid, players, new GameFinishEvent());
     }
 

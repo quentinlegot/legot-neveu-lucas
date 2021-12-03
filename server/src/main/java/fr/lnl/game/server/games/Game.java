@@ -23,12 +23,16 @@ public class Game {
     private Action selectedAction = null;
 
     public Game(Grid grid, List<Player> players, ModelListener gameFinishEvent) throws IllegalArgumentException {
-        if(players.size() < 2 || players.size() > grid.getNumberNeutralBox())
+        if(players.size() < 2)
             throw new IllegalArgumentException("The game need 2 or more player to start");
+        if(players.size() > grid.getNumberNeutralBox()){
+            throw new IllegalArgumentException("There are too many players for the number of box available");
+        }
         this.players = players;
         this.currentPlayer = players.get(0);
         this.grid = grid;
         this.gameFinishEvent = gameFinishEvent;
+        this.grid.initPlacePlayers();
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
     }
 
