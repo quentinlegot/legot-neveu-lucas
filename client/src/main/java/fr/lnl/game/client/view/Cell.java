@@ -3,6 +3,7 @@ package fr.lnl.game.client.view;
 import fr.lnl.game.server.games.grid.Bomb;
 import fr.lnl.game.server.games.grid.EnergyBall;
 import fr.lnl.game.server.games.grid.Mine;
+import fr.lnl.game.server.games.grid.Wall;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Cardinal;
 import javafx.scene.image.Image;
@@ -35,35 +36,35 @@ public class Cell extends Rectangle {
         StackPane sp = new StackPane();
 
         if(object instanceof Player){
-            image = new Image("file:resources/images/player.png");
+            image = new Image("/images/player.png");
         }
         else if(object instanceof EnergyBall){
-            image = new Image("file:resources/images/energyBall.png");
+            image = new Image("/images/energyBall.png");
         }
         else if(object instanceof Bomb){
-            image = new Image("file:resources/images/bomb.jpg");
+            image = new Image("/images/bomb.jpg");
         }
         else if(object instanceof Mine){
-            image = new Image("file:resources/images/mine.webp");
+            image = new Image("/images/mine.webp");
         }
         else{
             //test
             if(((Wall)object).getCardinal()== Cardinal.NORTH){
-                image = new Image("file:resources/topWall.png");
+                image = new Image("/images/topWall.png");
             }else if(((Wall)object).getCardinal()== Cardinal.SOUTH) {
-                image = new Image("file:resources/bottomWall.png");
+                image = new Image("/images/bottomWall.png");
             }else if(((Wall)object).getCardinal()== Cardinal.EAST) {
-                image = new Image("file:resources/rightWall.png");
+                image = new Image("/images/rightWall.png");
             }else if(((Wall)object).getCardinal()== Cardinal.WEST) {
-                image = new Image("file:resources/leftWall.png");
+                image = new Image("/images/rightWall.png"); // TODO: 03/12/2021 a replace par leftWall
             }else if(((Wall)object).getCardinal()== Cardinal.NORTH_EAST) {
-                image = new Image("file:resources/topRightWall.png");
+                image = new Image("/images/topRightWall.png");
             }else if(((Wall)object).getCardinal()== Cardinal.NORTH_WEST) {
-                image = new Image("file:resources/topLeftWall.png");
+                image = new Image("/images/topLeftWall.png");
             }else if(((Wall)object).getCardinal()== Cardinal.SOUTH_EAST) {
-                image = new Image("file:resources/bottomRightWall.png");
+                image = new Image("/images/bottomRightWall.png");
             }else{
-                image = new Image("file:resources/bottomLeftWall.png");
+                image = new Image("/images/bottomLeftWall.png");
             }
         }
 
