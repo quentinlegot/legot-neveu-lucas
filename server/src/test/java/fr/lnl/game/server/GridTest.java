@@ -1,19 +1,16 @@
 package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.action.*;
+import fr.lnl.game.server.games.grid.Box;
 import fr.lnl.game.server.games.grid.EnergyBall;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.Wall;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Cardinal;
+import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,4 +41,35 @@ public class GridTest {
         assertEquals(new EnergyBall(), grid.getBoard().get(new Point(8, 10)).getB());
     }
 
+    @Test
+    public void testLock() {
+        System.out.println("=================== GRID COMPLETE ====================");
+        System.out.println(grid.toString());
+        System.out.println("=================== GRID AVEC LOCK ===================");
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < grid.getRow(); i++) {
+            str.append("\n");
+            for (int j = 0; j < grid.getColumn(); j++) {
+                Pair<Player, Box> value = grid.getBoard().get(new Point(i, j));
+                if(value.getB() != null){
+                    if(value.getB().isLock()){
+                        str.append(" \033[0;35mL\033[0m");
+                    }
+                    if(value.getB() instanceof Wall){
+                        str.append(" \033[0;32mW\033[0m");
+                    }
+                    if(value.getB() instanceof EnergyBall){
+                        str.append(" \033[0;31mE\033[0m");
+                    }
+                }
+                else if(value.getA() != null){
+                    str.append(" \033[0;34mP\033[0m");
+                }
+                else {
+                    str.append(" \033[0;37m.\033[0m");
+                }
+            }
+        }
+        System.out.println(str);
+    }
 }

@@ -7,6 +7,7 @@ import fr.lnl.game.server.utils.Point;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 
 public class Grid {
@@ -15,12 +16,18 @@ public class Grid {
     private final int column;
     private final List<Player> players;
 
-    public Grid(int row, int column, List<Player> players) {
+    public Grid(int row, int column, List<Player> players, float wallProbability, float energyProbability) {
         this.row = row;
         this.column = column;
         this.players = players;
         board = new HashMap<>();
+        initBoard(wallProbability, energyProbability);
+    }
+
+    public void initBoard(float wallProbability, float energyProbability){
         initGrid();
+        initPlaceInternWall(wallProbability);
+        initPlaceEnergyBall(energyProbability);
     }
 
     public void initGrid(){
@@ -51,21 +58,54 @@ public class Grid {
         }
     }
 
-    public void placePlayersBRUT(){
-        board.get(new Point(1,1)).setA(players.get(0));
-        board.get(new Point(14,14)).setA(players.get(1));
+    public void initPlacePlayers(){
+        Random random = new Random();
+        Box boxTargeted;
+        Player playerTargeted;
+        Point point;
+        for (Player player: players) {
+            do{
+                int i = random.nextInt(1,getRow() - 1);
+                int j = random.nextInt(1,getColumn() - 1);
+                point = new Point(i,j);
+                Pair<Player,Box> pairTargeted = getBoard().get(point);
+                boxTargeted = pairTargeted.getB();
+                playerTargeted = pairTargeted.getA();
+            }while(playerTargeted != null || !isNeutralBox(boxTargeted));
+            getBoard().get(point).setA(player);
+            player.setPosition(point);
+        }
     }
 
-    public void placeEnergyBallBRUT(){
-        board.get(new Point(2,3)).setB(new EnergyBall());
-        board.get(new Point(7,10)).setB(new EnergyBall());
+
+    public void initPlaceEnergyBall(float probability){
+        for (int i = 1; i < row - 1; i++) {
+            for (int j = 1; j < column - 1; j++) {
+                if(Math.random() >= probability){
+                    Point point = new Point(i,j);
+                    if(!(getBoard().get(point).getB() instanceof Wall)){
+                        getBoard().get(point).setB(new EnergyBall());
+                    }
+                }
+            }
+        }
     }
 
-    public void placeInternWallBRUT(){
-        board.get(new Point(3,6)).setB(new Wall(Cardinal.NORTH,3,6));
-        board.get(new Point(7,14)).setB(new Wall(Cardinal.SOUTH,7,14));
-        board.get(new Point(10,7)).setB(new Wall(Cardinal.EAST,10,7));
-        board.get(new Point(14,2)).setB(new Wall(Cardinal.WEST,14,2));
+    public void initPlaceInternWall(float probability){
+        for (int i = 1; i < row - 1; i++) {
+            for (int j = 1; j < column - 1; j++) {
+                if(Math.random() >= probability){
+                    Point point = new Point(i,j);
+                    if(getIllusionNumberWallNeighbour(point) <= 3){
+                        getBoard().get(point).setB(new Wall(Cardinal.getRandom(),i,j));
+                    }
+                    else{
+                        getBoard().get(point).setB(new AbstractBox());
+                        getBoard().get(point).getB().setLock(true);
+                    }
+                }
+            }
+        }
     }
 
     public boolean boardPositionIsValid(int row, int deltaRow, int column, int deltaColumn){
@@ -80,12 +120,39 @@ public class Grid {
         return boardPositionIsValid(point.getA(), point.getB());
     }
 
-    public boolean boardHorizontalIsValid(int column, int deltaColumn){
-        return column + deltaColumn >= 0 && column + deltaColumn < this.column;
+    public int getIllusionNumberWallNeighbour(Point point){
+        int countWall = 0;
+        for (int deltaRow = -1; deltaRow <= 1; deltaRow++){
+            for (int deltaColomn = -1; deltaColomn <= 1; deltaColomn++) {
+                Point neighbour = new Point(point.getA() + deltaRow, point.getB() + deltaColomn);
+                if (boardPositionIsValid(neighbour)) {
+                    Box box = getBoard().get(neighbour).getB();
+                    if (box != null) {
+                        if (box instanceof Wall || box.isLock()) {
+                            countWall++;
+                        }
+                    }
+                }
+            }
+        }
+        return countWall;
     }
 
-    public boolean boardVerticalIsValid(int row, int deltaRow){
-        return row + deltaRow >= 0 && row + deltaRow < this.row;
+    public int getNumberNeutralBox(){
+        int countBox = 0;
+        for (int i = 1; i < row - 1; i++) {
+            for (int j = 1; j < column - 1; j++) {
+                Box box = getBoard().get(new Point(i,j)).getB();
+                if(isNeutralBox(box)){
+                    countBox++;
+                }
+            }
+        }
+        return countBox;
+    }
+
+    public boolean isNeutralBox(Box box){
+        return !(box instanceof Wall) && !(box instanceof EnergyBall);
     }
 
     public HashMap<Point, Pair<Player, Box>> getBoard() {

@@ -25,25 +25,17 @@ public class Game {
     public Game(Grid grid, List<Player> players, ModelListener gameFinishEvent) throws IllegalArgumentException {
         if(players.size() < 2)
             throw new IllegalArgumentException("The game need 2 or more player to start");
+        if(players.size() > grid.getNumberNeutralBox()){
+            throw new IllegalArgumentException("There are too many players for the number of box available");
+        }
         this.players = players;
         this.currentPlayer = players.get(0);
         this.grid = grid;
         this.gameFinishEvent = gameFinishEvent;
-        placePlayersBRUT();
+        this.grid.initPlacePlayers();
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
     }
 
-    /**
-     * @deprecated utiliser pour le moment, nécessite une meilleure implémentation pour savoir ou placé les joueurs
-     */
-    @Deprecated
-    public void placePlayersBRUT(){
-        grid.getBoard().get(new Point(7,7)).setA(grid.getPlayers().get(0));
-        grid.getPlayers().get(0).setPosition(new Point(7, 7));
-        grid.getBoard().get(new Point(7,8)).setA(grid.getPlayers().get(1));
-        grid.getPlayers().get(1).setPosition(new Point(7, 8));
-    }
-    
     public void play() {
         if (currentPlayer instanceof ComputerPlayer player) {
             selectedAction = player.choseAction();

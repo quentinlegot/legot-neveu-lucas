@@ -1,9 +1,7 @@
 package fr.lnl.game.client.view;
 
 
-import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.grid.*;
-import fr.lnl.game.server.games.player.AbstractPlayer;
 import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.games.player.RandomComputerPlayer;
@@ -52,9 +50,8 @@ public class GUI {
     private Parent createContent() {
         Pane principalPane = new Pane();
         principalPane.setPrefSize(width * cellSize, height * cellSize);
-        //PARTIE1
-        //à définir avec n pour moduler la taille du plateau
 
+        //à définir avec n pour moduler la taille du plateau
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
                 Cell cell = new Cell(i, j);
@@ -62,7 +59,6 @@ public class GUI {
             }
         }
 
-        //PARTIE2
         board = grid.getBoard();
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
@@ -71,11 +67,20 @@ public class GUI {
                     addToPrincipalPanel(value.getA(), principalPane, i, j);
                 }
                 if (value.getB() instanceof Wall || value.getB() instanceof EnergyBall || value.getB() instanceof Mine || value.getB() instanceof Bomb) {
+                    System.out.println(value.getB());
                     addToPrincipalPanel(value.getB(), principalPane, i, j);
                 }
             }
         }
-        //PARTIE3
+
+        Rectangle shape = new Rectangle();
+        shape.setX(700);
+        shape.setY(20);
+        shape.setWidth(200);
+        shape.setHeight(600);
+        shape.setFill(javafx.scene.paint.Color.WHITE);
+
+
         Button followingButton = new Button("SUIVANT");
         followingButton.setLayoutX(775);
         followingButton.setLayoutY(600);
@@ -84,6 +89,7 @@ public class GUI {
         //add un eventListener au button
 
         principalPane.getChildren().add(followingButton);
+        //pas compris le principe
         return principalPane;
     }
 
@@ -100,10 +106,8 @@ public class GUI {
     private Grid getGrid() {
         List<Player> players = Arrays.asList(new RandomComputerPlayer(1, null, ClassPlayer.DEFAULT),
                 new RandomComputerPlayer(2, null, ClassPlayer.DEFAULT));
-        Grid grid =  new Grid(16, 16, players);
-        grid.placePlayersBRUT();
-        grid.placeEnergyBallBRUT();
-        grid.placeInternWallBRUT();
+        Grid grid =  new Grid(16, 16, players, 0.80F, 0.95F);
+        //grid.placePlayersBRUT();
         return grid;
     }
 
