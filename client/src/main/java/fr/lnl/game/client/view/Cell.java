@@ -18,11 +18,10 @@ import javafx.scene.shape.Rectangle;
 
 public class Cell extends Rectangle {
 
-
     public Cell(int x, int y){
-        setWidth(GUI.cellSize);
-        setHeight(GUI.cellSize);
-        relocate(x*GUI.cellSize,y*GUI.cellSize);
+        setWidth(Window.cellSize);
+        setHeight(Window.cellSize);
+        relocate(x*Window.cellSize,y*Window.cellSize);
         setFill(Color.valueOf("#ffffff"));
         setStroke(Color.DARKGRAY);
     }
@@ -30,26 +29,21 @@ public class Cell extends Rectangle {
 
 
     public static StackPane setImageObject(Object object){
-        Image image;
         StackPane sp = new StackPane();
-
+        String in;
         if(object instanceof Player){
-            image = new Image("/images/player.png");
-        }
-        else if(object instanceof EnergyBall){
-            image = new Image("/images/energyBall.png");
-        }
-        else if(object instanceof Bomb){
-            image = new Image("/images/bomb.jpg");
-        }
-        else if(object instanceof Mine){
-            image = new Image("/images/mine.webp");
-        }
-        else{
-            image = new Image("/images/wall.jpg");
+            in = "player.png";
+        } else if(object instanceof EnergyBall){
+            in = "energyBall.png";
+        } else if(object instanceof Bomb){
+            in = "bomb.jpg";
+        } else if(object instanceof Mine){
+            in = "mine.webp";
+        } else{
+            in = "wall.jpg";
         }
 
-        ImageView iv = new ImageView(image);
+        ImageView iv = new ImageView(new Image(in));
         iv.setFitHeight(40);
         iv.setFitWidth(40);
         sp.getChildren().add(iv);

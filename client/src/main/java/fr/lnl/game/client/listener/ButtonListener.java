@@ -6,7 +6,6 @@ import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.listener.AbstractModelListening;
 import fr.lnl.game.server.listener.ModelListener;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Dialog;
 
 public class ButtonListener extends AbstractModelListening {
 
@@ -32,11 +31,11 @@ public class ButtonListener extends AbstractModelListening {
     public void updateModel(Object event) {
         Player player = game.getCurrentPlayer();
         game.play();
-        App.viewManager.updateView();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Un joueur ordinateur a joué");
         alert.setHeaderText("Le joueur ordinateur numéro" + player.getId() + " a joué");
         alert.setContentText("Il a joué l'action: " + game.getSelectedAction());
+        App.viewManager.updateView();
         alert.showAndWait();
     }
 }

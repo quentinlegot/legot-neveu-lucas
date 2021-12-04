@@ -4,11 +4,9 @@ import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.build.BuildStrategy;
 import fr.lnl.game.server.games.player.ComputerPlayer;
-import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.listener.ModelListener;
 import fr.lnl.game.server.utils.CrashException;
-import fr.lnl.game.server.utils.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;

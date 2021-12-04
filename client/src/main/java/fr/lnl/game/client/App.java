@@ -1,9 +1,15 @@
 package fr.lnl.game.client;
-import fr.lnl.game.client.view.*;
-import fr.lnl.game.server.listener.GameFinishEvent;
+
+import fr.lnl.game.client.view.AbstractView;
+import fr.lnl.game.client.view.Terminal;
+import fr.lnl.game.client.view.ViewManager;
+import fr.lnl.game.client.view.Window;
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.grid.Grid;
+import fr.lnl.game.server.games.grid.build.BuildStrategy;
+import fr.lnl.game.server.games.grid.build.LockStrategy;
 import fr.lnl.game.server.games.player.*;
+import fr.lnl.game.server.listener.GameFinishEvent;
 import fr.lnl.game.server.utils.CrashException;
 import fr.lnl.game.server.utils.Point;
 import javafx.application.Application;
@@ -38,7 +44,9 @@ public class App extends Application {
     public static void startGame(ViewLambda lambda) throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
-        game = new Game(new Grid(12, 12, players, 0.80F,0.95F), players, new GameFinishEvent());
+        Grid grid = new Grid(12, 12, players);
+        BuildStrategy buildStrategy = new LockStrategy(grid, 0.80F, 0.95F);
+        game = new Game(buildStrategy, players, new GameFinishEvent());
         for (Player player : game.getPlayers()) {
             playerList.put(player, new ClientPlayer(player, lambda.createViewLambda(player)));
         }

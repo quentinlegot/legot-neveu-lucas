@@ -1,10 +1,10 @@
 package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
+import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.build.BuildStrategy;
 import fr.lnl.game.server.games.grid.build.LockStrategy;
 import fr.lnl.game.server.games.grid.elements.EnergyBall;
-import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.elements.Wall;
 import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
