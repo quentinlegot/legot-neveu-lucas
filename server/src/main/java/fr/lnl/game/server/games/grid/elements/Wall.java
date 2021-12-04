@@ -1,6 +1,4 @@
-package fr.lnl.game.server.games.grid;
-
-import java.util.Objects;
+package fr.lnl.game.server.games.grid.elements;
 
 public class Wall extends AbstractBox {
 

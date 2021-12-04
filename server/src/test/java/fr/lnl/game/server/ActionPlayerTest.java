@@ -2,7 +2,7 @@ package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.*;
-import fr.lnl.game.server.games.grid.Bomb;
+import fr.lnl.game.server.games.grid.elements.Bomb;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Point;

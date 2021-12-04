@@ -1,10 +1,10 @@
 package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.grid.Box;
-import fr.lnl.game.server.games.grid.EnergyBall;
+import fr.lnl.game.server.games.grid.elements.Box;
+import fr.lnl.game.server.games.grid.elements.EnergyBall;
 import fr.lnl.game.server.games.grid.Grid;
-import fr.lnl.game.server.games.grid.Wall;
+import fr.lnl.game.server.games.grid.elements.Wall;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
@@ -55,7 +55,7 @@ public class GridTest {
                         str.append(" \033[0;35mL\033[0m");
                     }
                     if(value.getB() instanceof Wall){
-                        str.append(" \033[0;32mW\033[0m");
+                        str.append(" \033[0;32m□\033[0m");
                     }
                     if(value.getB() instanceof EnergyBall){
                         str.append(" \033[0;31mE\033[0m");

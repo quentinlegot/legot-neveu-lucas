@@ -1,4 +1,4 @@
-package fr.lnl.game.server.games.grid;
+package fr.lnl.game.server.games.grid.elements;
 
 public class AbstractBox implements Box{
 

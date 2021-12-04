@@ -1,7 +1,7 @@
 package fr.lnl.game.server.games.action;
 
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.grid.Box;
+import fr.lnl.game.server.games.grid.elements.Box;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;

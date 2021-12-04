@@ -1,9 +1,8 @@
 package fr.lnl.game.client.view;
 
-import fr.lnl.game.server.games.grid.Bomb;
-import fr.lnl.game.server.games.grid.EnergyBall;
-import fr.lnl.game.server.games.grid.Mine;
-import fr.lnl.game.server.games.grid.Wall;
+import fr.lnl.game.server.games.grid.elements.Bomb;
+import fr.lnl.game.server.games.grid.elements.EnergyBall;
+import fr.lnl.game.server.games.grid.elements.Mine;
 import fr.lnl.game.server.games.player.Player;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

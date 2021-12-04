@@ -1,9 +1,11 @@
 package fr.lnl.game.server;
 
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.grid.EnergyBall;
+import fr.lnl.game.server.games.grid.build.BuildStrategy;
+import fr.lnl.game.server.games.grid.build.LockStrategy;
+import fr.lnl.game.server.games.grid.elements.EnergyBall;
 import fr.lnl.game.server.games.grid.Grid;
-import fr.lnl.game.server.games.grid.Wall;
+import fr.lnl.game.server.games.grid.elements.Wall;
 import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.games.player.RandomComputerPlayer;
@@ -15,14 +17,16 @@ import java.util.List;
 
 public class Mock {
 
-    public Grid grid;
+    public BuildStrategy buildStrategy;
     public Game game;
+    public Grid grid;
 
     public Mock() {
         List<Player> players = Arrays.asList(new RandomComputerPlayer(1,null, ClassPlayer.DEFAULT),
                 new RandomComputerPlayer(2,null, ClassPlayer.DEFAULT));
-        this.grid = new Grid(16,16, players,0.80F, 0.95F);
-        game = new Game(grid, players, new GameFinishEvent());
+        this.buildStrategy = new LockStrategy(new Grid(16,16, players),0.80F, 0.95F);
+        game = new Game(buildStrategy, players, new GameFinishEvent());
+        this.grid = buildStrategy.getGrid();
     }
 
     public void placePlayersBRUT(){

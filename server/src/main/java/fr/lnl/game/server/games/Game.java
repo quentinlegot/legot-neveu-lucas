@@ -2,6 +2,7 @@ package fr.lnl.game.server.games;
 
 import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
+import fr.lnl.game.server.games.grid.build.BuildStrategy;
 import fr.lnl.game.server.games.player.ComputerPlayer;
 import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
@@ -16,23 +17,30 @@ import java.util.stream.Stream;
 
 public class Game {
 
+    private final BuildStrategy buildStrategy;
     private final Grid grid;
     private final List<Player> players;
     private final ModelListener gameFinishEvent;
     private Player currentPlayer;
     private Action selectedAction = null;
 
-    public Game(Grid grid, List<Player> players, ModelListener gameFinishEvent) throws IllegalArgumentException {
+    public Game(BuildStrategy buildStrategy, List<Player> players, ModelListener gameFinishEvent) throws IllegalArgumentException {
+        this.grid = buildStrategy.getGrid();
+        this.buildStrategy = buildStrategy;
+        this.players = players;
+        this.currentPlayer = players.get(0);
+        this.gameFinishEvent = gameFinishEvent;
+        initGame();
+    }
+
+    public void initGame(){
+        buildStrategy.build();
         if(players.size() < 2)
             throw new IllegalArgumentException("The game need 2 or more player to start");
         if(players.size() > grid.getNumberNeutralBox()){
             throw new IllegalArgumentException("There are too many players for the number of box available");
         }
-        this.players = players;
-        this.currentPlayer = players.get(0);
-        this.grid = grid;
-        this.gameFinishEvent = gameFinishEvent;
-        this.grid.initPlacePlayers();
+        buildStrategy.initPlacePlayers();
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
     }
 
