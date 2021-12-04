@@ -11,10 +11,9 @@ public abstract class AbstractBuildStrategy implements BuildStrategy{
         this.GRID = grid;
         this.WALL_PROBABILITY = wallProbability;
         this.ENERGY_PROBABILITY = energyProbability;
+        build();
     }
 
-
-    @Override
     public void build() {
         initGrid();
         initPlaceInternWall(WALL_PROBABILITY);

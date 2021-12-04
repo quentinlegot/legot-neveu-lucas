@@ -26,6 +26,11 @@ public class Game {
 
     public Game(BuildStrategy buildStrategy, List<Player> players, ModelListener gameFinishEvent) throws IllegalArgumentException {
         this.grid = buildStrategy.getGrid();
+        if(players.size() < 2)
+            throw new IllegalArgumentException("The game need 2 or more player to start");
+        if(players.size() > grid.getNumberNeutralBox()){
+            throw new IllegalArgumentException("There are too many players for the number of box available");
+        }
         this.buildStrategy = buildStrategy;
         this.players = players;
         this.currentPlayer = players.get(0);
@@ -34,12 +39,6 @@ public class Game {
     }
 
     public void initGame(){
-        buildStrategy.build();
-        if(players.size() < 2)
-            throw new IllegalArgumentException("The game need 2 or more player to start");
-        if(players.size() > grid.getNumberNeutralBox()){
-            throw new IllegalArgumentException("There are too many players for the number of box available");
-        }
         buildStrategy.initPlacePlayers();
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
     }
