@@ -12,13 +12,8 @@ public class DropBomb extends DropObject {
 
     @Override
     public void doAction() {
-        game.getGrid().getBoard().get(point).setB(new Bomb());
+        game.getGrid().getBoard().get(point).setB(new Bomb(point, game));
         player.decrementEnergy(player.getClassPlayer().getBombCost());
-    }
-
-    @Override
-    public boolean isPossible() {
-        return super.isPossible();
     }
 
 }

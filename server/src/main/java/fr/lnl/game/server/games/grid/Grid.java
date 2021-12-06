@@ -4,6 +4,7 @@ import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -96,4 +97,13 @@ public class Grid {
         return column;
     }
 
+    public List<CountdownBox> getAllCountdownElements() {
+        List<CountdownBox> list = new ArrayList<>();
+        for(Pair<Player, Box> element : getBoard().values()) {
+            if(element.getB() instanceof CountdownBox box) {
+                list.add(box);
+            }
+        }
+        return list;
+    }
 }

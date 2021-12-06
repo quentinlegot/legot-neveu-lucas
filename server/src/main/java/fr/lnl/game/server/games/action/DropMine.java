@@ -11,10 +11,6 @@ public class DropMine extends DropObject {
 
     }
 
-    /**
-     * @deprecated même principe que {@link Shot#doAction()}
-     */
-    @Deprecated
     @Override
     public void doAction() {
         game.getGrid().getBoard().get(point).setB(new Mine());

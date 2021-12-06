@@ -3,10 +3,10 @@ package fr.lnl.game.server.games;
 import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.build.BuildStrategy;
+import fr.lnl.game.server.games.grid.elements.CountdownBox;
 import fr.lnl.game.server.games.player.ComputerPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.listener.ModelListener;
-import fr.lnl.game.server.utils.CrashException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +46,7 @@ public class Game {
             selectedAction = player.choseAction();
         }
         selectedAction.doAction();
+        countdownGridElementsUpdate();
         nextCurrentPlayer();
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
         if(isOver()) {
@@ -54,21 +55,9 @@ public class Game {
 
     }
 
-    private void waitForInterfaceEvent() {
-        synchronized (this){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                throw new CrashException(e.getMessage(), e);
-            }
-        }
-
-    }
-
-    public void resumeThread() {
-        synchronized (this) {
-            notifyAll();
-        }
+    private void countdownGridElementsUpdate() {
+        List<CountdownBox> countdownBoxes = this.getGrid().getAllCountdownElements();
+        countdownBoxes.forEach(CountdownBox::update);
     }
 
     public List<Action> generateAndGetPlayerActions(Player player) {
@@ -111,20 +100,17 @@ public class Game {
     /**
      * Change player to the next available in the list
      */
-    public boolean nextCurrentPlayer() {
-        if(isOver())
-            return false;
+    public void nextCurrentPlayer() {
         do {
             int index = players.indexOf(currentPlayer) + 1;
             if(index == players.size())
                 index = 0;
-            currentPlayer = players.get(index);
+            setCurrentPlayer(players.get(index));
         } while(!currentPlayer.isAlive()); // On arrête la boucle dès qu'on trouve un joueur en vie
         currentPlayer.setShieldDeploy(false); // on reset son état
-        return true;
     }
 
-    public void setCurrent_player(Player current_player) {
+    public void setCurrentPlayer(Player current_player) {
         this.currentPlayer = current_player;
     }
 
