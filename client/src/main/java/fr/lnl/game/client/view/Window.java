@@ -7,19 +7,28 @@ import fr.lnl.game.server.games.grid.elements.*;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Window extends AbstractView {
 
     public static final int cellSize = 40;
     public static final int width = 24;
     public static final int height = 16;
+
 
     private final Stage stage;
 
@@ -43,7 +52,6 @@ public class Window extends AbstractView {
         Pane principalPane = new Pane();
         principalPane.setPrefSize(width * cellSize, height * cellSize); // TODO: 04/12/2021 A corriger -> doit plutôt s'adapter à la taille de la grid (grid.getRow() et grid.getColumn())
 
-        //à définir avec n pour moduler la taille du plateau
         for (int i = 0; i < game.getGrid().getRow(); i++) {
             for (int j = 0; j < game.getGrid().getColumn(); j++) {
                 Cell cell = new Cell(i, j);
@@ -64,24 +72,17 @@ public class Window extends AbstractView {
             }
         }
 
-        Rectangle shape = new Rectangle();
-        shape.setX(700);
-        shape.setY(20);
-        shape.setWidth(200);
-        shape.setHeight(600);
-        shape.setFill(javafx.scene.paint.Color.WHITE);
 
-
+        StackPane sp = showStatePlayers();
+        sp.setLayoutX(480);
         Button followingButton = new Button("SUIVANT");
         followingButton.setOnAction(new ClientEventHandler(new ButtonListener(game)));
         followingButton.setLayoutX(775);
         followingButton.setLayoutY(600);
         followingButton.setStyle("-fx-background-color: #a96806;");
         followingButton.setTextFill(javafx.scene.paint.Color.WHITE);
-        //add un eventListener au button
 
-        principalPane.getChildren().add(followingButton);
-        //pas compris le principe
+        principalPane.getChildren().addAll(sp,followingButton);
         return principalPane;
     }
 
@@ -90,6 +91,29 @@ public class Window extends AbstractView {
         sp.setLayoutY(i * cellSize);
         sp.setLayoutX(j * cellSize);
         principalPane.getChildren().add(sp);
+        //à passer en void
         return principalPane;
+    }
+
+    public String showMoveText(){
+        return "";
+    }
+
+    public StackPane showStatePlayers(){
+        StackPane subSp = new StackPane();
+
+        for(int i=0; i <game.getPlayers().size();i++){
+            String s = "Joueur " + i + "\n" +
+                    "Energie : " + game.getPlayers().get(i).getEnergy() + "\n" +
+                    "Arme : " + "Aucune" /*game.getPlayers().get(i).getWeapon()*/ + "\n";
+            Text text = new Text(s);
+            Rectangle rectangle = new Rectangle();
+            rectangle.setWidth(500 * i);
+            rectangle.setHeight(90 * i);
+            rectangle.setFill(javafx.scene.paint.Color.WHITE);
+            subSp.getChildren().addAll(rectangle,text);
+        }
+
+        return subSp;
     }
 }
