@@ -10,13 +10,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
-
-/*classe qui a pour but de générer chaque case de la grid et de vérifier les entités présentes dessus
-(Mur,Joueur,Energie,bombe,etc..)
-*/
-
+/**
+ * classe qui a pour but de générer chaque case de la grid et de vérifier les entités présentes dessus
+ * (Mur, Joueur, Energie, Bombe, etc.)
+ */
 public class Cell extends Rectangle {
+
+    private static Image PLAYER_IMAGE = new Image("player.png");
+    private static Image ENERGY_BALL_IMAGE = new Image("energyBall.png");
+    private static Image BOMB_IMAGE = new Image("bomb.jpg");
+    private static Image MINE_IMAGE = new Image("mine.webp");
+    private static Image WALL_IMAGE = new Image("wall.jpg");
 
     public Cell(int x, int y){
         setWidth(Window.cellSize);
@@ -30,20 +34,20 @@ public class Cell extends Rectangle {
 
     public static StackPane setImageObject(Object object){
         StackPane sp = new StackPane();
-        String in;
+        Image in;
         if(object instanceof Player){
-            in = "player.png";
+            in = PLAYER_IMAGE;
         } else if(object instanceof EnergyBall){
-            in = "energyBall.png";
+            in = ENERGY_BALL_IMAGE;
         } else if(object instanceof Bomb){
-            in = "bomb.jpg";
+            in = BOMB_IMAGE;
         } else if(object instanceof Mine){
-            in = "mine.webp";
+            in = MINE_IMAGE;
         } else{
-            in = "wall.jpg";
+            in = WALL_IMAGE;
         }
 
-        ImageView iv = new ImageView(new Image(in));
+        ImageView iv = new ImageView(in);
         iv.setFitHeight(40);
         iv.setFitWidth(40);
         sp.getChildren().add(iv);

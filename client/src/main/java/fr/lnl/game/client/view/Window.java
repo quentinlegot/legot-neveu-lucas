@@ -1,6 +1,7 @@
 package fr.lnl.game.client.view;
 
 import fr.lnl.game.client.listener.ButtonListener;
+import fr.lnl.game.client.listener.ClientEventHandler;
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.elements.*;
