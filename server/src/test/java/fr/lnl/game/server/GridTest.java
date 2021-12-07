@@ -5,11 +5,16 @@ import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.elements.Box;
 import fr.lnl.game.server.games.grid.elements.EnergyBall;
 import fr.lnl.game.server.games.grid.elements.Wall;
+import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
+import fr.lnl.game.server.games.player.RandomComputerPlayer;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,7 +25,9 @@ public class GridTest {
 
     @BeforeEach
     public void mock() {
-        Mock mock = new Mock();
+        List<Player> players = Arrays.asList(new RandomComputerPlayer(1,null, ClassPlayer.DEFAULT),
+                new RandomComputerPlayer(2,null, ClassPlayer.DEFAULT));
+        Mock mock = new Mock(players);
         grid = mock.grid;
         game = mock.game;
     }

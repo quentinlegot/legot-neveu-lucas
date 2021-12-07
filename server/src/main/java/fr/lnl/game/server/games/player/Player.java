@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface Player {
 
+    Action choseAction();
+
     Point getPosition();
 
     boolean isAlive();

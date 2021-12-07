@@ -42,9 +42,7 @@ public class Game {
     }
 
     public void play() {
-        if (currentPlayer instanceof ComputerPlayer player) {
-            selectedAction = player.choseAction();
-        }
+        selectedAction = currentPlayer.choseAction();
         selectedAction.doAction();
         countdownGridElementsUpdate();
         nextCurrentPlayer();
@@ -52,7 +50,6 @@ public class Game {
         if(isOver()) {
             gameFinishEvent.updateModel(null);
         }
-
     }
 
     private void countdownGridElementsUpdate() {
@@ -67,10 +64,10 @@ public class Game {
                 actions.add(new Move(this, player, direction));
             } catch (NotValidDirectionException ignored){}
             try {
-                new DropBomb(this, player, direction);
+                actions.add(new DropBomb(this, player, direction));
             } catch (NotValidDirectionException ignored) {}
             try {
-                new DropMine(this, player, direction);
+                actions.add(new DropMine(this, player, direction));
             } catch (NotValidDirectionException ignored) {}
             try {
                 actions.add(new Shot(this, player, direction));

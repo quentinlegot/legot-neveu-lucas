@@ -21,9 +21,7 @@ public class Mock {
     public Game game;
     public Grid grid;
 
-    public Mock() {
-        List<Player> players = Arrays.asList(new RandomComputerPlayer(1,null, ClassPlayer.DEFAULT),
-                new RandomComputerPlayer(2,null, ClassPlayer.DEFAULT));
+    public Mock(List<Player> players) {
         this.buildStrategy = new LockStrategy(new Grid(16,16, players),0.80F, 0.95F);
         game = new Game(buildStrategy, players, new GameFinishEvent());
         this.grid = buildStrategy.getGrid();

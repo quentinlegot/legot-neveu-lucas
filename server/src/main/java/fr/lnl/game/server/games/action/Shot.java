@@ -71,7 +71,7 @@ public class Shot extends AbstractAction {
             return null;
         for(int i = 0; i < range; i++) {
             Point neighbour = new Point(point.getA() + deltaX + (i * deltaX), point.getB() + deltaY + (i * deltaY));
-            if(game.getGrid().boardPositionIsValid(point)) {
+            if(game.getGrid().boardPositionIsValid(neighbour)) {
                 if(game.getGrid().getBoard().get(neighbour).getB() instanceof Wall) {
                     return null;
                 }

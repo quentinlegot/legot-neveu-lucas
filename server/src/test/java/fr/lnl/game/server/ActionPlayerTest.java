@@ -4,11 +4,16 @@ import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.elements.Bomb;
+import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
+import fr.lnl.game.server.games.player.RandomComputerPlayer;
 import fr.lnl.game.server.utils.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ActionPlayerTest {
 
@@ -17,7 +22,9 @@ public class ActionPlayerTest {
 
     @BeforeEach
     public void mock() {
-        Mock mock = new Mock();
+        List<Player> players = Arrays.asList(new RandomComputerPlayer(1,null, ClassPlayer.DEFAULT),
+                new RandomComputerPlayer(2,null, ClassPlayer.DEFAULT));
+        Mock mock = new Mock(players);
         this.grid = mock.grid;
         this.game = mock.game;
         Assertions.assertEquals(game.getPlayers().get(0), game.getCurrentPlayer());
