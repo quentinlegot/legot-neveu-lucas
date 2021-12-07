@@ -10,8 +10,12 @@ public class Terminal extends AbstractView {
     }
 
     public void show() {
-        // TODO: 26/10/2021
         System.out.println(game.getGrid().toString());
+    }
+
+    @Override
+    public void displayWinner(Player winner) {
+        System.out.println("Le joueur " + winner + " a gagné la partie");
     }
 
 }

@@ -1,5 +1,6 @@
 package fr.lnl.game.client;
 
+import fr.lnl.game.client.listener.DisplayWinnerEvent;
 import fr.lnl.game.client.view.AbstractView;
 import fr.lnl.game.client.view.Terminal;
 import fr.lnl.game.client.view.ViewManager;
@@ -22,8 +23,8 @@ public class App extends Application {
 
     private static LinkedList<String> argsList;
     public static HashMap<Player, ClientPlayer> playerList = new HashMap<>();
-    public static Game game;
-    public static ViewManager viewManager;
+    private static Game game;
+    private static ViewManager viewManager;
 
     public static void main(String[] args) {
         argsList = new LinkedList<>(Arrays.asList(args));
@@ -46,7 +47,7 @@ public class App extends Application {
         List<Player> players = parsePlayers();
         Grid grid = new Grid(12, 12, players);
         BuildStrategy buildStrategy = new LockStrategy(grid, 0.80F, 0.95F);
-        game = new Game(buildStrategy, players, new GameFinishEvent());
+        game = new Game(buildStrategy, players, new DisplayWinnerEvent());
         for (Player player : game.getPlayers()) {
             playerList.put(player, new ClientPlayer(player, lambda.createViewLambda(player)));
         }
@@ -134,5 +135,13 @@ public class App extends Application {
             throw new IllegalArgumentException("No argument given");
         }
         return clazz;
+    }
+
+    public static ViewManager getViewManager() {
+        return viewManager;
+    }
+
+    public static Game getGame() {
+        return game;
     }
 }
