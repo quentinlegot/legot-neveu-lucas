@@ -1,5 +1,6 @@
 package fr.lnl.game.client.view;
 
+import fr.lnl.game.client.App;
 import fr.lnl.game.client.listener.ButtonListener;
 import fr.lnl.game.client.listener.ClientEventHandler;
 import fr.lnl.game.server.games.Game;
@@ -10,6 +11,7 @@ import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -42,6 +44,16 @@ public class Window extends AbstractView {
         stage.show();
     }
 
+    @Override
+    public void displayWinner(Player winner) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Fin du jeu");
+        alert.setHeaderText("La partie est terminé");
+        alert.setContentText("Un joueur " + winner + " a gagné");
+        App.getViewManager().updateView();
+        alert.showAndWait();
+    }
+
     private Parent createContent() {
         Pane principalPane = new Pane();
         principalPane.setPrefSize(width * cellSize, height * cellSize); // TODO: 04/12/2021 A corriger -> doit plutôt s'adapter à la taille de la grid (grid.getRow() et grid.getColumn())
@@ -55,11 +67,11 @@ public class Window extends AbstractView {
         for (int i = 0; i < grid.getRow(); i++) {
             for (int j = 0; j < grid.getColumn(); j++) {
                 Pair<Player, Box> value = grid.getBoard().get(new Point(i, j));
+                if (value.getB() instanceof Wall || value.getB() instanceof EnergyBall || value.getB() instanceof Explosive) {
+                    addToPrincipalPanel(value.getB(), principalPane, i, j);
+                }
                 if (value.getA() != null) {
                     addToPrincipalPanel(value.getA(), principalPane, i, j);
-                }
-                if (value.getB() instanceof Wall || value.getB() instanceof EnergyBall || value.getB() instanceof Mine || value.getB() instanceof Bomb) {
-                    addToPrincipalPanel(value.getB(), principalPane, i, j);
                 }
             }
         }

@@ -23,7 +23,7 @@ public class Mock {
 
     public Mock(List<Player> players) {
         this.buildStrategy = new LockStrategy(new Grid(16,16, players),0.80F, 0.95F);
-        game = new Game(buildStrategy, players, new GameFinishEvent());
+        game = new Game(buildStrategy, players, new MockDisplayWinner());
         this.grid = buildStrategy.getGrid();
     }
 

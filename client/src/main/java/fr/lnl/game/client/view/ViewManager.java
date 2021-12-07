@@ -35,4 +35,8 @@ public class ViewManager {
             System.out.println("Il a joué l'action: " + game.getSelectedAction());
         }
     }
+
+    public void displayWinner(Player winner) {
+        players.get(game.getCurrentPlayer()).getView().displayWinner(winner);
+    }
 }
