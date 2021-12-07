@@ -12,7 +12,10 @@ import fr.lnl.game.server.listener.ModelListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.function.Predicate.not;
 
 public class Game {
 
@@ -48,10 +51,17 @@ public class Game {
         selectedAction = currentPlayer.choseAction();
         selectedAction.doAction();
         countdownGridElementsUpdate();
+        gridPlayersUpdate();
         nextCurrentPlayer();
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
         if(isOver()) {
             gameFinishEvent.updateModel(null);
+        }
+    }
+
+    private void gridPlayersUpdate(){
+        for (Player player: getPlayersNotAlive().toList()) {
+            getGrid().getBoard().get(player.getPosition()).setA(null);
         }
     }
 
@@ -82,6 +92,10 @@ public class Game {
 
     public Stream<Player> getPlayersAlive() {
         return players.parallelStream().filter(Player::isAlive);
+    }
+
+    public Stream<Player> getPlayersNotAlive() {
+        return players.parallelStream().filter(not(Player::isAlive));
     }
 
     public boolean isOver() {
