@@ -15,6 +15,7 @@ import java.util.List;
 public class Move extends AbstractAction {
 
     private final Point point;
+    private final Direction direction;
 
     public Move(Game game, Player player, Direction direction) throws NotValidDirectionException {
         super(game, player);
@@ -25,6 +26,7 @@ public class Move extends AbstractAction {
             throw new NotValidDirectionException(direction + " isn't a valid position");
         }
         this.point = newPosition;
+        this.direction = direction;
     }
 
     @Override
@@ -64,4 +66,10 @@ public class Move extends AbstractAction {
         }
         return listMoves;
     }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+
 }

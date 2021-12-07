@@ -12,9 +12,9 @@ public class Maths {
         return Integer.parseInt(entry);
     }
 
-    public static float testFloat(String entry, Scanner scanner) {
+    public static float testFloat(String entry, Scanner scanner, String error) {
         while (!isFloat(entry)) {
-            System.out.println("\033[0;31mErreur de saisie\033[0m : Veuillez rentrer une valeur correcte !");
+            System.out.println(Error.Entry_Error_Message + error);
             entry = scanner.next();
         }
         return Integer.parseInt(entry);

@@ -36,6 +36,7 @@ public class Shot extends AbstractAction {
         for(int i=0; i < range; i++) {
             Point point = new Point(this.point.getA() + (i * direction.getDeltaX()),
                     this.point.getB() + (i * direction.getDeltaY()));
+            // TODO: 07/12/2021 WARNING -> probleme de nullpointerexeption sur getA car on verif pas la sortie de terrain
             Player player = game.getGrid().getBoard().get(point).getA();
             if(player != null) {
                 player.decrementEnergy(player.getClassPlayer().getPenaltyShoot());
@@ -82,5 +83,9 @@ public class Shot extends AbstractAction {
             }
         }
         return null;
+    }
+
+    public Point getPoint() {
+        return point;
     }
 }
