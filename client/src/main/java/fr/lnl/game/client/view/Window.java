@@ -15,7 +15,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class Window extends AbstractView {
@@ -64,18 +66,14 @@ public class Window extends AbstractView {
             }
         }
         putStatePlayerPane(principalPane);
-        StackPane stateMoveTextPane = showMoveText();
-        stateMoveTextPane.setLayoutY(480);
-        principalPane.getChildren().add(stateMoveTextPane);
-
-
-        Button followingButton = new Button("SUIVANT");
-        followingButton.setOnAction(new ClientEventHandler(new ButtonListener(game)));
-        followingButton.setLayoutX(700);
-        followingButton.setLayoutY(600);
-        followingButton.setStyle("-fx-background-color: #a96806;");
-        followingButton.setTextFill(javafx.scene.paint.Color.WHITE);
-        principalPane.getChildren().add(followingButton);
+        putMoveTextPane(principalPane);
+        Button buttonNext = new Button("SUIVANT");
+        buttonNext .setOnAction(new ClientEventHandler(new ButtonListener(game)));
+        buttonNext .setLayoutX(700);
+        buttonNext .setLayoutY(600);
+        buttonNext .setStyle("-fx-background-color: #a96806;");
+        buttonNext .setTextFill(javafx.scene.paint.Color.WHITE);
+        principalPane.getChildren().add(buttonNext);
         return principalPane;
     }
 
@@ -87,12 +85,12 @@ public class Window extends AbstractView {
     }
 
     // TODO: 07/12/2021 WARNING : générer autant de frames qu’il y a de joueurs,(à implémenter)
-    // TODO: 07/12/2021 Maintenant régler : Factorisation du code, Responsive
+    // TODO: 07/12/2021 Maintenant régler :  Responsive
 
-    //à voir si on peut faire plus proprement les deux méthodes en dessous avec une List<StackPane> ?
+
     public void putStatePlayerPane(Pane principalPane){
         int Y = 0;
-        for(int i=0;i < game.getPlayers().size();i++){
+        for(int i=0;i<game.getPlayers().size();i++){
             StackPane sp = showStatePlayer(i);
             sp.setLayoutX(480);
             sp.setLayoutY(Y);
@@ -107,22 +105,27 @@ public class Window extends AbstractView {
                 "Energie : " + game.getPlayers().get(playerNumber).getEnergy() + "\n" +
                 "Arme : " + game.getPlayers().get(playerNumber).getWeapon().getClass().getSimpleName() + "\n";
         Text t = new Text(s);
+
         Rectangle r = new Rectangle();
         r.setWidth(500);
         r.setHeight(90);
-        //à voir
         if(game.getPlayers().get(playerNumber).getEnergy() <= 0){
             r.setFill(Color.RED);
         }else{
             r.setFill(Color.GREEN);
         }
-        r.setStrokeWidth(2);
+        r.setStrokeWidth(1);
         r.setStroke(Color.BLACK);
         subSp.getChildren().addAll(r,t);
         return subSp;
     }
 
-    //idem que au dessus
+    public void putMoveTextPane(Pane principalPane){
+        StackPane stateMoveTextPane = showMoveText();
+        stateMoveTextPane.setLayoutY(480);
+        principalPane.getChildren().add((stateMoveTextPane));
+    }
+
     public StackPane showMoveText(){
         StackPane subSp = new StackPane();
         String s = "Joueur : " + (player.getId()+1) + "\n" +
@@ -131,7 +134,7 @@ public class Window extends AbstractView {
         Rectangle r = new Rectangle();
         r.setWidth(478);
         r.setHeight(165);
-        r.setStrokeWidth(2);
+        r.setStrokeWidth(1);
         r.setStroke(Color.BLACK);
         r.setFill(Color.WHITE);
         subSp.getChildren().addAll(r,t);
