@@ -8,6 +8,8 @@ public abstract class Explosive extends AbstractBox implements InteractiveBox {
 
     @Override
     public void interact(Grid grid, Player player, Point position) {
-        grid.getBoard().get(position).setB(null);
+        if(grid.getBoard().get(position).getB() == this){
+            grid.getBoard().get(position).setB(null);
+        }
     }
 }
