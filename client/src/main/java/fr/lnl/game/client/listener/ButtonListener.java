@@ -35,7 +35,7 @@ public class ButtonListener extends AbstractModelListening {
         alert.setTitle("Un joueur ordinateur a joué");
         alert.setHeaderText("Le joueur ordinateur numéro" + player.getId() + " a joué");
         alert.setContentText("Il a joué l'action: " + game.getSelectedAction()); */
-        App.viewManager.updateView();
+        App.getViewManager().updateView();
         //alert.showAndWait();
     }
 }
