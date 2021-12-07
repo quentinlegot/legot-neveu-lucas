@@ -27,16 +27,17 @@ public class Bomb extends Explosive implements CountdownBox {
 
     @Override
     public void update() {
+        Grid grid = game.getGrid();
         counter--;
         if(counter == 0) {
             for(int i = -EXPLOSION_SIZE; i < EXPLOSION_SIZE; i++) {
                 for(int j = -EXPLOSION_SIZE; j < EXPLOSION_SIZE; j++) {
                     if(pythagoras(i, j) <= EXPLOSION_SIZE) { // recherche en cercle, pas en carré
-                        Grid grid = game.getGrid();
                         Point position = new Point(point.getA() + i, point.getB() + j);
                         if(position.getA() >= 0 && position.getA() < grid.getRow()
                                 && position.getB() >= 0 && position.getB() < grid.getColumn()) {
-                            interact(grid, null, position);
+                            Player player = grid.getBoard().get(position).getA();
+                            interact(grid, player, position);
                         }
                     }
                 }

@@ -14,6 +14,7 @@ public abstract class AbstractBuildStrategy implements BuildStrategy{
         build();
     }
 
+    @Override
     public void build() {
         initGrid();
         initPlaceInternWall(WALL_PROBABILITY);

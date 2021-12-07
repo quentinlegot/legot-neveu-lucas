@@ -117,7 +117,7 @@ public class Window extends AbstractView {
         StackPane subSp = new StackPane();
         String s = "Joueur " + (playerNumber+1) + "\n" +
                 "Energie : " + game.getPlayers().get(playerNumber).getEnergy() + "\n" +
-                "Arme : " + game.getPlayers().get(playerNumber).getWeapon() + "\n";
+                "Arme : " + game.getPlayers().get(playerNumber).getWeapon().getClass().getSimpleName() + "\n";
         Text t = new Text(s);
         Rectangle r = new Rectangle();
         r.setWidth(500);

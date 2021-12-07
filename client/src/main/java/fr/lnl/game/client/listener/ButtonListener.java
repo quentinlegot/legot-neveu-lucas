@@ -31,11 +31,11 @@ public class ButtonListener extends AbstractModelListening {
     public void updateModel(Object event) {
         Player player = game.getCurrentPlayer();
         game.play();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        /* Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Un joueur ordinateur a joué");
         alert.setHeaderText("Le joueur ordinateur numéro" + player.getId() + " a joué");
-        alert.setContentText("Il a joué l'action: " + game.getSelectedAction());
-        App.getViewManager().updateView();
-        alert.showAndWait();
+        alert.setContentText("Il a joué l'action: " + game.getSelectedAction()); */
+        App.viewManager.updateView();
+        //alert.showAndWait();
     }
 }

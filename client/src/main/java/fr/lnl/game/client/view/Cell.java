@@ -18,8 +18,8 @@ public class Cell extends Rectangle {
 
     private static Image PLAYER_IMAGE = new Image("player.png");
     private static Image ENERGY_BALL_IMAGE = new Image("energyBall.png");
-    private static Image BOMB_IMAGE = new Image("bomb.jpg");
-    private static Image MINE_IMAGE = new Image("mine.webp");
+    private static Image BOMB_IMAGE = new Image("bomb.png");
+    private static Image MINE_IMAGE = new Image("mine.png");
     private static Image WALL_IMAGE = new Image("wall.jpg");
 
     public Cell(int x, int y){
