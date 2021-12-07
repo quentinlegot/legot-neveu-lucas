@@ -7,21 +7,15 @@ import fr.lnl.game.server.games.grid.elements.*;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Window extends AbstractView {
 
@@ -39,7 +33,6 @@ public class Window extends AbstractView {
     }
 
     public void show() {
-        // stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(createContent());
         stage.setScene(scene);
         stage.setTitle("Game");
@@ -51,14 +44,12 @@ public class Window extends AbstractView {
     private Parent createContent() {
         Pane principalPane = new Pane();
         principalPane.setPrefSize(width * cellSize, height * cellSize); // TODO: 04/12/2021 A corriger -> doit plutôt s'adapter à la taille de la grid (grid.getRow() et grid.getColumn())
-
         for (int i = 0; i < game.getGrid().getRow(); i++) {
             for (int j = 0; j < game.getGrid().getColumn(); j++) {
                 Cell cell = new Cell(i, j);
                 principalPane.getChildren().add(cell);
             }
         }
-
         Grid grid = game.getGrid();
         for (int i = 0; i < grid.getRow(); i++) {
             for (int j = 0; j < grid.getColumn(); j++) {
@@ -71,49 +62,82 @@ public class Window extends AbstractView {
                 }
             }
         }
+        putStatePlayerPane(principalPane);
+        StackPane stateMoveTextPane = showMoveText();
+        stateMoveTextPane.setLayoutY(480);
+        principalPane.getChildren().add(stateMoveTextPane);
 
 
-        StackPane sp = showStatePlayers();
-        sp.setLayoutX(480);
         Button followingButton = new Button("SUIVANT");
         followingButton.setOnAction(new ClientEventHandler(new ButtonListener(game)));
-        followingButton.setLayoutX(775);
+        followingButton.setLayoutX(700);
         followingButton.setLayoutY(600);
         followingButton.setStyle("-fx-background-color: #a96806;");
         followingButton.setTextFill(javafx.scene.paint.Color.WHITE);
-
-        principalPane.getChildren().addAll(sp,followingButton);
+        principalPane.getChildren().add(followingButton);
         return principalPane;
     }
 
-    public Pane addToPrincipalPanel(Object object, Pane principalPane, int i, int j) {
+    public void addToPrincipalPanel(Object object, Pane principalPane, int i, int j) {
         StackPane sp = Cell.setImageObject(object);
         sp.setLayoutY(i * cellSize);
         sp.setLayoutX(j * cellSize);
         principalPane.getChildren().add(sp);
-        //à passer en void
-        return principalPane;
     }
 
-    public String showMoveText(){
-        return "";
-    }
+    // TODO: 07/12/2021 WARNING : générer autant de frames qu’il y a de joueurs,(à implémenter)
+    // TODO: 07/12/2021 Maintenant régler : Factorisation du code, Responsive
 
-    public StackPane showStatePlayers(){
-        StackPane subSp = new StackPane();
-
-        for(int i=0; i <game.getPlayers().size();i++){
-            String s = "Joueur " + i + "\n" +
-                    "Energie : " + game.getPlayers().get(i).getEnergy() + "\n" +
-                    "Arme : " + "Aucune" /*game.getPlayers().get(i).getWeapon()*/ + "\n";
-            Text text = new Text(s);
-            Rectangle rectangle = new Rectangle();
-            rectangle.setWidth(500 * i);
-            rectangle.setHeight(90 * i);
-            rectangle.setFill(javafx.scene.paint.Color.WHITE);
-            subSp.getChildren().addAll(rectangle,text);
+    //à voir si on peut faire plus proprement les deux méthodes en dessous avec une List<StackPane> ?
+    public void putStatePlayerPane(Pane principalPane){
+        int Y = 0;
+        for(int i=0;i < game.getPlayers().size();i++){
+            StackPane sp = showStatePlayer(i);
+            sp.setLayoutX(480);
+            sp.setLayoutY(Y);
+            Y+=90;
+            principalPane.getChildren().add(sp);
         }
+    }
 
+    public StackPane showStatePlayer(int playerNumber){
+        StackPane subSp = new StackPane();
+        String s = "Joueur " + (playerNumber+1) + "\n" +
+                "Energie : " + game.getPlayers().get(playerNumber).getEnergy() + "\n" +
+                "Arme : " + game.getPlayers().get(playerNumber).getWeapon() + "\n";
+        Text t = new Text(s);
+        Rectangle r = new Rectangle();
+        r.setWidth(500);
+        r.setHeight(90);
+        //à voir
+        if(game.getPlayers().get(playerNumber).getEnergy() <= 0){
+            r.setFill(Color.RED);
+        }else{
+            r.setFill(Color.GREEN);
+        }
+        r.setStrokeWidth(2);
+        r.setStroke(Color.BLACK);
+        subSp.getChildren().addAll(r,t);
         return subSp;
     }
+
+    //idem que au dessus
+    public StackPane showMoveText(){
+        StackPane subSp = new StackPane();
+        String s = "Joueur : " + (player.getId()+1) + "\n" +
+                "Vient de jouer : " + game.getSelectedAction() + "\n";
+        Text t = new Text(s);
+        Rectangle r = new Rectangle();
+        r.setWidth(478);
+        r.setHeight(165);
+        r.setStrokeWidth(2);
+        r.setStroke(Color.BLACK);
+        r.setFill(Color.WHITE);
+        subSp.getChildren().addAll(r,t);
+        return subSp;
+    }
+
+
+
+
 }
