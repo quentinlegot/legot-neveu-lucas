@@ -31,7 +31,7 @@ public class ViewManager {
             Player player = game.getCurrentPlayer();
             players.get(game.getCurrentPlayer()).getView().show();
             game.play();
-            System.out.println("Le joueur ordinateur numéro" + player.getId() + " a joué");
+            System.out.println("Le joueur ordinateur numéro " + player.getId() + " a joué");
             System.out.println("Il a joué l'action: " + game.getSelectedAction());
         }
     }
