@@ -1,15 +1,20 @@
 package fr.lnl.game.server.mock;
 
 import fr.lnl.game.server.games.grid.Grid;
-import fr.lnl.game.server.games.grid.build.LockStrategy;
+import fr.lnl.game.server.games.grid.build.GridFactoryBuilder;
+import fr.lnl.game.server.games.grid.build.LockGridFactoryBuilder;
 import fr.lnl.game.server.games.grid.elements.EnergyBall;
 import fr.lnl.game.server.games.grid.elements.Wall;
 import fr.lnl.game.server.utils.Point;
 
-public class MockGridStrategy extends LockStrategy {
+public class MockGridFactoryBuilder extends LockGridFactoryBuilder {
 
-    public MockGridStrategy(Grid grid, float wallProbability, float energyProbability) {
-        super(grid, wallProbability, energyProbability);
+    private MockGridFactoryBuilder() {
+
+    }
+
+    public static GridFactoryBuilder create() {
+        return new MockGridFactoryBuilder();
     }
 
     @Override

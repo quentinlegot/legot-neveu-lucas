@@ -11,9 +11,14 @@ import fr.lnl.game.server.utils.Point;
 
 import java.util.Random;
 
-public class LockStrategy extends AbstractBuildStrategy{
-    public LockStrategy(Grid grid, float wallProbability, float energyProbability) {
-        super(grid, wallProbability, energyProbability);
+public class LockGridFactoryBuilder extends AbstractGridFactoryBuilder {
+
+    protected LockGridFactoryBuilder() {
+
+    }
+
+    public static GridFactoryBuilder create() {
+        return new LockGridFactoryBuilder();
     }
 
     @Override

@@ -7,4 +7,6 @@
 .gradle
 
 # Ignore Gradle build output directory
-build
+server/build
+client/build
+buildSrc/build
