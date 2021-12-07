@@ -5,10 +5,10 @@ import fr.lnl.game.server.games.grid.Grid;
 public abstract class AbstractBuildStrategy implements BuildStrategy{
 
     private final float WALL_PROBABILITY, ENERGY_PROBABILITY;
-    private final Grid GRID;
+    protected final Grid grid;
 
     public AbstractBuildStrategy(Grid grid, float wallProbability, float energyProbability){
-        this.GRID = grid;
+        this.grid = grid;
         this.WALL_PROBABILITY = wallProbability;
         this.ENERGY_PROBABILITY = energyProbability;
         build();
@@ -30,12 +30,12 @@ public abstract class AbstractBuildStrategy implements BuildStrategy{
     }
 
     public Grid getGrid() {
-        return GRID;
+        return grid;
     }
 
-    abstract void initGrid();
-    abstract void initPlaceEnergyBall(float probability);
-    abstract void initPlaceInternWall(float probability);
+    protected abstract void initGrid();
+    protected abstract void initPlaceEnergyBall(float probability);
+    protected abstract void initPlaceInternWall(float probability);
 
 
 

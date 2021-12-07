@@ -17,7 +17,7 @@ public class LockStrategy extends AbstractBuildStrategy{
     }
 
     @Override
-    void initGrid() {
+    protected void initGrid() {
         for (int i = 0; i < getGrid().getRow(); i++) {
             for (int j = 0; j < getGrid().getColumn(); j++) {
                 Box box;
@@ -46,7 +46,7 @@ public class LockStrategy extends AbstractBuildStrategy{
     }
 
     @Override
-    void initPlaceEnergyBall(float probability) {
+    protected void initPlaceEnergyBall(float probability) {
         for (int i = 1; i < getGrid().getRow() - 1; i++) {
             for (int j = 1; j < getGrid().getColumn() - 1; j++) {
                 if(Math.random() >= probability){
@@ -60,7 +60,7 @@ public class LockStrategy extends AbstractBuildStrategy{
     }
 
     @Override
-    void initPlaceInternWall(float probability) {
+    protected void initPlaceInternWall(float probability) {
         for (int i = 1; i < getGrid().getRow() - 1; i++) {
             for (int j = 1; j < getGrid().getColumn() - 1; j++) {
                 if(Math.random() >= probability){

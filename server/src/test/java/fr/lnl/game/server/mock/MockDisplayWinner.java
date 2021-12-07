@@ -1,4 +1,4 @@
-package fr.lnl.game.server;
+package fr.lnl.game.server.mock;
 
 import fr.lnl.game.server.listener.AbstractModelListening;
 

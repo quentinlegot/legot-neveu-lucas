@@ -7,6 +7,7 @@ import fr.lnl.game.server.games.grid.elements.Bomb;
 import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.games.player.RandomComputerPlayer;
+import fr.lnl.game.server.mock.Mock;
 import fr.lnl.game.server.utils.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +48,7 @@ public class ActionPlayerTest {
         Point newPoint = game.getCurrentPlayer().getPosition();
         Assertions.assertEquals(newPoint,
                 new Point(oldPoint.getA() + savedDirection.getDeltaX(),
-                        oldPoint.getA() + savedDirection.getDeltaY()
+                        oldPoint.getB() + savedDirection.getDeltaY()
                 )
         );
     }

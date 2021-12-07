@@ -8,6 +8,7 @@ import fr.lnl.game.server.games.grid.elements.Wall;
 import fr.lnl.game.server.games.player.ClassPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.games.player.RandomComputerPlayer;
+import fr.lnl.game.server.mock.Mock;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +41,7 @@ public class GridTest {
         assertEquals(new Wall(grid.getRow() - 1, 0), grid.getBoard().get(new Point(grid.getRow() - 1, 0)).getB());
         assertEquals(new Wall(grid.getRow() - 1, grid.getColumn() - 1), grid.getBoard().get(new Point(grid.getRow() - 1, grid.getColumn() - 1)).getB());
         // test placePlayersBRUT (mocked)
+        grid.getPlayers().forEach(p -> System.out.println(p.getId() + ": " + p.getPosition()));
         assertEquals(grid.getPlayers().get(0), grid.getBoard().get(new Point(7, 7)).getA());
         assertEquals(grid.getPlayers().get(1), grid.getBoard().get(new Point(7, 8)).getA());
         // test placeEnergyBallBRUT (mocked)
