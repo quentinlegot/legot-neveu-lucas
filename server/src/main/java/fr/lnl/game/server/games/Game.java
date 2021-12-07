@@ -6,6 +6,8 @@ import fr.lnl.game.server.games.grid.build.BuildStrategy;
 import fr.lnl.game.server.games.grid.elements.CountdownBox;
 import fr.lnl.game.server.games.player.ComputerPlayer;
 import fr.lnl.game.server.games.player.Player;
+import fr.lnl.game.server.listener.AbstractModelListening;
+import fr.lnl.game.server.listener.GameFinishEvent;
 import fr.lnl.game.server.listener.ModelListener;
 
 import java.util.ArrayList;
@@ -19,10 +21,11 @@ public class Game {
     private final Grid grid;
     private final List<Player> players;
     private final ModelListener gameFinishEvent;
+    private final AbstractModelListening displayWinnerEvent;
     private Player currentPlayer;
     private Action selectedAction = null;
 
-    public Game(BuildStrategy buildStrategy, List<Player> players, ModelListener gameFinishEvent) throws IllegalArgumentException {
+    public Game(BuildStrategy buildStrategy, List<Player> players, AbstractModelListening displayWinnerEvent) throws IllegalArgumentException {
         this.grid = buildStrategy.getGrid();
         if(players.size() < 2)
             throw new IllegalArgumentException("The game need 2 or more player to start");
@@ -32,7 +35,8 @@ public class Game {
         this.buildStrategy = buildStrategy;
         this.players = players;
         this.currentPlayer = players.get(0);
-        this.gameFinishEvent = gameFinishEvent;
+        this.gameFinishEvent = new GameFinishEvent(this);
+        this.displayWinnerEvent = displayWinnerEvent;
         initGame();
     }
 
@@ -124,5 +128,9 @@ public class Game {
 
     public Action getSelectedAction() {
         return selectedAction;
+    }
+
+    public AbstractModelListening getDisplayWinnerEvent() {
+        return displayWinnerEvent;
     }
 }
