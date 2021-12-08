@@ -19,7 +19,7 @@ public interface Action {
     boolean isPossible();
 
     /**
-     * Used by {@link Move}, {@link Shot} and {@link DropObject} to list all direction when the action is possible
+     * Used by {@link Move}, {@link Shot} and {@link DropObject} to list all direction where the action is possible
      * @return a list a point where the action is possible (not block by a wall per example)
      */
     Point getPoint();
