@@ -13,6 +13,7 @@ public class Bomb extends Explosive implements CountdownBox {
     private static int EXPLOSION_SIZE = 4;
 
     public Bomb(Point point, Game game) {
+        super(game.getCurrentPlayer());
         this.point = point;
         this.game = game;
         counter = counter * game.getPlayers().size();

@@ -19,7 +19,7 @@ public class Terminal extends AbstractView {
     }
 
     public void show() {
-        System.out.println(game.getGrid().toString());
+        System.out.println(game.getGrid().privateView(player));
     }
 
     @Override

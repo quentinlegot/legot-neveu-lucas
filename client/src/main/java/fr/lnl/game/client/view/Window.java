@@ -87,8 +87,13 @@ public class Window extends AbstractView {
         for (int i = 0; i < grid.getRow(); i++) {
             for (int j = 0; j < grid.getColumn(); j++) {
                 Pair<Player, Box> value = grid.getBoard().get(new Point(i, j));
-                if (value.getB() instanceof Wall || value.getB() instanceof EnergyBall || value.getB() instanceof Explosive) {
+                if (value.getB() instanceof Wall || value.getB() instanceof EnergyBall) {
                     addToPrincipalPanel(value.getB(), principalPane, i, j);
+                }
+                if(value.getB() instanceof Explosive){
+                    if(((Explosive) value.getB()).getPlayer().equals(player)){
+                        addToPrincipalPanel(value.getB(), principalPane, i, j);
+                    }
                 }
                 if (value.getA() != null) {
                     addToPrincipalPanel(value.getA(), principalPane, i, j);

@@ -13,7 +13,7 @@ public class DropMine extends DropObject {
 
     @Override
     public void doAction() {
-        game.getGrid().getBoard().get(point).setB(new Mine());
+        game.getGrid().getBoard().get(point).setB(new Mine(player));
         game.getCurrentPlayer().decrementEnergy(player.getClassPlayer().getMineCost());
     }
 

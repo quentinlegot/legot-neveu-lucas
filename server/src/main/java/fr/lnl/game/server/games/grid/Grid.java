@@ -59,7 +59,7 @@ public class Grid {
             for (int j = 0; j < column; j++) {
                 Pair<Player, Box> value = board.get(new Point(i, j));
                 if(value.getA() != null){
-                    str.append(" \033[0;34mP\033[0m");
+                    str.append(" \033[0;34m").append(value.getA().getId()).append("\033[0m");
                 }
                 else if (value.getB() instanceof Wall) {
                     str.append(" \033[0;32m□\033[0m");
@@ -72,6 +72,42 @@ public class Grid {
                 }
                 else if(value.getB() instanceof Bomb){
                     str.append(" \033[0;36mB\033[0m");
+                }
+                else {
+                    str.append(" \033[0;37m.\033[0m");
+                }
+            }
+        }
+        return str.toString();
+    }
+
+    public String privateView(Player player) {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < row; i++) {
+            str.append("\n");
+            for (int j = 0; j < column; j++) {
+                Pair<Player, Box> value = board.get(new Point(i, j));
+                if(value.getA() != null){
+                    str.append(" \033[0;34m").append(value.getA().getId()).append("\033[0m");
+                }
+                else if (value.getB() instanceof Wall) {
+                    str.append(" \033[0;32m□\033[0m");
+                }
+                else if(value.getB() instanceof EnergyBall){
+                    str.append(" \033[0;31mE\033[0m");
+                }
+                else if(value.getB() instanceof Explosive){
+                    if(((Explosive) value.getB()).getPlayer().equals(player)){
+                        if(value.getB() instanceof Mine){
+                            str.append(" \033[0;35mM\033[0m");
+                        }
+                        else if(value.getB() instanceof Bomb){
+                            str.append(" \033[0;36mB\033[0m");
+                        }
+                    }
+                    else{
+                        str.append(" \033[0;37m.\033[0m");
+                    }
                 }
                 else {
                     str.append(" \033[0;37m.\033[0m");

@@ -1,7 +1,6 @@
 package fr.lnl.game.client.view;
 
 import fr.lnl.game.server.games.action.Action;
-import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
 
 public interface View {
