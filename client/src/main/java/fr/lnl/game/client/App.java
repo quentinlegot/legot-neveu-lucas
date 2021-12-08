@@ -51,7 +51,7 @@ public class App extends Application {
     public static void startGame(ViewLambda lambda) throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
-        GridFactoryBuilder builder = LockGridFactoryBuilder.create().energyProbability(0.95F).wallProbability(0.80F).playersList(players).gridDimensions(12, 12);
+        GridFactoryBuilder builder = LockGridFactoryBuilder.create().energyProbability(0.95F).wallProbability(0.80F).gridDimensions(12, 12);
         game = new Game(builder, players);
         for (Player player : game.getPlayers()) {
             playerList.put(player, new ClientPlayer(player, lambda.createViewLambda(player)));

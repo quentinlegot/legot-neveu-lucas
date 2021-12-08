@@ -53,7 +53,8 @@ public interface GridFactoryBuilder {
     Grid build();
 
     /**
-     * call when initializing the game, it'll place player depending on the strategy used by its implementation
+     * call when initializing the game, it'll place player depending on the strategy used by its implementation,
+     * need to be call after build, call an NullPointerException otherwise
      */
     void initPlacePlayers();
 
