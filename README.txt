@@ -1,4 +1,4 @@
-Projet de Conception Logiciel concu par :
+Projet de Conception Logiciel conçu par :
 
 LUCAS Valentin
 LEGOT Quentin

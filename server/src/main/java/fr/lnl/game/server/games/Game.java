@@ -6,13 +6,10 @@ import fr.lnl.game.server.games.grid.build.GridFactoryBuilder;
 import fr.lnl.game.server.games.grid.elements.CountdownBox;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.listener.AbstractModelListening;
-import fr.lnl.game.server.listener.GameFinishEvent;
-import fr.lnl.game.server.listener.ModelListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.function.Predicate.not;
@@ -22,12 +19,10 @@ public class Game {
     private final GridFactoryBuilder buildStrategy;
     private final Grid grid;
     private final List<Player> players;
-    private final ModelListener gameFinishEvent;
-    private final AbstractModelListening displayWinnerEvent;
     private Player currentPlayer;
     private Action selectedAction = null;
 
-    public Game(GridFactoryBuilder buildStrategy, List<Player> players, AbstractModelListening displayWinnerEvent) throws IllegalArgumentException {
+    public Game(GridFactoryBuilder buildStrategy, List<Player> players) throws IllegalArgumentException {
         this.grid = buildStrategy.build();
         if(players.size() < 2)
             throw new IllegalArgumentException("The game need 2 or more player to start");
@@ -37,8 +32,6 @@ public class Game {
         this.buildStrategy = buildStrategy;
         this.players = players;
         this.currentPlayer = players.get(0);
-        this.gameFinishEvent = new GameFinishEvent(this);
-        this.displayWinnerEvent = displayWinnerEvent;
         initGame();
     }
 
@@ -47,16 +40,18 @@ public class Game {
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
     }
 
-    public void play() {
+    /**
+     *
+     * @return true if game is over, false otherwise
+     */
+    public boolean play() {
         selectedAction = currentPlayer.choseAction();
         selectedAction.doAction();
         countdownGridElementsUpdate();
         gridPlayersUpdate();
         nextCurrentPlayer();
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
-        if(isOver()) {
-            gameFinishEvent.updateModel(null);
-        }
+        return isOver();
     }
 
     private void gridPlayersUpdate(){
@@ -138,9 +133,5 @@ public class Game {
 
     public Action getSelectedAction() {
         return selectedAction;
-    }
-
-    public AbstractModelListening getDisplayWinnerEvent() {
-        return displayWinnerEvent;
     }
 }

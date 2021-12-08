@@ -1,12 +1,10 @@
 package fr.lnl.game.client;
 
-import fr.lnl.game.client.listener.DisplayWinnerEvent;
 import fr.lnl.game.client.view.AbstractView;
 import fr.lnl.game.client.view.Terminal;
 import fr.lnl.game.client.view.ViewManager;
 import fr.lnl.game.client.view.Window;
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.build.GridFactoryBuilder;
 import fr.lnl.game.server.games.grid.build.LockGridFactoryBuilder;
 import fr.lnl.game.server.games.player.*;
@@ -44,9 +42,8 @@ public class App extends Application {
     public static void startGame(ViewLambda lambda) throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
-        Grid grid = new Grid(12, 12, players);
         GridFactoryBuilder builder = LockGridFactoryBuilder.create().energyProbability(0.95F).wallProbability(0.80F).playersList(players).gridDimensions(12, 12);
-        game = new Game(builder, players, new DisplayWinnerEvent());
+        game = new Game(builder, players);
         for (Player player : game.getPlayers()) {
             playerList.put(player, new ClientPlayer(player, lambda.createViewLambda(player)));
         }
@@ -61,6 +58,7 @@ public class App extends Application {
             throw new CrashException(e.getMessage(), e);
         }
         viewManager = new ViewManager(playerList, game, Window.class);
+        viewManager.run();
     }
 
     public static void launchTerminal() {
@@ -71,6 +69,7 @@ public class App extends Application {
             throw new CrashException(e.getMessage(), e);
         }
         viewManager = new ViewManager(playerList, game, Terminal.class);
+        viewManager.run();
     }
 
     public static List<Player> parsePlayers() throws IllegalArgumentException, NoSuchMethodException,

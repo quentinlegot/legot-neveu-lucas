@@ -11,9 +11,11 @@ public class ButtonListener extends AbstractModelListening {
 
 
     private final Game game;
+    private final DisplayWinnerEvent displayWinnerEvent;
 
     public ButtonListener(Game game) {
         this.game = game;
+        this.displayWinnerEvent = new DisplayWinnerEvent();
     }
 
     @Override
@@ -30,12 +32,16 @@ public class ButtonListener extends AbstractModelListening {
     @Override
     public void updateModel(Object event) {
         Player player = game.getCurrentPlayer();
-        game.play();
+        boolean isOver = game.play();
         /* Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Un joueur ordinateur a joué");
         alert.setHeaderText("Le joueur ordinateur numéro" + player.getId() + " a joué");
         alert.setContentText("Il a joué l'action: " + game.getSelectedAction()); */
         App.getViewManager().updateView();
+        if(isOver) {
+            displayWinnerEvent.updateModel(game.getWinner());
+            System.exit(0);
+        }
         //alert.showAndWait();
     }
 }
