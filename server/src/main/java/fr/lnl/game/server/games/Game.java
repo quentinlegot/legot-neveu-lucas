@@ -4,8 +4,8 @@ import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.build.GridFactoryBuilder;
 import fr.lnl.game.server.games.grid.elements.CountdownBox;
+import fr.lnl.game.server.games.player.ComputerPlayer;
 import fr.lnl.game.server.games.player.Player;
-import fr.lnl.game.server.listener.AbstractModelListening;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +45,9 @@ public class Game {
      * @return true if game is over, false otherwise
      */
     public boolean play() {
-        selectedAction = currentPlayer.choseAction();
+        if(currentPlayer instanceof ComputerPlayer computer)
+            // si le joueur est humain alors le choix se fait avant l'appel de play()
+            selectedAction = computer.choseAction();
         selectedAction.doAction();
         countdownGridElementsUpdate();
         gridPlayersUpdate();
@@ -133,5 +135,9 @@ public class Game {
 
     public Action getSelectedAction() {
         return selectedAction;
+    }
+
+    public void setSelectedAction(Action selectedAction) {
+        this.selectedAction = selectedAction;
     }
 }

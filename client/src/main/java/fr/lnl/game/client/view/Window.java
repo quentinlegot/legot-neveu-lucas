@@ -4,6 +4,8 @@ import fr.lnl.game.client.App;
 import fr.lnl.game.client.listener.ButtonListener;
 import fr.lnl.game.client.listener.ClientEventHandler;
 import fr.lnl.game.server.games.Game;
+import fr.lnl.game.server.games.action.Action;
+import fr.lnl.game.server.games.action.ReunionSameAction;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.elements.*;
 import fr.lnl.game.server.games.player.Player;
@@ -17,10 +19,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class Window extends AbstractView {
 
@@ -56,6 +58,20 @@ public class Window extends AbstractView {
         alert.setContentText("Un joueur " + winner + " a gagné");
         App.getViewManager().updateView();
         alert.showAndWait();
+    }
+
+    @Override
+    public Action choseAction() {
+        List<ReunionSameAction> actions = generateAvailableActions();
+        List<Action> listActions = choseReunionSameAction(actions).getActions();
+        Action action = null;
+        do {
+            if(listActions.size() == 1){
+                return listActions.get(0);
+            }
+            // TODO: 08/12/2021 implémenter choix voir Terminal pour savoir comment faire
+        }while(action == null);
+        return action;
     }
 
     private Parent createContent() {

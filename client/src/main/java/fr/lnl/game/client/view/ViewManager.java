@@ -3,6 +3,7 @@ package fr.lnl.game.client.view;
 import fr.lnl.game.client.ClientPlayer;
 import fr.lnl.game.client.listener.DisplayWinnerEvent;
 import fr.lnl.game.server.games.Game;
+import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
 
 import java.util.HashMap;
@@ -21,6 +22,9 @@ public record ViewManager(
         while (true) {
             Player player = game.getCurrentPlayer();
             players.get(game.getCurrentPlayer()).getView().show();
+            if(game.getCurrentPlayer() instanceof HumanPlayer human) {
+                game.setSelectedAction(players.get(human).getView().choseAction());
+            }
             boolean isOver = game.play();
             System.out.println("Le joueur ordinateur numéro " + player.getId() + " a joué");
             System.out.println("Il a joué l'action: " + game.getSelectedAction());
