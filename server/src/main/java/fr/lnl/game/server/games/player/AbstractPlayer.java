@@ -107,7 +107,7 @@ public abstract class AbstractPlayer implements Player {
 
 
     @Override
-    public void setPosition(Point position){
+    public void setPosition(/* NotNull */ Point position){
         if(position == null){
             throw new IllegalArgumentException("Position is null");
         }

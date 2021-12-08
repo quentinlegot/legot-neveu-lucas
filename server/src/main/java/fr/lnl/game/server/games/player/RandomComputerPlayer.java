@@ -14,6 +14,10 @@ public class RandomComputerPlayer extends ComputerPlayer {
         super(id,point, classPlayer);
     }
 
+    /**
+     * Choose an action fully randomly
+     * @return an action between all available
+     */
     @Override
     public Action strategy(Game game) {
         Action action = null;
