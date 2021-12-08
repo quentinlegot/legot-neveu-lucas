@@ -10,6 +10,7 @@ import fr.lnl.game.server.utils.Point;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class StrategyComputerPlayer extends ComputerPlayer {
 
@@ -19,79 +20,104 @@ public class StrategyComputerPlayer extends ComputerPlayer {
 
     @Override
     public Action strategy(Game game) {
-        Action action = null;
-        Grid grid = game.getGrid();
+        Action deployShield = choseDeployShield(game);
+        if(deployShield != null){
+            return deployShield;
+        }
+
+        List<ReunionSameAction> actions = generateAvailableActions();
+        Action shot = choseShot(actions,game);
+        if(shot != null){
+            return shot;
+        }
+        Action move = choseMove(actions,game);
+        if(move != null){
+            return move;
+        }
+        return choseExplosive(actions);
+    }
+
+    private Action choseExplosive(List<ReunionSameAction> actions){
+        Random random = new Random();
+        if(isInReunion(actions, DropBomb.class) || isInReunion(actions, DropMine.class)){
+            List<Action> explosiveActions = extractReunionSameAction(actions, DropMine.class).getActions();
+            explosiveActions.addAll(extractReunionSameAction(actions, DropBomb.class).getActions());
+            return explosiveActions.get(random.nextInt(0, explosiveActions.size()));
+        }
+        else{
+            return new Nothing();
+        }
+    }
+
+    private Action choseDeployShield(Game game){
         for (Player player : game.getPlayers()) {
-            boolean danger = player.getActions().stream().anyMatch(a -> a instanceof Shot && a.getPoint().equals(getPosition()));
+            List<Point> shot = new Shot(game,player).getValidPoint();
+            boolean danger = shot.stream().anyMatch(p -> p.equals(getPosition()));
             if(danger && (getEnergy() - getClassPlayer().getPenaltyShoot() <= 0)){
-                action = new DeployShield(this);
+                return new DeployShield(this);
             }
         }
-        List<ReunionSameAction> actions = generateAvailableActions();
-        if(isInReunion(actions, Shot.class)){
+        return null;
+    }
+
+    private Action choseShot(List<ReunionSameAction> actions, Game game){
+        if(isInReunion(actions, Shot.class)) {
             ReunionSameAction reunion = extractReunionSameAction(actions, Shot.class);
             List<Action> actionList = reunion.getActions();
-            action = actionList.get(0);
-            if(actionList.size() > 1){
+            Action action = actionList.get(0);
+            if (actionList.size() > 1) {
                 for (int i = 1; i < actionList.size(); i++) {
                     Point point = actionList.get(i).getPoint();
-                    if(grid.getGridPlayer(point).getEnergy() < grid.getGridPlayer(action.getPoint()).getEnergy()){
+                    if (game.getGrid().getGridPlayer(point).getEnergy() < game.getGrid().getGridPlayer(action.getPoint()).getEnergy()) {
                         action = actionList.get(i);
                     }
                 }
             }
             return action;
         }
-        if(isInReunion(actions, Move.class)){
+        return null;
+    }
+
+    private Action choseMove(List<ReunionSameAction> actions, Game game){
+        if(isInReunion(actions, Move.class)) {
             ReunionSameAction reunion = extractReunionSameAction(actions, Move.class);
             List<Action> actionList = reunion.getActions();
             for (Action value : actionList) {
                 Point point = value.getPoint();
-                Box box = grid.getGridBox(point);
-                if(box instanceof EnergyBall){
+                Box box = game.getGrid().getGridBox(point);
+                if (box instanceof EnergyBall) {
                     return value;
                 }
-                System.out.println("after move " + action);
             }
             Random random = new Random();
-            int value = random.nextInt(0,2);
-            System.out.println(value);
-            if(value == 0){
-                System.out.println("oui");
-                do{
-                    action = actionList.get(random.nextInt(0, actionList.size()));
-                    Box box = game.getGrid().getGridBox(action.getPoint());
-                    if(box instanceof Explosive) {
-                        if (!((Explosive) box).getPlayer().equals(this)) {
-                            action = null;
+            int value = random.nextInt(0, 2);
+            if (value == 0) {
+                Action action = null;
+                do {
+                    Action move = actionList.get(random.nextInt(0, actionList.size()));
+                    Box box = game.getGrid().getGridBox(move.getPoint());
+                    if (box instanceof Explosive) {
+                        if (!(((Explosive) box).getPlayer().equals(this))) {
+                            action = move;
+                        }
+                        else{
+                            if(actionList.stream().filter(a -> game.getGrid().getGridBox(a.getPoint()) instanceof Explosive).toList().size() ==
+                                    actionList.size()){
+                                action = move;
+                            }
                         }
                     }
-                }while(action == null);
+                    else{
+                        action = move;
+                    }
+                } while (action == null);
                 return action;
             }
-            if(isInReunion(actions, Explosive.class)){
-                List<Action> explosiveActions = extractReunionSameAction(actions, Move.class).getActions();
-                if(explosiveActions.size() > 1){
-                    action = explosiveActions.get(random.nextInt(0, explosiveActions.size()));
-                    return action;
-                }
-                System.out.println("explo " + action);
+            else{
+                return choseExplosive(actions);
             }
         }
-        if(isInReunion(actions, Explosive.class)){
-            Random random = new Random();
-            List<Action> explosiveActions = extractReunionSameAction(actions, Move.class).getActions();
-            if(explosiveActions.size() > 1){
-                action = explosiveActions.get(random.nextInt(0, explosiveActions.size()));
-            }
-            return action;
-        }
-        else {
-            action = new Nothing();
-            System.out.println("nothing " + action);
-        }
-        System.out.println("end " + action);
-        return action;
+        return null;
     }
 
     public boolean isInReunion(List<ReunionSameAction> actions, Class clazz){

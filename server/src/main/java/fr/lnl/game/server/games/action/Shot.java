@@ -29,6 +29,13 @@ public class Shot extends AbstractAction {
         this.direction = direction;
     }
 
+    public Shot(Game game, Player player){
+        super(game, player);
+        List<Point> points = getValidPoint();
+        this.point = null;
+        this.direction = null;
+    }
+
     /**
      * We decrement player's energy and shot on every of its opponents on the chosen direction by decrementing its
      * energy too
