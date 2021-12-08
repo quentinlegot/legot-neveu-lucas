@@ -1,5 +1,7 @@
 package fr.lnl.game.client.view;
 
+import fr.lnl.game.server.games.Game;
+import fr.lnl.game.server.games.action.Shot;
 import fr.lnl.game.server.games.grid.elements.Bomb;
 import fr.lnl.game.server.games.grid.elements.EnergyBall;
 import fr.lnl.game.server.games.grid.elements.Mine;
@@ -18,6 +20,7 @@ public class Cell extends Rectangle {
 
     private static final Image PLAYER_IMAGE = new Image("player.png");
     private static final Image PLAYER_SHIELD_IMAGE = new Image("player_shield.png");
+    private static final Image PLAYER_SHOT_IMAGE = new Image("player_shot.png");
     private static final Image ENERGY_BALL_IMAGE = new Image("energyBall.png");
     private static final Image BOMB_IMAGE = new Image("bomb.png");
     private static final Image MINE_IMAGE = new Image("mine.png");
@@ -33,11 +36,14 @@ public class Cell extends Rectangle {
 
 
 
-    public static StackPane setImageObject(Object object){
+    public static StackPane setImageObject(Object object, Game game){
         StackPane sp = new StackPane();
         Image in;
         if(object instanceof Player){
-            if(((Player) object).isShieldDeploy()){
+            if(object.equals(game.getCurrentPlayer()) && game.getSelectedAction() instanceof Shot){
+                in = PLAYER_SHOT_IMAGE;
+            }
+            else if(((Player) object).isShieldDeploy()){
                 in = PLAYER_SHIELD_IMAGE;
             }
             else{

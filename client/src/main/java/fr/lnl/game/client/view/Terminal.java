@@ -24,7 +24,9 @@ public class Terminal extends AbstractView {
 
     @Override
     public void displayWinner(Player winner) {
-        System.out.println(winner + " " + winner.getId() + " a gagné la partie");
+        System.out.println("\n\033[0;31m====== FIN DU JEU ======\033[0m");
+        System.out.println(game.getGrid().toString());
+        System.out.println("\n\033[0;33mVictoire de " + winner  + " " + winner.getId() + "\033[0m");
     }
 
     @Override

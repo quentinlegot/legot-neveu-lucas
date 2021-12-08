@@ -21,13 +21,15 @@ public record ViewManager(
         DisplayWinnerEvent displayWinnerEvent = new DisplayWinnerEvent();
         while (true) {
             Player player = game.getCurrentPlayer();
+            System.out.println("\n\033[0;34m====== Tour n°" + game.getNbrTurn() + " =======\033[0m");
+            System.out.println("\nA \033[0;31m" + player  + " " + player.getId() + "\033[0m de jouer");
             players.get(game.getCurrentPlayer()).getView().show();
             if(game.getCurrentPlayer() instanceof HumanPlayer human) {
                 game.setSelectedAction(players.get(human).getView().choseAction());
             }
             boolean isOver = game.play();
-            System.out.println("Le joueur ordinateur numéro " + player.getId() + " a joué");
-            System.out.println("Il a joué l'action: " + game.getSelectedAction().getClass().getSimpleName());
+            System.out.println("\n\033[0;31m" + player  + " " + player.getId() + "\033[0m utilise l'action \033[0;36m"+
+                    game.getSelectedAction().getClass().getSimpleName() + "\033[0m");
             if (isOver) {
                 displayWinnerEvent.updateModel(game.getWinner());
                 System.exit(0);

@@ -21,6 +21,7 @@ public class Game {
     private final List<Player> players;
     private Player currentPlayer;
     private Action selectedAction = null;
+    private int nbrTurn;
 
     public Game(GridFactoryBuilder buildStrategy, List<Player> players) throws IllegalArgumentException {
         this.grid = buildStrategy.build();
@@ -32,6 +33,7 @@ public class Game {
         this.buildStrategy = buildStrategy;
         this.players = players;
         this.currentPlayer = players.get(0);
+        this.nbrTurn = 1;
         initGame();
     }
 
@@ -53,6 +55,7 @@ public class Game {
         gridPlayersUpdate();
         nextCurrentPlayer();
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
+        nbrTurn++;
         return isOver();
     }
 
@@ -139,5 +142,9 @@ public class Game {
 
     public void setSelectedAction(Action selectedAction) {
         this.selectedAction = selectedAction;
+    }
+
+    public int getNbrTurn() {
+        return nbrTurn;
     }
 }

@@ -113,7 +113,7 @@ public class Window extends AbstractView {
     }
 
     public void addToPrincipalPanel(Object object, Pane principalPane, int i, int j) {
-        StackPane sp = Cell.setImageObject(object);
+        StackPane sp = Cell.setImageObject(object, game);
         sp.setLayoutY(i * cellSize);
         sp.setLayoutX(j * cellSize);
         principalPane.getChildren().add(sp);
