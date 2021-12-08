@@ -3,6 +3,9 @@ package fr.lnl.game.server.games.player;
 import fr.lnl.game.server.games.weapon.Firearm;
 import fr.lnl.game.server.games.weapon.Weapon;
 
+/**
+ * ClassPlayer contains all data about the cost of an action or the cost of a damage
+ */
 public enum ClassPlayer {
 
     DEFAULT(800, 25, 20, 30, 40, 10, 80, 40, 20, 15, new Firearm()),
