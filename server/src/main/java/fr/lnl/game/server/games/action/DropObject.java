@@ -71,4 +71,8 @@ public abstract class DropObject extends AbstractAction {
         return direction;
     }
 
+    @Override
+    public Point getPoint() {
+        return point;
+    }
 }
