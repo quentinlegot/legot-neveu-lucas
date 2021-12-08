@@ -33,6 +33,11 @@ public class DeployShield extends AbstractAction {
     }
 
     @Override
+    public Point getPoint() {
+        return null;
+    }
+
+    @Override
     public List<Point> getValidPoint() {
         return null;
     }

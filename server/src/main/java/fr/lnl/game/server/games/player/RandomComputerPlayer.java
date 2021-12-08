@@ -1,7 +1,9 @@
 package fr.lnl.game.server.games.player;
 
+import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.Action;
 import fr.lnl.game.server.games.action.Nothing;
+import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.utils.Point;
 
 import java.util.Random;
@@ -17,18 +19,17 @@ public class RandomComputerPlayer extends ComputerPlayer {
      * @return an action between all available
      */
     @Override
-    public Action choseAction() {
+    public Action strategy(Game game) {
         Action action = null;
-        switch (getActions().size()){
-            case 0 -> action = new Nothing();
-            case 1 -> action = getActions().get(0);
-            default -> {
-                Random random = new Random();
-                while (action == null || !action.isPossible()) {
-                    action = getActions().get(random.nextInt(0,getActions().size()));
-                }
-            }
+        Random random = new Random();
+        while (action == null || !action.isPossible()) {
+            action = getActions().get(random.nextInt(0, getActions().size()));
         }
         return action;
+    }
+
+    @Override
+    public String toString() {
+        return "Random";
     }
 }

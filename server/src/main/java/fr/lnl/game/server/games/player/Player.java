@@ -1,12 +1,15 @@
 package fr.lnl.game.server.games.player;
 
 import fr.lnl.game.server.games.action.Action;
+import fr.lnl.game.server.games.action.ReunionSameAction;
 import fr.lnl.game.server.games.weapon.Weapon;
 import fr.lnl.game.server.utils.Point;
 
 import java.util.List;
 
 public interface Player {
+
+    List<ReunionSameAction> generateAvailableActions();
 
     Point getPosition();
 

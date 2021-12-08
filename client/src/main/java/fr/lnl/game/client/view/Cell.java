@@ -17,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 public class Cell extends Rectangle {
 
     private static final Image PLAYER_IMAGE = new Image("player.png");
+    private static final Image PLAYER_SHIELD_IMAGE = new Image("player_shield.png");
     private static final Image ENERGY_BALL_IMAGE = new Image("energyBall.png");
     private static final Image BOMB_IMAGE = new Image("bomb.png");
     private static final Image MINE_IMAGE = new Image("mine.png");
@@ -36,7 +37,12 @@ public class Cell extends Rectangle {
         StackPane sp = new StackPane();
         Image in;
         if(object instanceof Player){
-            in = PLAYER_IMAGE;
+            if(((Player) object).isShieldDeploy()){
+                in = PLAYER_SHIELD_IMAGE;
+            }
+            else{
+                in = PLAYER_IMAGE;
+            }
         } else if(object instanceof EnergyBall){
             in = ENERGY_BALL_IMAGE;
         } else if(object instanceof Bomb){

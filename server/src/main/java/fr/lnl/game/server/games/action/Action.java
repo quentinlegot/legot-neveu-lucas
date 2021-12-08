@@ -22,6 +22,7 @@ public interface Action {
      * Used by {@link Move}, {@link Shot} and {@link DropObject} to list all direction where the action is possible
      * @return a list a point where the action is possible (not block by a wall per example)
      */
+    Point getPoint();
     List<Point> getValidPoint();
 
 }

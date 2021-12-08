@@ -47,7 +47,7 @@ public class Game {
     public boolean play() {
         if(currentPlayer instanceof ComputerPlayer computer)
             // si le joueur est humain alors le choix se fait avant l'appel de play()
-            selectedAction = computer.choseAction();
+            selectedAction = computer.choseAction(this);
         selectedAction.doAction();
         countdownGridElementsUpdate();
         gridPlayersUpdate();

@@ -24,12 +24,12 @@ public class Terminal extends AbstractView {
 
     @Override
     public void displayWinner(Player winner) {
-        System.out.println("Le joueur " + winner + " a gagné la partie");
+        System.out.println(winner + " " + winner.getId() + " a gagné la partie");
     }
 
     @Override
     public Action choseAction() {
-       List<ReunionSameAction> actions = generateAvailableActions();
+       List<ReunionSameAction> actions = player.generateAvailableActions();
        List<Action> listActions = choseReunionSameAction(actions).getActions();
        Action action = null;
        String error = "Veuillez renseigner une valeur numérique comprise entre 1 et " + listActions.size();

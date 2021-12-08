@@ -27,7 +27,7 @@ public record ViewManager(
             }
             boolean isOver = game.play();
             System.out.println("Le joueur ordinateur numéro " + player.getId() + " a joué");
-            System.out.println("Il a joué l'action: " + game.getSelectedAction());
+            System.out.println("Il a joué l'action: " + game.getSelectedAction().getClass().getSimpleName());
             if (isOver) {
                 displayWinnerEvent.updateModel(game.getWinner());
                 System.exit(0);

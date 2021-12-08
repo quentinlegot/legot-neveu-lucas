@@ -14,4 +14,8 @@ public class HumanPlayer extends AbstractPlayer {
     }
 
 
+    @Override
+    public String toString() {
+        return "Human";
+    }
 }

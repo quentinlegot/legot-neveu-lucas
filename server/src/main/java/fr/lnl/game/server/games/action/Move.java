@@ -60,6 +60,7 @@ public class Move extends AbstractAction {
      * We add a point to the list where there is nothing on the board.
      * @see Action#getValidPoint()
      */
+
     @Override
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();
@@ -79,6 +80,11 @@ public class Move extends AbstractAction {
             }
         }
         return listMoves;
+    }
+
+    @Override
+    public Point getPoint() {
+        return point;
     }
 
     public Direction getDirection() {

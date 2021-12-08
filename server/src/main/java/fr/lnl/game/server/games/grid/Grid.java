@@ -90,7 +90,7 @@ public class Grid {
                     str.append(" \033[0;34m").append(value.getA().getId()).append("\033[0m");
                 }
                 else if (value.getB() instanceof Wall) {
-                    str.append(" \033[0;32m□\033[0m");
+                    str.append(" \033[0;32m#\033[0m");
                 }
                 else if(value.getB() instanceof EnergyBall){
                     str.append(" \033[0;31mE\033[0m");
@@ -119,7 +119,7 @@ public class Grid {
                     str.append(" \033[0;34m").append(value.getA().getId()).append("\033[0m");
                 }
                 else if (value.getB() instanceof Wall) {
-                    str.append(" \033[0;32m□\033[0m");
+                    str.append(" \033[0;32m#\033[0m");
                 }
                 else if(value.getB() instanceof EnergyBall){
                     str.append(" \033[0;31mE\033[0m");
@@ -147,6 +147,14 @@ public class Grid {
 
     public HashMap<Point, Pair<Player, Box>> getBoard() {
         return board;
+    }
+
+    public Player getGridPlayer(Point point){
+        return getBoard().get(point).getA();
+    }
+
+    public Box getGridBox(Point point){
+        return getBoard().get(point).getB();
     }
 
     public List<Player> getPlayers() {

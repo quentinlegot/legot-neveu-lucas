@@ -1,9 +1,11 @@
 package fr.lnl.game.server.games.player;
 
 import fr.lnl.game.server.games.action.Action;
+import fr.lnl.game.server.games.action.ReunionSameAction;
 import fr.lnl.game.server.games.weapon.Weapon;
 import fr.lnl.game.server.utils.Point;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractPlayer implements Player {
@@ -23,6 +25,24 @@ public abstract class AbstractPlayer implements Player {
         this.weapon = classPlayer.getWeapon();
         this.shieldDeploy = shieldDeploy;
         this.position = position;
+    }
+
+    @Override
+    public List<ReunionSameAction> generateAvailableActions() {
+        List<ReunionSameAction> actions = new ArrayList<>();
+        for (Action a : getActions()) {
+            ReunionSameAction reunionFilter = actions.stream()
+                    .filter(r -> r.getActionName().equals(a.getClass().getSimpleName()))
+                    .findFirst()
+                    .orElse(null);
+            if(reunionFilter != null){
+                reunionFilter.addAction(a);
+            }
+            else{
+                actions.add(new ReunionSameAction(a.getClass().getSimpleName(),a));
+            }
+        }
+        return actions;
     }
 
     @Override
@@ -85,6 +105,7 @@ public abstract class AbstractPlayer implements Player {
         return position;
     }
 
+
     @Override
     public void setPosition(/* NotNull */ Point position){
         if(position == null){
@@ -95,7 +116,10 @@ public abstract class AbstractPlayer implements Player {
 
     @Override
     public void decrementEnergy(int energy){
-        this.energy -= energy;
+        if(!isShieldDeploy()){
+            this.energy -= energy;
+        }
+        shieldDeploy = false;
     }
 
     @Override
