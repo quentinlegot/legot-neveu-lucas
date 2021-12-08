@@ -1,6 +1,8 @@
 package fr.lnl.game.server.games.player;
 
+import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.Action;
+import fr.lnl.game.server.games.action.Nothing;
 import fr.lnl.game.server.utils.Point;
 
 public abstract class ComputerPlayer extends AbstractPlayer {
@@ -9,5 +11,17 @@ public abstract class ComputerPlayer extends AbstractPlayer {
         super(id, point, false, classPlayer);
     }
 
-    public abstract Action choseAction();
+    public Action choseAction(Game game){
+        Action action;
+        switch (getActions().size()){
+            case 0 -> action = new Nothing();
+            case 1 -> action = getActions().get(0);
+            default -> {
+                return strategy(game);
+            }
+        }
+        return action;
+    }
+
+    public abstract Action strategy(Game game);
 }

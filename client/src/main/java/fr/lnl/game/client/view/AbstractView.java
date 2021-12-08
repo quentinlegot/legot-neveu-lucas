@@ -1,12 +1,9 @@
 package fr.lnl.game.client.view;
 
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.action.Action;
 import fr.lnl.game.server.games.action.ReunionSameAction;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Maths;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,23 +15,6 @@ public abstract class AbstractView implements View {
     public AbstractView(Game game, Player player) {
         this.game = game;
         this.player = player;
-    }
-
-    protected List<ReunionSameAction> generateAvailableActions() {
-        List<ReunionSameAction> actions = new ArrayList<>();
-        for (Action a : player.getActions()) {
-            ReunionSameAction reunionFilter = actions.stream()
-                    .filter(r -> r.getActionName().equals(a.getClass().getSimpleName()))
-                    .findFirst()
-                    .orElse(null);
-            if(reunionFilter != null){
-                reunionFilter.addAction(a);
-            }
-            else{
-                actions.add(new ReunionSameAction(a.getClass().getSimpleName(),a));
-            }
-        }
-        return actions;
     }
 
     protected ReunionSameAction choseReunionSameAction(List<ReunionSameAction> actions) {

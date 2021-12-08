@@ -106,6 +106,15 @@ public class App extends Application {
                     }
                     playerClass = RandomComputerPlayer.class;
                 }
+                case "computerS" -> {
+                    if(playerClass != null) {
+                        playerList.add(createNewPlayer(playerClass,
+                                classPlayer != null ? classPlayer : ClassPlayer.DEFAULT, playerList.size())
+                        );
+                        classPlayer = null;
+                    }
+                    playerClass = StrategyComputerPlayer.class;
+                }
                 case "default" -> classPlayer = ClassPlayer.DEFAULT;
                 case "tank" -> classPlayer = ClassPlayer.TANK;
                 case "dps" -> classPlayer = ClassPlayer.DPS;
@@ -113,6 +122,7 @@ public class App extends Application {
                 default -> throw new IllegalArgumentException("Unknown argument: " + str);
             }
         }
+        System.out.println("oui");
         if(playerClass != null)
             playerList.add(createNewPlayer(playerClass,
                     classPlayer != null ? classPlayer : ClassPlayer.DEFAULT, playerList.size())
