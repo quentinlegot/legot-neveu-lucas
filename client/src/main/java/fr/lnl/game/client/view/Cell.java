@@ -48,8 +48,8 @@ public class Cell extends Rectangle {
         }
 
         ImageView iv = new ImageView(in);
-        iv.setFitHeight(40);
-        iv.setFitWidth(40);
+        iv.setFitHeight(Window.cellSize);
+        iv.setFitWidth(Window.cellSize);
         sp.getChildren().add(iv);
         return sp;
     }

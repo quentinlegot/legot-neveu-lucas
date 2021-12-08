@@ -24,9 +24,11 @@ import javafx.stage.Stage;
 
 public class Window extends AbstractView {
 
+
+    //il faut pouvoir trouver une formule responsive avec width et height
     public static final int cellSize = 40;
-    public static final int width = 24;
-    public static final int height = 16;
+    public static final int width = 500;
+    public static final int height = 160;
 
 
     private final Stage stage;
@@ -58,7 +60,7 @@ public class Window extends AbstractView {
 
     private Parent createContent() {
         Pane principalPane = new Pane();
-        principalPane.setPrefSize(width * cellSize, height * cellSize); // TODO: 04/12/2021 A corriger -> doit plutôt s'adapter à la taille de la grid (grid.getRow() et grid.getColumn())
+        principalPane.setPrefSize(game.getGrid().getRow() * cellSize + width, game.getGrid().getColumn() * cellSize + height); // TODO: 04/12/2021 A corriger -> doit plutôt s'adapter à la taille de la grid (grid.getRow() et grid.getColumn())
         for (int i = 0; i < game.getGrid().getRow(); i++) {
             for (int j = 0; j < game.getGrid().getColumn(); j++) {
                 Cell cell = new Cell(i, j);
@@ -96,7 +98,6 @@ public class Window extends AbstractView {
         principalPane.getChildren().add(sp);
     }
 
-    // TODO: 07/12/2021 WARNING : générer autant de frames qu’il y a de joueurs,(à implémenter)
     // TODO: 07/12/2021 Maintenant régler :  Responsive
 
 
@@ -117,7 +118,6 @@ public class Window extends AbstractView {
                 "Energie : " + game.getPlayers().get(playerNumber).getEnergy() + "\n" +
                 "Arme : " + game.getPlayers().get(playerNumber).getWeapon().getClass().getSimpleName() + "\n";
         Text t = new Text(s);
-
         Rectangle r = new Rectangle();
         r.setWidth(500);
         r.setHeight(90);
