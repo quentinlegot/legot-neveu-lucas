@@ -1,4 +1,5 @@
 package fr.lnl.game.server.games.grid;
+
 import fr.lnl.game.server.games.grid.elements.*;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
@@ -8,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * Class managing the board
+ */
 public class Grid {
     private final HashMap<Point, Pair<Player, Box>> board;
     private final int row;
@@ -22,18 +25,32 @@ public class Grid {
         board = new HashMap<>();
     }
 
+    /**
+     * @see Grid#boardPositionIsValid(int, int)
+     */
     public boolean boardPositionIsValid(int row, int deltaRow, int column, int deltaColumn){
         return boardPositionIsValid(row + deltaRow, column + deltaColumn);
     }
 
+    /**
+     * Check if given position is in grid area
+     * @return true if position is valid, false otehrwise
+     */
     public boolean boardPositionIsValid(int row, int column) {
         return row >= 0 && column >= 0 && row < this.row && column < this.column;
     }
 
+    /**
+     * @see Grid#boardPositionIsValid(int, int)
+     */
     public boolean boardPositionIsValid(Point point) {
         return boardPositionIsValid(point.getA(), point.getB());
     }
 
+    /**
+     * @return the number of neutral box
+     * @see Grid#isNeutralBox(Box)
+     */
     public int getNumberNeutralBox(){
         int countBox = 0;
         for (int i = 1; i < row - 1; i++) {
@@ -47,10 +64,21 @@ public class Grid {
         return countBox;
     }
 
+    /**
+     *
+     * @param box the box we'll look state
+     * @return true if {@code box} isn't a {@link Wall} or a {@link EnergyBall}
+     */
     public boolean isNeutralBox(Box box){
         return !(box instanceof Wall) && !(box instanceof EnergyBall);
     }
 
+    /**
+     * Given a string representation of the board.<br>
+     * Some characters in given string are in UTF-8 and can be poorly displayed if using an incompatible encoding, like
+     * on Windows where french regional encoding is {@code windows-1252}
+     * @return a string view of a board
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();

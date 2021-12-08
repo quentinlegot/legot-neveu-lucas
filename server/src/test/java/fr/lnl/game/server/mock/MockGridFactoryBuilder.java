@@ -18,13 +18,13 @@ public class MockGridFactoryBuilder extends LockGridFactoryBuilder {
     }
 
     @Override
-    protected void initPlaceEnergyBall(float probability) {
+    protected void initPlaceEnergyBall() {
         grid.getBoard().get(new Point(2,3)).setB(new EnergyBall());
         grid.getBoard().get(new Point(8,10)).setB(new EnergyBall());
     }
 
     @Override
-    protected void initPlaceInternWall(float probability) {
+    protected void initPlaceInternWall() {
         grid.getBoard().get(new Point(3,6)).setB(new Wall(3,6));
         grid.getBoard().get(new Point(7,14)).setB(new Wall(7,14));
         grid.getBoard().get(new Point(10,7)).setB(new Wall(10,7));
