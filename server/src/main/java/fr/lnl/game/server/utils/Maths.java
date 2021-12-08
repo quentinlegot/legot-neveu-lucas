@@ -6,7 +6,7 @@ public class Maths {
 
     public static int testInteger(String entry, Scanner scanner, String error) {
         while (!isNumeric(entry)) {
-            System.out.println(Error.Entry_Error_Message + error);
+            System.out.println(ErrorMessage.Entry_Error_Message + error);
             entry = scanner.next();
         }
         return Integer.parseInt(entry);
@@ -14,7 +14,7 @@ public class Maths {
 
     public static float testFloat(String entry, Scanner scanner, String error) {
         while (!isFloat(entry)) {
-            System.out.println(Error.Entry_Error_Message + error);
+            System.out.println(ErrorMessage.Entry_Error_Message + error);
             entry = scanner.next();
         }
         return Integer.parseInt(entry);

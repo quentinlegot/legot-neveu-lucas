@@ -21,10 +21,6 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.graphics' ]
 }
 
-compileJava {
-    options.encoding = 'UTF-8'
-}
-
 application {
     // Define the main class for the application.
     mainClassName = 'fr.lnl.game.client.App'

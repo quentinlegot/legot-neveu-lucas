@@ -1,0 +1,11 @@
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    javadoc {
+        options.memberLevel = JavadocMemberLevel.PRIVATE
+    }
+    compileJava {
+        // options.encoding = "UTF-8"
+    }
+}

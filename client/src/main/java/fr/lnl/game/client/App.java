@@ -24,19 +24,28 @@ public class App extends Application {
     private static ViewManager viewManager;
 
     public static void main(String[] args) {
-        argsList = new LinkedList<>(Arrays.asList(args));
-        argsList.removeIf(s -> s.startsWith("-D") || s.equals("fr.lnl.game.client.App")); // remove given parameters from gradle
-        Class<? extends AbstractView> clazz;
-        try {
-            clazz = parseView();
-        } catch (IllegalArgumentException e) {
-            throw new CrashException(e.getMessage(), e);
-        }
-        if(clazz.equals(Terminal.class)) {
-            launchTerminal();
-        } else {
-            launch();
-        }
+         try {
+             argsList = new LinkedList<>(Arrays.asList(args));
+             argsList.removeIf(s -> s.startsWith("-D") || s.equals("fr.lnl.game.client.App")); // remove given parameters from gradle
+             Class<? extends AbstractView> clazz;
+             try {
+                 clazz = parseView();
+             } catch (IllegalArgumentException e) {
+                 throw new CrashException(e.getMessage(), e);
+             }
+             if(clazz.equals(Terminal.class)) {
+                 launchTerminal();
+             } else {
+                 launch();
+             }
+         } catch(CrashException e) {
+             System.err.println("Une erreur est survenue et l'application a été obligé de fermer");
+             System.err.println(e.getCause().toString());
+             for (StackTraceElement element : e.getStackTrace()) {
+                 System.err.println("   at " + element.toString());
+             }
+             System.exit(1);
+         }
     }
 
     public static void startGame(ViewLambda lambda) throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
