@@ -62,7 +62,7 @@ public class Window extends AbstractView {
 
     @Override
     public Action choseAction() {
-        List<ReunionSameAction> actions = generateAvailableActions();
+        List<ReunionSameAction> actions = player.generateAvailableActions();
         List<Action> listActions = choseReunionSameAction(actions).getActions();
         Action action = null;
         do {
@@ -125,7 +125,7 @@ public class Window extends AbstractView {
     public void putStatePlayerPane(Pane principalPane){
         int Y = 0;
         for(int i=0;i<game.getPlayers().size();i++){
-            StackPane sp = showStatePlayer(i);
+            StackPane sp = showStatePlayer(game.getPlayers().get(i).toString(),i);
             sp.setLayoutX(480);
             sp.setLayoutY(Y);
             Y+=90;
@@ -133,9 +133,9 @@ public class Window extends AbstractView {
         }
     }
 
-    public StackPane showStatePlayer(int playerNumber){
+    public StackPane showStatePlayer(String type, int playerNumber){
         StackPane subSp = new StackPane();
-        String s = "Joueur " + (playerNumber+1) + "\n" +
+        String s = type + " " + (playerNumber+1) + "\n" +
                 "Energie : " + game.getPlayers().get(playerNumber).getEnergy() + "\n" +
                 "Arme : " + game.getPlayers().get(playerNumber).getWeapon().getClass().getSimpleName() + "\n";
         Text t = new Text(s);
@@ -161,8 +161,9 @@ public class Window extends AbstractView {
 
     public StackPane showMoveText(){
         StackPane subSp = new StackPane();
-        String s = "Joueur : " + (player.getId()+1) + "\n" +
-                "Vient de jouer : " + game.getSelectedAction() + "\n";
+        String action = game.getSelectedAction() == null ? "null" : game.getSelectedAction().getClass().getSimpleName();
+        String s = player +  " : " + (player.getId()+1) + "\n" +
+                "Vient de jouer : " + action + "\n";
         Text t = new Text(s);
         Rectangle r = new Rectangle();
         r.setWidth(478);
