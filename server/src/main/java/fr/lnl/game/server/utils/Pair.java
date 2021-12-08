@@ -2,7 +2,13 @@ package fr.lnl.game.server.utils;
 
 import java.util.Objects;
 
-public class Pair<A,B> {
+/**
+ * Tuple associating storing two value of undefined type.<br>
+ * Unlike Python, value in this Tuple can be modified (but the type of its new value need to be the same)
+ * @param <A> first element of the tuple
+ * @param <B> second element of the tuple
+ */
+public class Pair<A, B> {
 
     private A a;
     private B b;
@@ -37,6 +43,10 @@ public class Pair<A,B> {
         return Objects.equals(a, point.a) && Objects.equals(b, point.b);
     }
 
+    /**
+     * Absolut useful when using HashMap or HashSet (or everything using hashCode to compare Objects
+     * @return object hash
+     */
     @Override
     public int hashCode() {
         return Objects.hash(a, b);

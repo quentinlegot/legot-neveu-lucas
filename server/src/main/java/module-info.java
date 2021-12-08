@@ -1,3 +1,6 @@
+/**
+ * Server module, include every model classes
+ */
 module server {
     exports fr.lnl.game.server;
     exports fr.lnl.game.server.games;
