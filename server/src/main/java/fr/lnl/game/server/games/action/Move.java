@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Used when the player want to move in a direction, it can move in a direction when there is another player or a wall
+ */
 public class Move extends AbstractAction {
 
     private final Point point;
@@ -29,6 +32,9 @@ public class Move extends AbstractAction {
         this.direction = direction;
     }
 
+    /**
+     * Move player to its new position and decrement its point
+     */
     @Override
     public void doAction() {
         game.getGrid().getBoard().get(player.getPosition()).setA(null);
@@ -41,11 +47,19 @@ public class Move extends AbstractAction {
         }
     }
 
+    /**
+     * @return true if player can play this action in current context, false otherwise
+     */
     @Override
     public boolean isPossible() {
         return !getValidPoint().isEmpty();
     }
 
+    /**
+     * @return a list of point where it's possible to move.
+     * We add a point to the list where there is nothing on the board.
+     * @see Action#getValidPoint()
+     */
     @Override
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();

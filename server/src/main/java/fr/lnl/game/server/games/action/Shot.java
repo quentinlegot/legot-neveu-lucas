@@ -29,6 +29,10 @@ public class Shot extends AbstractAction {
         this.direction = direction;
     }
 
+    /**
+     * We decrement player's energy and shot on every of its opponents on the chosen direction by decrementing its
+     * energy too
+     */
     @Override
     public void doAction() {
         player.decrementEnergy(player.getClassPlayer().getShootCost());
@@ -36,22 +40,30 @@ public class Shot extends AbstractAction {
         for(int i=0; i < range; i++) {
             Point point = new Point(this.point.getA() + (i * direction.getDeltaX()),
                     this.point.getB() + (i * direction.getDeltaY()));
-            // TODO: 07/12/2021 WARNING -> probleme de nullpointerexeption sur getA car on verif pas la sortie de terrain
-            Player player = game.getGrid().getBoard().get(point).getA();
-            if(player != null) {
-                player.decrementEnergy(player.getClassPlayer().getPenaltyShoot());
-                System.out.println("Not null: " + point);
-            } else {
-                System.out.println("null:" + point);
+            if(game.getGrid().boardPositionIsValid(point)) {
+                Player player = game.getGrid().getBoard().get(point).getA();
+                if(player != null) {
+                    player.decrementEnergy(player.getClassPlayer().getPenaltyShoot());
+                }
             }
+
         }
     }
 
+    /**
+     * @return true if player can play this action in current context, false otherwise
+     */
     @Override
     public boolean isPossible() {
         return !getValidPoint().isEmpty();
     }
 
+    /**
+     * @return a list of point where it's possible to shot.
+     * We add a point to the list where there is a player depending on the direction and the distance the weapon can
+     * shoot.
+     * @see Action#getValidPoint()
+     */
     @Override
     public List<Point> getValidPoint() {
         List<Point> listMoves = new ArrayList<>();
@@ -66,7 +78,14 @@ public class Shot extends AbstractAction {
         return listMoves;
     }
 
-
+    /**
+     *
+     * @param point player current position
+     * @param deltaX given by {@link Direction}
+     * @param deltaY given by {@link Direction}
+     * @param range given by {@link Weapon#getHorizontalDistance()} or {@link Weapon#getVerticalDistance()}
+     * @return true if there is a player in the chosen direction, false otherwise
+     */
     public Point seeNeighbour(Point point, int deltaX, int deltaY, int range) {
         if(range == 0)
             return null;

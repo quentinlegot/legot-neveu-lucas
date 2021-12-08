@@ -17,19 +17,4 @@ public abstract class AbstractAction implements Action {
         this.player = player;
     }
 
-    protected Point choseRandomPoint(List<Point> getValidPoint) {
-        Point point = null;
-        switch (getValidPoint.size()) {
-            case 0:
-                break;
-            case 1:
-                point = getValidPoint.get(0);
-                break;
-            default: {
-                Random random = new Random();
-                point = getValidPoint.get(random.nextInt(0, getValidPoint.size()));
-            }
-        }
-        return point;
-    }
 }

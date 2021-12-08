@@ -1,5 +1,8 @@
 package fr.lnl.game.server.games.action;
 
+/**
+ * Enum used to chose where to move, shot, etc.
+ */
 public enum Direction {
 
     UP(-1, 0, true),
@@ -25,6 +28,11 @@ public enum Direction {
         return deltaY;
     }
 
+    /**
+     * Used by {@link Shot} to know if the direction is in vertical direction cause shot action can have a different
+     * distance depending of the direction
+     * @return true if the direction is vertical
+     */
     public boolean isVertical() {
         return isVertical;
     }

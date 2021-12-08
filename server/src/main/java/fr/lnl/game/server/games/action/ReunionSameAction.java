@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * When we generate action, we generate one per available direction (like in {@link Move}) but to improve human
+ * readability, we list every same Action here
+ */
 public class ReunionSameAction {
 
     private final String actionName;

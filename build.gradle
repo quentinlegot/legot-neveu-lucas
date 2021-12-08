@@ -5,7 +5,4 @@ subprojects {
     javadoc {
         options.memberLevel = JavadocMemberLevel.PRIVATE
     }
-    compileJava {
-        // options.encoding = "UTF-8"
-    }
 }
