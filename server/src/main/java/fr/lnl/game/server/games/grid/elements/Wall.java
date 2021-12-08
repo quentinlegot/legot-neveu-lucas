@@ -1,29 +1,17 @@
 package fr.lnl.game.server.games.grid.elements;
 
+/**
+ * A wall is an intraversable object
+ */
 public class Wall extends AbstractBox {
 
-    private final int x;
-    private final int y;
-
-    public Wall(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
+    /**
+     * Used by tests
+     * @param obj the object to compare
+     * @return true if obj is an instance of wall, false otherwise
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Wall other = (Wall) o;
-        return x == other.x && y == other.y;
+    public boolean equals(Object obj) {
+        return obj instanceof Wall;
     }
 }

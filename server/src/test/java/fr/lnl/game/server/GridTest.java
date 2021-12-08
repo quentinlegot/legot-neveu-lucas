@@ -36,10 +36,10 @@ public class GridTest {
     @Test
     public void testGrid() {
         // test Grid#initGrid()
-        assertEquals(new Wall(0, 0), grid.getBoard().get(new Point(0,0)).getB());
-        assertEquals(new Wall(0, grid.getColumn() - 1), grid.getBoard().get(new Point(0, grid.getColumn() - 1)).getB());
-        assertEquals(new Wall(grid.getRow() - 1, 0), grid.getBoard().get(new Point(grid.getRow() - 1, 0)).getB());
-        assertEquals(new Wall(grid.getRow() - 1, grid.getColumn() - 1), grid.getBoard().get(new Point(grid.getRow() - 1, grid.getColumn() - 1)).getB());
+        assertEquals(new Wall(), grid.getBoard().get(new Point(0,0)).getB());
+        assertEquals(new Wall(), grid.getBoard().get(new Point(0, grid.getColumn() - 1)).getB());
+        assertEquals(new Wall(), grid.getBoard().get(new Point(grid.getRow() - 1, 0)).getB());
+        assertEquals(new Wall(), grid.getBoard().get(new Point(grid.getRow() - 1, grid.getColumn() - 1)).getB());
         // test placePlayersBRUT (mocked)
         grid.getPlayers().forEach(p -> System.out.println(p.getId() + ": " + p.getPosition()));
         assertEquals(grid.getPlayers().get(0), grid.getBoard().get(new Point(7, 7)).getA());

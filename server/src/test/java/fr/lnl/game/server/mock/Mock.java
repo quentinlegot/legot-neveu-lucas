@@ -15,7 +15,7 @@ public class Mock {
 
     public Mock(List<Player> players) {
         this.buildStrategy = MockGridFactoryBuilder.create().gridDimensions(16, 16).playersList(players).wallProbability(0.80F).energyProbability(0.95F);
-        game = new Game(buildStrategy, players, new MockDisplayWinner());
+        game = new Game(buildStrategy, players);
         this.grid = game.getGrid();
     }
 

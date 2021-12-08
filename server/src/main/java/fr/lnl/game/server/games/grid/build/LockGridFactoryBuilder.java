@@ -38,21 +38,21 @@ public class LockGridFactoryBuilder extends AbstractGridFactoryBuilder {
             for (int j = 0; j < getGrid().getColumn(); j++) {
                 Box box;
                 if (i == 0 && j == 0) {
-                    box = new Wall(i, j);
+                    box = new Wall();
                 } else if (i == 0 && j == getGrid().getColumn()-1) {
-                    box = new Wall(i, j);
+                    box = new Wall();
                 } else if (i == getGrid().getRow()-1 && j == 0) {
-                    box = new Wall(i, j);
+                    box = new Wall();
                 } else if (i == getGrid().getRow()-1 && j == getGrid().getColumn()-1) {
-                    box = new Wall(i, j);
+                    box = new Wall();
                 } else if (i == 0) {
-                    box = new Wall(i, j);
+                    box = new Wall();
                 } else if (i == getGrid().getRow()-1) {
-                    box = new Wall(i, j);
+                    box = new Wall();
                 } else if (j == 0) {
-                    box = new Wall(i, j);
+                    box = new Wall();
                 } else if (j == getGrid().getColumn()-1) {
-                    box = new Wall(i, j);
+                    box = new Wall();
                 } else {
                     box = null;
                 }
@@ -92,7 +92,7 @@ public class LockGridFactoryBuilder extends AbstractGridFactoryBuilder {
                 if(Math.random() >= wallProbability){
                     Point point = new Point(i,j);
                     if(getIllusionNumberWallNeighbour(point) <= 3){
-                        getGrid().getBoard().get(point).setB(new Wall(i,j));
+                        getGrid().getBoard().get(point).setB(new Wall());
                     }
                     else{
                         getGrid().getBoard().get(point).setB(new AbstractBox());
@@ -132,7 +132,7 @@ public class LockGridFactoryBuilder extends AbstractGridFactoryBuilder {
      * @param point the position where we want to place a new wall
      * @return number of walls and locked place around {@code position}
      */
-    public int getIllusionNumberWallNeighbour(Point point){
+    private int getIllusionNumberWallNeighbour(Point point){
         int countWall = 0;
         for (int deltaRow = -1; deltaRow <= 1; deltaRow++){
             for (int deltaColomn = -1; deltaColomn <= 1; deltaColomn++) {
