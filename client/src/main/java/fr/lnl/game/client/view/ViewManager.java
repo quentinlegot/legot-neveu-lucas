@@ -25,7 +25,7 @@ public record ViewManager(
             System.out.println("\nA \033[0;31m" + player  + " " + player.getId() + "\033[0m de jouer");
             players.get(game.getCurrentPlayer()).getView().show();
             if(game.getCurrentPlayer() instanceof HumanPlayer human) {
-                game.setSelectedAction(players.get(human).getView().choseAction());
+                game.setSelectedAction(((Terminal) players.get(human).getView()).choseAction());
             }
             boolean isOver = game.play();
             System.out.println("\n\033[0;31m" + player  + " " + player.getId() + "\033[0m utilise l'action \033[0;36m"+

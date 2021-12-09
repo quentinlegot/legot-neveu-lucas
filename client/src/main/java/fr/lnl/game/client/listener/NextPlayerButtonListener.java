@@ -7,13 +7,13 @@ import fr.lnl.game.server.listener.AbstractModelListening;
 import fr.lnl.game.server.listener.ModelListener;
 import javafx.scene.control.Alert;
 
-public class ButtonListener extends AbstractModelListening {
+public class NextPlayerButtonListener extends AbstractModelListening {
 
 
     private final Game game;
     private final DisplayWinnerEvent displayWinnerEvent;
 
-    public ButtonListener(Game game) {
+    public NextPlayerButtonListener(Game game) {
         this.game = game;
         this.displayWinnerEvent = new DisplayWinnerEvent();
     }
@@ -31,7 +31,7 @@ public class ButtonListener extends AbstractModelListening {
 
     @Override
     public void updateModel(Object event) {
-        Player player = game.getCurrentPlayer();
+        // Player player = game.getCurrentPlayer();
         boolean isOver = game.play();
         /* Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Un joueur ordinateur a joué");

@@ -21,6 +21,7 @@ public class Game {
     private Player currentPlayer;
     private Action selectedAction = null;
     private int nbrTurn;
+    private Player previousPlayer;
 
     /**
      * @param buildStrategy used to build a grid
@@ -37,6 +38,7 @@ public class Game {
         this.players = players;
         this.currentPlayer = players.get(0);
         this.nbrTurn = 1;
+        this.previousPlayer = null;
         initGame(buildStrategy);
     }
 
@@ -61,6 +63,7 @@ public class Game {
         selectedAction.doAction();
         countdownGridElementsUpdate();
         gridPlayersUpdate();
+        previousPlayer = currentPlayer;
         nextCurrentPlayer();
         currentPlayer.setActions(generateAndGetPlayerActions(currentPlayer));
         nbrTurn++;
@@ -198,5 +201,9 @@ public class Game {
 
     public int getNbrTurn() {
         return nbrTurn;
+    }
+
+    public Player getPreviousPlayer() {
+        return previousPlayer;
     }
 }
