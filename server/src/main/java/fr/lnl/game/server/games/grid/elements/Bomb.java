@@ -10,10 +10,6 @@ import fr.lnl.game.server.utils.Point;
  */
 public class Bomb extends Explosive implements CountdownBox {
 
-    /**
-     * Position of the bomb
-     */
-    private final Point point;
     private final Game game;
     /**
      * Timer before explosion
@@ -25,25 +21,25 @@ public class Bomb extends Explosive implements CountdownBox {
     private static final int EXPLOSION_SIZE = 2;
 
     public Bomb(Point point, Game game) {
-        super(game.getCurrentPlayer());
-        this.point = point;
+        super(game.getCurrentPlayer(), point);
         this.game = game;
         counter = counter * game.getPlayers().size();
     }
 
-    /**
-     * Decrement players energy around this element
-     * @param grid Game's grid
-     * @param player the player who walks on this element
-     * @param position position of this element on the grid
-     * @see InteractiveBox#interact(Grid, Player, Point)
-     * @see Explosive#interact(Grid, Player, Point)
-     */
-    @Override
-    public void interact(Grid grid, /* Nullable */ Player player, Point position) {
-        if(player != null)
-            player.decrementEnergy(player.getClassPlayer().getPenaltyBomb());
-        super.interact(grid, player, position);
+    protected void explode(Grid grid) {
+        for(int i = -EXPLOSION_SIZE; i < EXPLOSION_SIZE; i++) {
+            for(int j = -EXPLOSION_SIZE; j < EXPLOSION_SIZE; j++) {
+                if(pythagoras(i, j) <= EXPLOSION_SIZE) { // recherche en cercle, pas en carré
+                    Point position = new Point(point.getA() + i, point.getB() + j);
+                    if(grid.boardPositionIsValid(position)) {
+                        Player player = grid.getBoard().get(position).getA();
+                        if(player != null)
+                            player.decrementEnergy(player.getClassPlayer().getPenaltyBomb());
+                    }
+                }
+            }
+        }
+        super.explode(grid);
     }
 
     /**
@@ -52,21 +48,9 @@ public class Bomb extends Explosive implements CountdownBox {
      */
     @Override
     public void update() {
-        Grid grid = game.getGrid();
         counter--;
         if(counter == 0) {
-            for(int i = -EXPLOSION_SIZE; i < EXPLOSION_SIZE; i++) {
-                for(int j = -EXPLOSION_SIZE; j < EXPLOSION_SIZE; j++) {
-                    if(pythagoras(i, j) <= EXPLOSION_SIZE) { // recherche en cercle, pas en carré
-                        Point position = new Point(point.getA() + i, point.getB() + j);
-                        if(position.getA() >= 0 && position.getA() < grid.getRow()
-                                && position.getB() >= 0 && position.getB() < grid.getColumn()) {
-                            Player player = grid.getBoard().get(position).getA();
-                            interact(grid, player, position);
-                        }
-                    }
-                }
-            }
+            explode(game.getGrid());
         }
     }
 

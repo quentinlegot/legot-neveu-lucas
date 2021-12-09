@@ -12,9 +12,9 @@ import java.util.List;
 public class Shot extends AbstractAction {
 
     private final Point point;
-    private final Direction8Axis direction;
+    private final Direction4Axis direction;
 
-    public Shot(Game game, Player player, Direction8Axis direction) throws NoMoreBulletInWeaponException, NotValidDirectionException {
+    public Shot(Game game, Player player, Direction4Axis direction) throws NoMoreBulletInWeaponException, NotValidDirectionException {
         super(game, player);
         if(player.getWeapon().getBullet() == 0) {
             throw new NoMoreBulletInWeaponException();
@@ -75,7 +75,7 @@ public class Shot extends AbstractAction {
         List<Point> listMoves = new ArrayList<>();
         Point position = game.getCurrentPlayer().getPosition();
         Weapon weapon = game.getCurrentPlayer().getWeapon();
-        for(Direction8Axis direction : Direction8Axis.values()) {
+        for(Direction4Axis direction : Direction4Axis.values()) {
             Point neighbour = seeNeighbour(position, direction.getDeltaX(), direction.getDeltaY(),
                     direction.isVertical() ? weapon.getVerticalDistance() : weapon.getHorizontalDistance());
             if(neighbour != null)
@@ -102,7 +102,6 @@ public class Shot extends AbstractAction {
                     return null;
                 }
                 if(game.getGrid().getBoard().get(neighbour).getA() instanceof Player) {
-                    System.out.println(game.getGrid().getBoard().get(neighbour).getA().getPosition());
                     return neighbour;
                 }
             }

@@ -9,24 +9,39 @@ import fr.lnl.game.server.utils.Point;
  */
 public abstract class Explosive extends AbstractBox implements InteractiveBox {
 
-    Player player;
+    /**
+     * Position of the explosive
+     */
+    protected final Point point;
+    /**
+     * Owner of the explosive
+     */
+    protected final Player player;
 
-    public Explosive(Player player){
+    public Explosive(Player player, Point point){
         this.player = player;
+        this.point = point;
     }
 
     /**
-     * Destroy this element on explosion
+     * Decrement energy of the player who walks on this element
      * @param grid Game's grid
      * @param player the player who walks on this element
      * @param position position of this element on the grid
      * @see InteractiveBox#interact(Grid, Player, Point)
+     * @see Explosive#interact(Grid, Player, Point)
      */
     @Override
     public void interact(Grid grid, Player player, Point position) {
-        if(grid.getBoard().get(position).getB() == this){
-            grid.getBoard().get(position).setB(null);
-        }
+        explode(grid);
+    }
+
+    /**
+     * Apply damage to players and delete this object
+     * @param grid game's grid
+     */
+    protected void explode(Grid grid) {
+        grid.getBoard().get(point).setB(null);
     }
 
     public Player getPlayer() {

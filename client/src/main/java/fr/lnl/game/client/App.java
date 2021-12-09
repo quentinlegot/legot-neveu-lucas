@@ -146,7 +146,6 @@ public class App extends Application {
                 default -> throw new IllegalArgumentException("Unknown argument: " + str);
             }
         }
-        System.out.println("oui");
         if(playerClass != null)
             playerList.add(createNewPlayer(playerClass,
                     classPlayer != null ? classPlayer : ClassPlayer.DEFAULT, playerList.size())

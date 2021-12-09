@@ -9,7 +9,7 @@ import fr.lnl.game.server.games.player.Player;
  */
 public class DropMine extends DropObject {
 
-    public DropMine(Game game, Player player, Direction4Axis direction) throws NotValidDirectionException {
+    public DropMine(Game game, Player player, Direction8Axis direction) throws NotValidDirectionException {
         super(game, player, direction);
 
     }
@@ -19,7 +19,7 @@ public class DropMine extends DropObject {
      */
     @Override
     public void doAction() {
-        game.getGrid().getBoard().get(point).setB(new Mine(player));
+        game.getGrid().getBoard().get(point).setB(new Mine(player, point));
         game.getCurrentPlayer().decrementEnergy(player.getClassPlayer().getMineCost());
     }
 

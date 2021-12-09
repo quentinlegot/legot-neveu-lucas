@@ -65,7 +65,7 @@ public class ActionPlayerTest {
     @Test
     public void shotActionTest(){
         Action shot = null;
-        for(Direction8Axis direction : Direction8Axis.values()) {
+        for(Direction4Axis direction : Direction4Axis.values()) {
             try {
                 shot = new Shot(game, game.getCurrentPlayer(), direction);
                 break;
@@ -84,8 +84,8 @@ public class ActionPlayerTest {
     public void dropBombActionTest() {
         Player player = game.getCurrentPlayer();
         Action action = null;
-        Direction4Axis savedDirection = null;
-        for(Direction4Axis direction : Direction4Axis.values()) {
+        Direction8Axis savedDirection = null;
+        for(Direction8Axis direction : Direction8Axis.values()) {
             try {
                 action = new DropBomb(game, game.getCurrentPlayer(), direction);
                 savedDirection = direction;

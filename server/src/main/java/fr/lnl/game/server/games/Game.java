@@ -99,16 +99,17 @@ public class Game {
                 actions.add(new Move(this, player, direction));
             } catch (NotValidDirectionException ignored){}
             try {
+                actions.add(new Shot(this, player, direction));
+            } catch (NotValidDirectionException | NoMoreBulletInWeaponException ignored) {}
+
+        }
+        for(Direction8Axis direction : Direction8Axis.values()) {
+            try {
                 actions.add(new DropBomb(this, player, direction));
             } catch (NotValidDirectionException ignored) {}
             try {
                 actions.add(new DropMine(this, player, direction));
             } catch (NotValidDirectionException ignored) {}
-        }
-        for(Direction8Axis direction : Direction8Axis.values()) {
-            try {
-                actions.add(new Shot(this, player, direction));
-            } catch (NotValidDirectionException | NoMoreBulletInWeaponException ignored) {}
         }
         actions.addAll(Arrays.asList(new Nothing(), new DeployShield(player)));
         return actions;
