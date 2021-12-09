@@ -37,13 +37,15 @@ public class Cell extends Rectangle {
     public Cell(int x, int y){
         setWidth(Window.cellSize);
         setHeight(Window.cellSize);
-        relocate(x*Window.cellSize,y*Window.cellSize);
-        setFill(Color.valueOf("#ffffff"));
+        relocate(x * Window.cellSize,y * Window.cellSize);
+        setFill(Color.WHITE);
         setStroke(Color.DARKGRAY);
     }
 
-
-
+    /**
+     * @param object the object we'll define the type
+     * @return a pane which contains an image depending on the type of the object
+     */
     public static StackPane setImageObject(Object object, Game game){
         StackPane sp = new StackPane();
         Image in;

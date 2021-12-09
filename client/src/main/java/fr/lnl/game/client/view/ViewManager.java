@@ -11,9 +11,14 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * View manager, main access to every views
+ */
 public final class ViewManager {
+
     private final Game game;
     private final Class<? extends View> viewType;
+    public HashMap<Player, ClientPlayer> players = new HashMap<>();
 
     public ViewManager(Game game, Class<? extends View> viewType, ViewLambda lambda) {
         this.game = game;
@@ -23,13 +28,16 @@ public final class ViewManager {
         }
     }
 
-
-    public HashMap<Player, ClientPlayer> players = new HashMap<>();
-
+    /**
+     * Call when we need to change or update view
+     */
     public void updateView() {
         players.get(game.getCurrentPlayer()).getView().show();
     }
 
+    /**
+     * This method is call when the view is a terminal
+     */
     public void terminalView() {
         Terminal.scanner = new Scanner(System.in);
         DisplayWinnerEvent displayWinnerEvent = new DisplayWinnerEvent();
@@ -52,45 +60,23 @@ public final class ViewManager {
         }
     }
 
+    /**
+     * This method is call when the game is finish
+     * @param winner The winner of the game, can be null
+     */
     public void displayWinner(Player winner) {
         players.get(game.getCurrentPlayer()).getView().displayWinner(winner);
     }
 
+    /**
+     * This method is call after initialized view manager to display a first screen
+     */
     public void run() {
         if (viewType == Terminal.class) {
             terminalView();
         } else {
             updateView();
         }
-    }
-
-    public Game game() {
-        return game;
-    }
-
-    public Class<? extends View> viewType() {
-        return viewType;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (ViewManager) obj;
-        return Objects.equals(this.game, that.game) &&
-                Objects.equals(this.viewType, that.viewType);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(game, viewType);
-    }
-
-    @Override
-    public String toString() {
-        return "ViewManager[" +
-                "game=" + game + ", " +
-                "viewType=" + viewType + ']';
     }
 
 }
