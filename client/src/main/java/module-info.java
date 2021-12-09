@@ -1,3 +1,6 @@
+/**
+ * Client module, include every view and controller classes from MVC model
+ */
 module client {
     requires javafx.controls;
     requires transitive javafx.graphics;
