@@ -11,12 +11,12 @@ import fr.lnl.game.server.games.grid.elements.*;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -31,6 +31,8 @@ public class Window extends AbstractView {
     public static final int cellSize = 40;
     public static final int width = 500;
     public static final int height = 160;
+    private static final Color dark = Color.valueOf("1F1F1F");
+    private static final Background bg = new Background(new BackgroundFill(dark, CornerRadii.EMPTY, Insets.EMPTY));
 
 
     private final Stage stage;
@@ -90,13 +92,19 @@ public class Window extends AbstractView {
                 if (value.getB() instanceof Wall || value.getB() instanceof EnergyBall) {
                     addToPrincipalPanel(value.getB(), principalPane, i, j);
                 }
-                if(value.getB() instanceof Explosive){
+                else if(value.getB() instanceof Explosive){
                     if(((Explosive) value.getB()).getPlayer().equals(player)){
                         addToPrincipalPanel(value.getB(), principalPane, i, j);
                     }
+                    else{
+                        addToPrincipalPanel(null,principalPane, i, j);
+                    }
                 }
-                if (value.getA() != null) {
+                else if (value.getA() != null) {
                     addToPrincipalPanel(value.getA(), principalPane, i, j);
+                }
+                else{
+                    addToPrincipalPanel(null,principalPane, i, j);
                 }
             }
         }
@@ -109,6 +117,7 @@ public class Window extends AbstractView {
         buttonNext .setStyle("-fx-background-color: #a96806;");
         buttonNext .setTextFill(javafx.scene.paint.Color.WHITE);
         principalPane.getChildren().add(buttonNext);
+        principalPane.setBackground(bg);
         return principalPane;
     }
 
@@ -143,9 +152,9 @@ public class Window extends AbstractView {
         r.setWidth(500);
         r.setHeight(90);
         if(game.getPlayers().get(playerNumber).getEnergy() <= 0){
-            r.setFill(Color.RED);
+            r.setFill(Color.valueOf("A54747"));
         }else{
-            r.setFill(Color.GREEN);
+            r.setFill(Color.valueOf("62B262"));
         }
         r.setStrokeWidth(1);
         r.setStroke(Color.BLACK);
@@ -165,12 +174,13 @@ public class Window extends AbstractView {
         String s = player +  " : " + (player.getId()+1) + "\n" +
                 "Vient de jouer : " + action + "\n";
         Text t = new Text(s);
+        t.setFill(Color.WHITE);
         Rectangle r = new Rectangle();
         r.setWidth(478);
         r.setHeight(165);
         r.setStrokeWidth(1);
         r.setStroke(Color.BLACK);
-        r.setFill(Color.WHITE);
+        r.setFill(dark);
         subSp.getChildren().addAll(r,t);
         return subSp;
     }
