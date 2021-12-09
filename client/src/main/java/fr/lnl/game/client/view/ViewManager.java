@@ -9,6 +9,7 @@ import fr.lnl.game.server.games.player.Player;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Scanner;
 
 public final class ViewManager {
     private final Game game;
@@ -30,6 +31,7 @@ public final class ViewManager {
     }
 
     public void terminalView() {
+        Terminal.scanner = new Scanner(System.in);
         DisplayWinnerEvent displayWinnerEvent = new DisplayWinnerEvent();
         while (true) {
             Player player = game.getCurrentPlayer();
@@ -44,6 +46,7 @@ public final class ViewManager {
                     game.getSelectedAction().getClass().getSimpleName() + "\033[0m");
             if (isOver) {
                 displayWinnerEvent.updateModel(game.getWinner());
+                Terminal.scanner.close();
                 System.exit(0);
             }
         }

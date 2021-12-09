@@ -2,36 +2,54 @@ package fr.lnl.game.client.view;
 
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.*;
-import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Maths;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * View terminal, use standard input and output
+ */
 public class Terminal extends AbstractView {
 
-    public static Scanner scanner = new Scanner(System.in);
+    /**
+     * Standard input
+     */
+    public static Scanner scanner;
 
     public Terminal(Game game, Player player) {
         super(game, player);
     }
 
+    /**
+     * Used to update view
+     */
     public void show() {
         System.out.println(game.getGrid().privateView(player));
     }
 
+    /**
+     * Used to display the winner of the game
+     * @param winner the player who win the game, can be Null
+     */
     @Override
     public void displayWinner(Player winner) {
         System.out.println("\n\033[0;31m====== FIN DU JEU ======\033[0m");
         System.out.println(game.getGrid().toString());
-        System.out.println("\n\033[0;33mVictoire de " + winner  + " " + winner.getId() + "\033[0m");
+        if(winner == null) {
+            System.out.println("\n\033[0;Partie nulle, personne n'a gagné la partie\033[0m");
+        } else {
+            System.out.println("\n\033[0;33mVictoire de " + winner  + " " + winner.getId() + "\033[0m");
+        }
+
     }
 
     /**
-     * Used when current player is an isntance of {@link fr.lnl.game.server.games.player.HumanPlayer}
+     * Used when current player is an instance of {@link fr.lnl.game.server.games.player.HumanPlayer} and demand to it
+     * an action to do
      * @return chosen action
+     * @see Terminal#choseReunionSameAction(List)
      */
     public Action choseAction() {
        List<ReunionSameAction> actions = player.generateAvailableActions();
@@ -67,6 +85,13 @@ public class Terminal extends AbstractView {
        return action;
     }
 
+    /**
+     * Used when current player is an instance of {@link fr.lnl.game.server.games.player.HumanPlayer} and demand to it
+     * a type of action to do
+     * @param actions the list of actions possible
+     * @return the type of action to execute
+     * @see Terminal#choseAction()
+     */
     private ReunionSameAction choseReunionSameAction(List<ReunionSameAction> actions) {
         ReunionSameAction reunion = null;
         String error = "Veuillez renseigner une valeur numérique comprise entre 1 et " + actions.size();

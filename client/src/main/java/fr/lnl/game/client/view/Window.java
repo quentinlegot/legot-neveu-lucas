@@ -28,10 +28,13 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * Window view, use mouse and keyboard to control interface
+ */
 public class Window extends AbstractView {
 
 
-    //il faut pouvoir trouver une formule responsive avec width et height
+    // il faut pouvoir trouver une formule responsive avec width et height
     public static final int cellSize = 40;
     public static final int width = 500;
     public static final int height = 160;
@@ -42,7 +45,7 @@ public class Window extends AbstractView {
     private final Stage stage;
     private Pane buttonPane;
     private ReunionSameAction selectedReunionAction = null;
-    private NextPlayerButtonListener nextPlayerButtonListener = new NextPlayerButtonListener(game);
+    private final NextPlayerButtonListener nextPlayerButtonListener = new NextPlayerButtonListener(game);
 
 
     public Window(Stage stage, Game game, Player player) {
@@ -50,6 +53,9 @@ public class Window extends AbstractView {
         this.stage = stage;
     }
 
+    /**
+     * used to update screen
+     */
     public void show() {
         Scene scene = new Scene(createContent());
         stage.setScene(scene);
@@ -60,16 +66,29 @@ public class Window extends AbstractView {
         stage.show();
     }
 
+    /**
+     * Used to display the name of the winner
+     * @param winner the player who win the game, can be Null
+     */
     @Override
     public void displayWinner(Player winner) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Fin du jeu");
         alert.setHeaderText("La partie est termin\u00E9");
-        alert.setContentText("Un joueur " + winner + " a gagn\u00E9");
+        if(winner == null) {
+            alert.setContentText("La partie est nulle, personne n'a gagn\u00E9");
+        } else {
+            alert.setContentText("Le joueur " + winner + " " + winner.getId() + " a gagn\u00E9");
+        }
         App.getViewManager().updateView();
         alert.showAndWait();
     }
 
+    /**
+     * Choose a direction between all possible from the previously selected action type
+     * @param selectedReunionAction previously selected type of action
+     * @see Window#choseReunionSameAction(List)
+     */
     public void choseDirectionAction(ReunionSameAction selectedReunionAction) {
         for(int i = 0; i < selectedReunionAction.getActions().size(); ++i) {
             Action action = selectedReunionAction.getActions().get(i);
@@ -90,6 +109,12 @@ public class Window extends AbstractView {
         }
     }
 
+    /**
+     * Used when {@link Game#getCurrentPlayer()} is an instance of {@link HumanPlayer}.
+     * Display button to demand to player to choose the type of action to execute
+     * @param actions the list of possible actions
+     * @see Window#choseDirectionAction(ReunionSameAction)
+     */
     private void choseReunionSameAction(List<ReunionSameAction> actions) {
         for (int i = 0; i < actions.size(); i++) {
             ReunionSameAction action = actions.get(i);
@@ -98,6 +123,16 @@ public class Window extends AbstractView {
         }
     }
 
+    /**
+     * called when we add a button in the interface
+     * @param content content of the button
+     * @param listener listener of the button
+     * @param pane pane where we add the button
+     * @param offsetX move the button from the base position of the pane to the left (when offsetX is negative) or on
+     *                the right (when offsetY is positive)
+     * @param offsetY move the button from the base position of the pane to the up (when offsetX is negative) or on
+     *                the down (when offsetY is positive)
+     */
     private void addButtonToPane(String content, EventHandler<ActionEvent> listener, Pane pane, int offsetX, int offsetY) {
         Button button = new Button(content);
         button.setOnAction(listener);
@@ -110,7 +145,10 @@ public class Window extends AbstractView {
     }
 
 
-
+    /**
+     * Create content of the stage
+     * @return the parent element to set to the stage
+     */
     private Parent createContent() {
         Pane principalPane = new Pane();
         principalPane.setPrefSize(game.getGrid().getRow() * cellSize + width, game.getGrid().getColumn() * cellSize + height); // TODO: 04/12/2021 A corriger -> doit plutôt s'adapter à la taille de la grid (grid.getRow() et grid.getColumn())
@@ -163,6 +201,13 @@ public class Window extends AbstractView {
         return principalPane;
     }
 
+    /**
+     * Add grid element to the principal pane
+     * @param object object to add to the pane
+     * @param principalPane pane where we'll add the object
+     * @param i
+     * @param j
+     */
     public void addToPrincipalPanel(Object object, Pane principalPane, int i, int j) {
         StackPane sp = Cell.setImageObject(object, game);
         sp.setLayoutY(i * cellSize);
@@ -170,6 +215,10 @@ public class Window extends AbstractView {
         principalPane.getChildren().add(sp);
     }
 
+    /**
+     * Create the right pane
+     * @param principalPane principal pane where we'll add the left down pane
+     */
     public void putStatePlayerPane(Pane principalPane){
         int Y = 0;
         for(int i=0;i<game.getPlayers().size();i++){
@@ -181,6 +230,12 @@ public class Window extends AbstractView {
         }
     }
 
+    /**
+     * Build left down pane (list all players information)
+     * @param type
+     * @param playerNumber
+     * @return
+     */
     public StackPane showStatePlayer(String type, int playerNumber){
         StackPane subSp = new StackPane();
         String s = type + " " + (playerNumber+1) + "\n" +
@@ -201,12 +256,20 @@ public class Window extends AbstractView {
         return subSp;
     }
 
+    /**
+     * build left down pane and move it to its position
+     * @param principalPane the principal pane where we'll add the left down pane
+     */
     public void putMoveTextPane(Pane principalPane){
         StackPane stateMoveTextPane = showMoveText();
         stateMoveTextPane.setLayoutY(480);
         principalPane.getChildren().add((stateMoveTextPane));
     }
 
+    /**
+     * Build the left down pane (contains current player information)
+     * @return the built pane
+     */
     public StackPane showMoveText() {
         StackPane subSp = new StackPane();
         String action = game.getSelectedAction() == null ? "null" : game.getSelectedAction().getClass().getSimpleName();
