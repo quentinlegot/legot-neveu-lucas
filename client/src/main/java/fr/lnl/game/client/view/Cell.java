@@ -82,4 +82,7 @@ public class Cell extends Rectangle {
         return sp;
     }
 
+    public static Image getPlayerImage() {
+        return PLAYER_IMAGE;
+    }
 }

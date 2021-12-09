@@ -47,6 +47,7 @@ public class Window extends AbstractView {
         Scene scene = new Scene(createContent());
         stage.setScene(scene);
         stage.setTitle("Game");
+        stage.getIcons().add(Cell.getPlayerImage());
         stage.setResizable(false);
         stage.sizeToScene();
         stage.show();
