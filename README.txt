@@ -4,6 +4,11 @@ LUCAS Valentin
 LEGOT Quentin
 NEVEU Thomas
 
+# Attention
+
+Ce projet utilise la possibilité de séparé son projet en plusieurs modules en avec Gradle ainsi la disposition des dossiers demandé pour le rendu n'a pas pu être respecté
+afin que le programme fonctionne.
+
 # Dépendances
 
 Le projet nécessite le ressources suivante pour fonctionner:
