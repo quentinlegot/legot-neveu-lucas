@@ -27,6 +27,11 @@ public abstract class AbstractPlayer implements Player {
         this.position = position;
     }
 
+    /**
+     *
+     * @return a list of {@link ReunionSameAction} which groups the same types of actions together.
+     * It is used by the player action choice strategy
+     */
     @Override
     public List<ReunionSameAction> generateAvailableActions() {
         List<ReunionSameAction> actions = new ArrayList<>();

@@ -30,5 +30,10 @@ public abstract class ComputerPlayer extends AbstractPlayer {
         return action;
     }
 
+    /**
+     *
+     * Method belonging to classes which extend this class to define the specific strategy of the player
+     * @return the chosen action between all available
+     */
     public abstract Action strategy(Game game);
 }

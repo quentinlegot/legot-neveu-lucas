@@ -13,6 +13,10 @@ public interface Player {
 
     Point getPosition();
 
+    /**
+     *
+     * @return true if this player is Alive, false otherwise
+     */
     boolean isAlive();
 
     int getId();
@@ -21,6 +25,10 @@ public interface Player {
 
     Weapon getWeapon();
 
+    /**
+     *
+     * @return true if this player has his shield activated, false otherwise
+     */
     boolean isShieldDeploy();
 
     void setEnergy(int energy);
@@ -37,8 +45,18 @@ public interface Player {
 
     void setPosition(Point position);
 
+    /**
+     *
+     * Call by the implementing classes {@link fr.lnl.game.server.games.action.Action} to withdraw
+     * a certain number of energy from a player
+     */
     void decrementEnergy(int energy);
 
+    /**
+     *
+     * Call by the implementing classes {@link fr.lnl.game.server.games.action.Action} to add
+     * a certain number of energy from a player
+     */
     void incrementEnergy(int energy);
 
 }

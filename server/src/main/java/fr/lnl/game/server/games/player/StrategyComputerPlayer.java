@@ -19,6 +19,10 @@ public class StrategyComputerPlayer extends ComputerPlayer {
         super(id,point, classPlayer);
     }
 
+    /**
+     * Choose an action following the strategy
+     * @return an action between all available
+     */
     @Override
     public Action strategy(Game game) {
         Action deployShield = choseDeployShield(game);
@@ -37,6 +41,7 @@ public class StrategyComputerPlayer extends ComputerPlayer {
         }
         return choseExplosive(actions);
     }
+
 
     private Action choseExplosive(List<ReunionSameAction> actions){
         Random random = new Random();
