@@ -16,10 +16,12 @@ import javafx.stage.Stage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+/**
+ * Application starting point
+ */
 public class App extends Application {
 
     private static LinkedList<String> argsList;
-    public static HashMap<Player, ClientPlayer> playerList = new HashMap<>();
     private static Game game;
     private static ViewManager viewManager;
 
@@ -48,36 +50,33 @@ public class App extends Application {
          }
     }
 
-    public static void startGame(ViewLambda lambda) throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
+    public static void startGame() throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
         GridFactoryBuilder builder = LockGridFactoryBuilder.create().energyProbability(0.95F).wallProbability(0.80F).gridDimensions(12, 12);
         game = new Game(builder, players);
-        for (Player player : game.getPlayers()) {
-            playerList.put(player, new ClientPlayer(player, lambda.createViewLambda(player)));
-        }
     }
 
     @Override
     public void start(Stage stage) {
         try {
-            startGame(player -> new Window(stage, game, player));
+            startGame();
         } catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException | InstantiationException
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
-        viewManager = new ViewManager(playerList, game, Window.class);
+        viewManager = new ViewManager(game, Window.class, player -> new Window(stage, game, player));
         viewManager.run();
     }
 
     public static void launchTerminal() {
         try {
-            startGame(player -> new Terminal(game, player));
+            startGame();
         } catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException | InstantiationException
                 | IllegalAccessException e) {
             throw new CrashException(e.getMessage(), e);
         }
-        viewManager = new ViewManager(playerList, game, Terminal.class);
+        viewManager = new ViewManager(game, Terminal.class, player -> new Terminal(game, player));
         viewManager.run();
     }
 
