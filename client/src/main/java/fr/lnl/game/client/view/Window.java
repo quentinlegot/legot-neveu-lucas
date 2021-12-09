@@ -221,8 +221,6 @@ public class Window extends AbstractView {
         Rectangle r = new Rectangle();
         r.setWidth(478);
         r.setHeight(165);
-        r.setStrokeWidth(1);
-        r.setStroke(Color.BLACK);
         r.setFill(dark);
         subSp.getChildren().addAll(r,t);
         return subSp;

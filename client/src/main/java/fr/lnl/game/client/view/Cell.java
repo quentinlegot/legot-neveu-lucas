@@ -49,7 +49,6 @@ public class Cell extends Rectangle {
         Image in;
         BackgroundImage bg = BG;
         if(object instanceof Player){
-            bg = null;
             if(object.equals(game.getCurrentPlayer()) && game.getSelectedAction() instanceof Shot){
                 in = PLAYER_SHOT_IMAGE;
             }
