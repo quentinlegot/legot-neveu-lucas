@@ -64,8 +64,8 @@ public class Window extends AbstractView {
     public void displayWinner(Player winner) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Fin du jeu");
-        alert.setHeaderText("La partie est terminé");
-        alert.setContentText("Un joueur " + winner + " a gagné");
+        alert.setHeaderText("La partie est termin\u00E9");
+        alert.setContentText("Un joueur " + winner + " a gagn\u00E9");
         App.getViewManager().updateView();
         alert.showAndWait();
     }
@@ -170,9 +170,6 @@ public class Window extends AbstractView {
         principalPane.getChildren().add(sp);
     }
 
-    // TODO: 07/12/2021 Maintenant régler :  Responsive
-
-
     public void putStatePlayerPane(Pane principalPane){
         int Y = 0;
         for(int i=0;i<game.getPlayers().size();i++){
@@ -213,7 +210,7 @@ public class Window extends AbstractView {
     public StackPane showMoveText() {
         StackPane subSp = new StackPane();
         String action = game.getSelectedAction() == null ? "null" : game.getSelectedAction().getClass().getSimpleName();
-        String s = "";
+        String s = "Vous \u00EAtes \u00E0 la position " + player.getPosition().toString();
         if(game.getPreviousPlayer() != null) {
             s = game.getPreviousPlayer() +  " : " + (game.getPreviousPlayer().getId()+1) + "\n" +
                     "Vient de jouer : " + action + "\n";
