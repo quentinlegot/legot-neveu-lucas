@@ -1,0 +1,4 @@
+module:client
+fr.lnl.game.client
+fr.lnl.game.client.listener
+fr.lnl.game.client.view
