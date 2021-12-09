@@ -2,10 +2,7 @@ package fr.lnl.game.client.listener;
 
 import fr.lnl.game.client.App;
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.listener.AbstractModelListening;
-import fr.lnl.game.server.listener.ModelListener;
-import javafx.scene.control.Alert;
 
 /**
  * This method is call when the current player have selected an action to play (or if it's a computer player, will

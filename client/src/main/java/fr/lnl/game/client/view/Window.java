@@ -1,14 +1,17 @@
 package fr.lnl.game.client.view;
 
 import fr.lnl.game.client.App;
-import fr.lnl.game.client.listener.NextPlayerButtonListener;
 import fr.lnl.game.client.listener.ClientEventHandler;
+import fr.lnl.game.client.listener.NextPlayerButtonListener;
 import fr.lnl.game.client.listener.SelectActionButton;
 import fr.lnl.game.client.listener.SelectDirectionListener;
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
-import fr.lnl.game.server.games.grid.elements.*;
+import fr.lnl.game.server.games.grid.elements.Box;
+import fr.lnl.game.server.games.grid.elements.EnergyBall;
+import fr.lnl.game.server.games.grid.elements.Explosive;
+import fr.lnl.game.server.games.grid.elements.Wall;
 import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;

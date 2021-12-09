@@ -6,7 +6,6 @@ import fr.lnl.game.server.games.grid.build.GridFactoryBuilder;
 import fr.lnl.game.server.games.grid.elements.CountdownBox;
 import fr.lnl.game.server.games.player.ComputerPlayer;
 import fr.lnl.game.server.games.player.Player;
-import fr.lnl.game.server.utils.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;

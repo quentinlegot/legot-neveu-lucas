@@ -4,7 +4,6 @@ import fr.lnl.game.client.view.Window;
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.Action;
 import fr.lnl.game.server.listener.AbstractModelListening;
-import fr.lnl.game.server.listener.ModelListener;
 
 /**
  * Call when the player selected the direction where it wants to play it

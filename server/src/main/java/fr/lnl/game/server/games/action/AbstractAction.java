@@ -2,10 +2,6 @@ package fr.lnl.game.server.games.action;
 
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.player.Player;
-import fr.lnl.game.server.utils.Point;
-
-import java.util.List;
-import java.util.Random;
 
 public abstract class AbstractAction implements Action {
 

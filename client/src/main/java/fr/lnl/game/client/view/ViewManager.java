@@ -8,7 +8,6 @@ import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**

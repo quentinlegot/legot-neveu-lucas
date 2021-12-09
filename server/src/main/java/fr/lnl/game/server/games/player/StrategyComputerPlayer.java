@@ -2,7 +2,6 @@ package fr.lnl.game.server.games.player;
 
 import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.*;
-import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.elements.Box;
 import fr.lnl.game.server.games.grid.elements.EnergyBall;
 import fr.lnl.game.server.games.grid.elements.Explosive;
@@ -10,8 +9,6 @@ import fr.lnl.game.server.utils.Point;
 
 import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class StrategyComputerPlayer extends ComputerPlayer {
 
