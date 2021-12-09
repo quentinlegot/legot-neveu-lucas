@@ -9,21 +9,15 @@ import fr.lnl.game.server.utils.Point;
  */
 public class Mine extends Explosive{
 
-    public Mine(Player player) {
-        super(player);
+    public Mine(Player player, Point point) {
+        super(player, point);
     }
 
-    /**
-     * Decrement energy of the player who walks on this element
-     * @param grid Game's grid
-     * @param player the player who walks on this element
-     * @param position position of this element on the grid
-     * @see InteractiveBox#interact(Grid, Player, Point)
-     * @see Explosive#interact(Grid, Player, Point)
-     */
     @Override
-    public void interact(Grid grid, Player player, Point position) {
-        player.decrementEnergy(player.getClassPlayer().getPenaltyMine());
-        super.interact(grid, player, position);
+    protected void explode(Grid grid) {
+        Player player = grid.getBoard().get(point).getA();
+        if(player != null)
+            player.decrementEnergy(player.getClassPlayer().getPenaltyMine());
+        super.explode(grid);
     }
 }
