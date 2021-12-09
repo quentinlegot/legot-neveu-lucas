@@ -25,6 +25,7 @@ javafx {
 application {
     // Define the main class for the application.
     mainClassName = 'fr.lnl.game.client.App'
+    mainModule = "client"
 }
 
 run {
