@@ -1,16 +1,20 @@
 package fr.lnl.game.client.view;
 
 import fr.lnl.game.client.App;
-import fr.lnl.game.client.listener.ButtonListener;
+import fr.lnl.game.client.listener.NextPlayerButtonListener;
 import fr.lnl.game.client.listener.ClientEventHandler;
+import fr.lnl.game.client.listener.SelectActionButton;
+import fr.lnl.game.client.listener.SelectDirectionListener;
 import fr.lnl.game.server.games.Game;
-import fr.lnl.game.server.games.action.Action;
-import fr.lnl.game.server.games.action.ReunionSameAction;
+import fr.lnl.game.server.games.action.*;
 import fr.lnl.game.server.games.grid.Grid;
 import fr.lnl.game.server.games.grid.elements.*;
+import fr.lnl.game.server.games.player.HumanPlayer;
 import fr.lnl.game.server.games.player.Player;
 import fr.lnl.game.server.utils.Pair;
 import fr.lnl.game.server.utils.Point;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -36,6 +40,9 @@ public class Window extends AbstractView {
 
 
     private final Stage stage;
+    private Pane buttonPane;
+    private ReunionSameAction selectedReunionAction = null;
+    private NextPlayerButtonListener nextPlayerButtonListener = new NextPlayerButtonListener(game);
 
 
     public Window(Stage stage, Game game, Player player) {
@@ -63,19 +70,46 @@ public class Window extends AbstractView {
         alert.showAndWait();
     }
 
-    @Override
-    public Action choseAction() {
-        List<ReunionSameAction> actions = player.generateAvailableActions();
-        List<Action> listActions = choseReunionSameAction(actions).getActions();
-        Action action = null;
-        do {
-            if(listActions.size() == 1){
-                return listActions.get(0);
+    public void choseDirectionAction(ReunionSameAction selectedReunionAction) {
+        for(int i = 0; i < selectedReunionAction.getActions().size(); ++i) {
+            Action action = selectedReunionAction.getActions().get(i);
+            if(action instanceof Move m){
+                addButtonToPane(m.getDirection().toString(),
+                        new ClientEventHandler(new SelectDirectionListener(game, this, action)), buttonPane,
+                        i * 100 + 50, 0);
             }
-            // TODO: 08/12/2021 implémenter choix voir Terminal pour savoir comment faire
-        }while(action == null);
-        return action;
+            else if(action instanceof DropObject o){
+                addButtonToPane(o.getDirection().toString(), new ClientEventHandler(new SelectDirectionListener(game, this, action)), buttonPane, i * 100 + 50, 0);
+            }
+            else if(action instanceof Shot s){
+                addButtonToPane(s.getPoint().toString(), new ClientEventHandler(new SelectDirectionListener(game, this, action)), buttonPane, i * 100 + 50, 0);
+            }
+            else{
+                addButtonToPane(action.getClass().getSimpleName(), new ClientEventHandler(new SelectDirectionListener(game, this, action)), buttonPane, i * 100 + 50, 0);
+            }
+        }
     }
+
+    private void choseReunionSameAction(List<ReunionSameAction> actions) {
+        for (int i = 0; i < actions.size(); i++) {
+            ReunionSameAction action = actions.get(i);
+            addButtonToPane(action.getActionName(), new ClientEventHandler(new SelectActionButton(game, this, action)),
+                    buttonPane, i * 100 + 50, 0);
+        }
+    }
+
+    private void addButtonToPane(String content, EventHandler<ActionEvent> listener, Pane pane, int offsetX, int offsetY) {
+        Button button = new Button(content);
+        button.setOnAction(listener);
+        button.setPrefSize(85, 35);
+        button.setStyle("-fx-background-color: #a96806;");
+        button.setTextFill(javafx.scene.paint.Color.WHITE);
+        button.setLayoutX(offsetX - button.getPrefWidth() / 2);
+        button.setLayoutY(offsetY);
+        pane.getChildren().add(button);
+    }
+
+
 
     private Parent createContent() {
         Pane principalPane = new Pane();
@@ -111,13 +145,20 @@ public class Window extends AbstractView {
         }
         putStatePlayerPane(principalPane);
         putMoveTextPane(principalPane);
-        Button buttonNext = new Button("SUIVANT");
-        buttonNext .setOnAction(new ClientEventHandler(new ButtonListener(game)));
-        buttonNext .setLayoutX(700);
-        buttonNext .setLayoutY(600);
-        buttonNext .setStyle("-fx-background-color: #a96806;");
-        buttonNext .setTextFill(javafx.scene.paint.Color.WHITE);
-        principalPane.getChildren().add(buttonNext);
+        this.buttonPane = new Pane();
+        buttonPane.setLayoutX(0);
+        buttonPane.setLayoutY(600);
+        if(game.getCurrentPlayer() instanceof HumanPlayer) {
+            if(this.selectedReunionAction == null) {
+                choseReunionSameAction(player.generateAvailableActions());
+            } else {
+                choseDirectionAction(selectedReunionAction);
+            }
+        } else {
+            addButtonToPane("SUIVANT", new ClientEventHandler(nextPlayerButtonListener), buttonPane, (int) (principalPane.getPrefWidth() / 2), 0);
+        }
+
+        principalPane.getChildren().add(buttonPane);
         principalPane.setBackground(bg);
         return principalPane;
     }
@@ -169,11 +210,15 @@ public class Window extends AbstractView {
         principalPane.getChildren().add((stateMoveTextPane));
     }
 
-    public StackPane showMoveText(){
+    public StackPane showMoveText() {
         StackPane subSp = new StackPane();
         String action = game.getSelectedAction() == null ? "null" : game.getSelectedAction().getClass().getSimpleName();
-        String s = player +  " : " + (player.getId()+1) + "\n" +
-                "Vient de jouer : " + action + "\n";
+        String s = "";
+        if(game.getPreviousPlayer() != null) {
+            s = game.getPreviousPlayer() +  " : " + (game.getPreviousPlayer().getId()+1) + "\n" +
+                    "Vient de jouer : " + action + "\n";
+        }
+
         Text t = new Text(s);
         t.setFill(Color.WHITE);
         Rectangle r = new Rectangle();
@@ -186,7 +231,11 @@ public class Window extends AbstractView {
         return subSp;
     }
 
+    public void setSelectedReunionAction(ReunionSameAction selectedReunionAction) {
+        this.selectedReunionAction = selectedReunionAction;
+    }
 
-
-
+    public NextPlayerButtonListener getNextPlayerButtonListener() {
+        return nextPlayerButtonListener;
+    }
 }

@@ -4,13 +4,8 @@ import fr.lnl.game.server.listener.ModelListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class ClientEventHandler implements EventHandler<ActionEvent> {
-
-    private final ModelListener listener;
-
-    public ClientEventHandler(ButtonListener listener) {
-        this.listener = listener;
-    }
+public record ClientEventHandler(
+        ModelListener listener) implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {

@@ -29,7 +29,10 @@ public class Terminal extends AbstractView {
         System.out.println("\n\033[0;33mVictoire de " + winner  + " " + winner.getId() + "\033[0m");
     }
 
-    @Override
+    /**
+     * Used when current player is an isntance of {@link fr.lnl.game.server.games.player.HumanPlayer}
+     * @return chosen action
+     */
     public Action choseAction() {
        List<ReunionSameAction> actions = player.generateAvailableActions();
        List<Action> listActions = choseReunionSameAction(actions).getActions();
@@ -62,6 +65,24 @@ public class Terminal extends AbstractView {
            }
        } while (action == null);
        return action;
+    }
+
+    private ReunionSameAction choseReunionSameAction(List<ReunionSameAction> actions) {
+        ReunionSameAction reunion = null;
+        String error = "Veuillez renseigner une valeur numérique comprise entre 1 et " + actions.size();
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.println("Choisissez une action :");
+            for (int i = 0; i < actions.size(); i++) {
+                System.out.println(i + 1 + " : " + actions.get(i).getActionName());
+            }
+            String entry = scanner.next();
+            int value = Maths.testInteger(entry, scanner, error);
+            if (value >= 1 && value <= actions.size()) {
+                reunion = actions.get(value - 1);
+            }
+        }while (reunion == null) ;
+        return reunion;
     }
 
 }
