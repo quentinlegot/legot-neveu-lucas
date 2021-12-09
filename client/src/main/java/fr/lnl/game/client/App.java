@@ -50,6 +50,17 @@ public class App extends Application {
          }
     }
 
+    /**
+     * Parse players arguments and create a new instance of Game
+     * @throws IllegalArgumentException when given argument is unknown
+     * @throws InvocationTargetException when the creation of the player throw an exception
+     * @throws NoSuchMethodException when constructor with given parameter in {@link Class#getConstructor(Class[])}
+     * doesn't exist
+     * @throws InstantiationException when the instanciation of the player is impossible (like when class is abstract),
+     * is probably never called
+     * @throws IllegalAccessException when the instanciation of thr player is impossible (like a private constructor),
+     * is probably never called
+     */
     public static void startGame() throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
         List<Player> players = parsePlayers();
@@ -80,6 +91,17 @@ public class App extends Application {
         viewManager.run();
     }
 
+    /**
+     * Parse players arguments and create instances for each player
+     * @throws IllegalArgumentException when given argument is unknown
+     * @throws InvocationTargetException when the creation of the player throw an exception
+     * @throws NoSuchMethodException when constructor with given parameter in {@link Class#getConstructor(Class[])}
+     * doesn't exist
+     * @throws InstantiationException when the instanciation of the player is impossible (like when class is abstract),
+     * is probably never called
+     * @throws IllegalAccessException when the instanciation of thr player is impossible (like a private constructor),
+     * is probably never called
+     */
     public static List<Player> parsePlayers() throws IllegalArgumentException, NoSuchMethodException,
             InvocationTargetException, InstantiationException, IllegalAccessException {
         List<Player> playerList = new ArrayList<>();
@@ -129,6 +151,17 @@ public class App extends Application {
         return playerList;
     }
 
+    /**
+     * create a new instance of the player
+     * @throws IllegalArgumentException when given argument is unknown (probably never called in production)
+     * @throws InvocationTargetException when the creation of the player throw an exception
+     * @throws NoSuchMethodException when constructor with given parameter in {@link Class#getConstructor(Class[])}
+     * doesn't exist
+     * @throws InstantiationException when the instanciation of the player is impossible (like when class is abstract),
+     * is probably never called
+     * @throws IllegalAccessException when the instanciation of thr player is impossible (like a private constructor),
+     * is probably never called
+     */
     private static Player createNewPlayer(Class<? extends AbstractPlayer> playerClass, ClassPlayer playerType,
                                           int playerListSize) throws NoSuchMethodException, InvocationTargetException,
             InstantiationException, IllegalAccessException {
@@ -136,7 +169,12 @@ public class App extends Application {
                 .newInstance(playerListSize, null, playerType);
     }
 
-    public static Class<? extends AbstractView> parseView() {
+    /**
+     * Parse the first argument given by user to know the view to use (Terminal or Window)
+     * @return The class of the View to use
+     * @throws IllegalArgumentException when given argument is unknown or no argument is given by user
+     */
+    public static Class<? extends AbstractView> parseView() throws IllegalArgumentException {
         Class<? extends  AbstractView> clazz;
         if(!argsList.isEmpty()) {
             if(argsList.get(0).equals("terminal")) {
