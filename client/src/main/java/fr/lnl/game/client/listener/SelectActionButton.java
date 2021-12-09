@@ -6,6 +6,9 @@ import fr.lnl.game.server.games.Game;
 import fr.lnl.game.server.games.action.ReunionSameAction;
 import fr.lnl.game.server.listener.AbstractModelListening;
 
+/**
+ * Used when the human player select type of action it want to play
+ */
 public class SelectActionButton extends AbstractModelListening {
 
     private final Window window;
@@ -18,6 +21,10 @@ public class SelectActionButton extends AbstractModelListening {
         this.reunionSameAction = reunionSameAction;
     }
 
+    /**
+     * This method is call when the player select the type of action it want to play
+     * @param obj contain information about the event like the button where the player clicked
+     */
     @Override
     public void updateModel(Object obj) {
         if(reunionSameAction.getActions().size() == 1){
@@ -27,8 +34,5 @@ public class SelectActionButton extends AbstractModelListening {
             window.setSelectedReunionAction(reunionSameAction);
             App.getViewManager().updateView(); // update screen
         }
-
-
-
     }
 }

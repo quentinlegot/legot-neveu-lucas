@@ -7,8 +7,11 @@ import fr.lnl.game.server.listener.AbstractModelListening;
 import fr.lnl.game.server.listener.ModelListener;
 import javafx.scene.control.Alert;
 
+/**
+ * This method is call when the current player have selected an action to play (or if it's a computer player, will
+ * select it), then we call {@link Game#play()} and we update the view
+ */
 public class NextPlayerButtonListener extends AbstractModelListening {
-
 
     private final Game game;
     private final DisplayWinnerEvent displayWinnerEvent;
@@ -18,17 +21,10 @@ public class NextPlayerButtonListener extends AbstractModelListening {
         this.displayWinnerEvent = new DisplayWinnerEvent();
     }
 
-    @Override
-    public void addListener(ModelListener e) {
-       this.listeners.add(e);
-    }
-
-    @Override
-    public void removalListener(ModelListener e) {
-        this.listeners.remove(e);
-    }
-
-
+    /**
+     * Call when clicking on "SUIVANT" button if current player is a computer player or after the human player selected
+     * action it want to play
+     */
     @Override
     public void updateModel(Object event) {
         // Player player = game.getCurrentPlayer();

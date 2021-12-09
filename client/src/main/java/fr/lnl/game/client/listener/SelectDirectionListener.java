@@ -6,6 +6,9 @@ import fr.lnl.game.server.games.action.Action;
 import fr.lnl.game.server.listener.AbstractModelListening;
 import fr.lnl.game.server.listener.ModelListener;
 
+/**
+ * Call when the player selected the direction where it wants to play it
+ */
 public class SelectDirectionListener extends AbstractModelListening {
 
     private final Game game;
@@ -18,6 +21,10 @@ public class SelectDirectionListener extends AbstractModelListening {
         this.action = action;
     }
 
+    /**
+     * This method is call when the player click on the button to select the direction of the previously selected action
+     * @param obj contain information about the event like the button where the player clicked
+     */
     @Override
     public void updateModel(Object obj) {
         game.setSelectedAction(action);
