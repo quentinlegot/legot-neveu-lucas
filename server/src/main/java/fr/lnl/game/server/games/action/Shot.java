@@ -12,9 +12,9 @@ import java.util.List;
 public class Shot extends AbstractAction {
 
     private final Point point;
-    private final Direction direction;
+    private final Direction8Axis direction;
 
-    public Shot(Game game, Player player, Direction direction) throws NoMoreBulletInWeaponException, NotValidDirectionException {
+    public Shot(Game game, Player player, Direction8Axis direction) throws NoMoreBulletInWeaponException, NotValidDirectionException {
         super(game, player);
         if(player.getWeapon().getBullet() == 0) {
             throw new NoMoreBulletInWeaponException();
@@ -29,11 +29,10 @@ public class Shot extends AbstractAction {
         this.direction = direction;
     }
 
-    public Shot(Game game, Player player){
+    public Shot(Game game, Player player) {
         super(game, player);
-        List<Point> points = getValidPoint();
-        this.point = null;
-        this.direction = null;
+        point = null;
+        direction = null;
     }
 
     /**
@@ -76,7 +75,7 @@ public class Shot extends AbstractAction {
         List<Point> listMoves = new ArrayList<>();
         Point position = game.getCurrentPlayer().getPosition();
         Weapon weapon = game.getCurrentPlayer().getWeapon();
-        for(Direction direction : Direction.values()) {
+        for(Direction8Axis direction : Direction8Axis.values()) {
             Point neighbour = seeNeighbour(position, direction.getDeltaX(), direction.getDeltaY(),
                     direction.isVertical() ? weapon.getVerticalDistance() : weapon.getHorizontalDistance());
             if(neighbour != null)
@@ -88,8 +87,8 @@ public class Shot extends AbstractAction {
     /**
      *
      * @param point player current position
-     * @param deltaX given by {@link Direction}
-     * @param deltaY given by {@link Direction}
+     * @param deltaX given by {@link Direction4Axis}
+     * @param deltaY given by {@link Direction4Axis}
      * @param range given by {@link Weapon#getHorizontalDistance()} or {@link Weapon#getVerticalDistance()}
      * @return true if there is a player in the chosen direction, false otherwise
      */

@@ -10,6 +10,7 @@ import fr.lnl.game.server.utils.Point;
 
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class StrategyComputerPlayer extends ComputerPlayer {

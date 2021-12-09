@@ -9,7 +9,7 @@ import fr.lnl.game.server.games.player.Player;
  */
 public class DropMine extends DropObject {
 
-    public DropMine(Game game, Player player, Direction direction) throws NotValidDirectionException {
+    public DropMine(Game game, Player player, Direction4Axis direction) throws NotValidDirectionException {
         super(game, player, direction);
 
     }

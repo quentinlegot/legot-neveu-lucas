@@ -18,9 +18,9 @@ import java.util.List;
 public class Move extends AbstractAction {
 
     private final Point point;
-    private final Direction direction;
+    private final Direction4Axis direction;
 
-    public Move(Game game, Player player, Direction direction) throws NotValidDirectionException {
+    public Move(Game game, Player player, Direction4Axis direction) throws NotValidDirectionException {
         super(game, player);
         List<Point> points = getValidPoint();
         Point playerPosition = player.getPosition();
@@ -87,7 +87,7 @@ public class Move extends AbstractAction {
         return point;
     }
 
-    public Direction getDirection() {
+    public Direction4Axis getDirection() {
         return direction;
     }
 

@@ -94,7 +94,7 @@ public class Game {
      */
     public List<Action> generateAndGetPlayerActions(Player player) {
         List<Action> actions = new ArrayList<>();
-        for(Direction direction : Direction.values()) {
+        for(Direction4Axis direction : Direction4Axis.values()) {
             try {
                 actions.add(new Move(this, player, direction));
             } catch (NotValidDirectionException ignored){}
@@ -104,6 +104,8 @@ public class Game {
             try {
                 actions.add(new DropMine(this, player, direction));
             } catch (NotValidDirectionException ignored) {}
+        }
+        for(Direction8Axis direction : Direction8Axis.values()) {
             try {
                 actions.add(new Shot(this, player, direction));
             } catch (NotValidDirectionException | NoMoreBulletInWeaponException ignored) {}
