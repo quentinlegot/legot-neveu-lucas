@@ -9,7 +9,7 @@ import fr.lnl.game.server.games.player.Player;
  */
 public class DropBomb extends DropObject {
 
-    public DropBomb(Game game, Player player, Direction4Axis direction) throws NotValidDirectionException {
+    public DropBomb(Game game, Player player, Direction8Axis direction) throws NotValidDirectionException {
         super(game, player, direction);
     }
 

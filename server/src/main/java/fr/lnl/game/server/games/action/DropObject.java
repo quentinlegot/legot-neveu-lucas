@@ -16,14 +16,14 @@ import java.util.List;
 public abstract class DropObject extends AbstractAction {
 
     protected final Point point;
-    private final Direction4Axis direction;
+    private final Direction8Axis direction;
 
     /**
      * @param player basically current player
      * @param direction chosen direction
      * @throws NotValidDirectionException throw when the chosen direction is invalid
      */
-    public DropObject(Game game, Player player, Direction4Axis direction) throws NotValidDirectionException {
+    public DropObject(Game game, Player player, Direction8Axis direction) throws NotValidDirectionException {
         super(game, player);
         List<Point> points = getValidPoint();
         Point playerPosition = player.getPosition();
@@ -67,7 +67,7 @@ public abstract class DropObject extends AbstractAction {
         return listMoves;
     }
 
-    public Direction4Axis getDirection() {
+    public Direction8Axis getDirection() {
         return direction;
     }
 
